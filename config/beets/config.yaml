@@ -1,0 +1,11 @@
+directory: ~/Music
+library: ~/Music/beets_library.db
+import:
+    move: yes
+
+plugins: chroma lyrics fromfilename beatport acousticbrainz gmusic fuzzy discogs
+acoustid:
+    apikey: QqSXcSx6BI
+lyrics:
+    auto: yes
+    fallback: ''

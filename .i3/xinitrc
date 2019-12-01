@@ -1,0 +1,69 @@
+#!/bin/sh
+
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+  for f in /etc/X11/xinit/xinitrc.d/*; do
+    [ -x "$f" ] && . "$f"
+  done
+  unset f
+fi
+
+# so all binaries are visible in dmenu_run
+export PATH="$PATH:$HOME/.i3/bin:$HOME/.bin:$HOME/bin"
+
+# use xresources
+xrdb -merge ~/.i3/xresources
+
+# multiple screen setup
+[ -e ~/.screen_setup ] && source ~/.screen_setup
+
+# background
+[ -e ~/.fehbg ] && source ~/.fehbg
+
+# hide mouse coursor when it isn't used
+unclutter -b
+
+# pulse audio session
+start-pulseaudio-x11
+
+# disks automounting
+udiskie &
+
+# gpg agent
+export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
+gpg-connect-agent updatestartuptty /bye
+
+# composition manager
+compton --config ~/.i3/compton.conf &
+
+xrandr --auto
+xrandr --dpi 144
+
+mons -a -x ~/src/scripts/mons-handler.sh > /dev/null 2>&1 &
+
+session=${1:-i3}
+case $session in
+    awesome           ) exec awesome;;
+    bspwm             ) exec bspwm;;
+    catwm             ) exec catwm;;
+    cinnamon          ) exec cinnamon-session;;
+    dwm               ) exec dwm;;
+    enlightenment     ) exec enlightenment_start;;
+    ede               ) exec startede;;
+    fluxbox           ) exec startfluxbox;;
+    gnome             ) exec gnome-session;;
+    gnome-classic     ) exec gnome-session --session=gnome-classic;;
+    i3|i3wm           ) exec i3;;
+    icewm             ) exec icewm-session;;
+    jwm               ) exec jwm;;
+    kde               ) exec startkde;;
+    mate              ) exec mate-session;;
+    monster|monsterwm ) exec monsterwm;;
+    notion            ) exec notion;;
+    openbox           ) exec openbox-session;;
+    unity             ) exec unity;;
+    xfce|xfce4        ) exec startxfce4;;
+    xmonad            ) exec xmonad;;
+    # No known session, try to run it as command
+    *) exec $1;;
+esac
+

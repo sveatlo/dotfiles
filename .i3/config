@@ -1,0 +1,413 @@
+#
+# Variables
+#
+set $mod Mod4
+# Workspaces
+set $WS1 "1 www"
+set $WS2 "2 term"
+set $WS3 "3 edit"
+set $WS4 "4 AV"
+set $WS5 "5 IM"
+set $WS6 6
+set $WS7 7
+set $WS8 8
+set $WS9 "9 not porn"
+set $WS10 "10 misc"
+# Colours
+set $bg-color               #2F343F
+set $inactive-bg-color      #24272D
+set $text-color             #FFFFFF
+set $inactive-text-color    #AAAAAA
+set $urgent-bg-color        #E53935
+
+
+#font pango:Hack 12px
+font pango:System San Francisco Display 12px
+new_window pixel 3
+focus_follows_mouse  no
+#don't move to neighbouring screen with hjkl
+force_focus_wrapping yes
+
+#
+# Desktop feel
+#
+hide_edge_borders both
+# Set inner/outer gaps
+gaps inner 10
+gaps outer 10
+#smart_gaps on
+workspace $WS1 gaps outer 0
+workspace $WS1 gaps inner 0
+workspace $WS5 gaps outer 15
+workspace $WS5 gaps inner 0
+
+
+#
+# Window colours
+#                       border              background          text                    indicator
+client.focused          $bg-color           $bg-color           $text-color             $bg-color
+client.unfocused        $inactive-bg-color  $inactive-bg-color  $inactive-text-color    $inactive-bg-color
+client.focused_inactive $inactive-bg-color  $inactive-bg-color  $inactive-text-color    $inactive-bg-color
+client.urgent           $urgent-bg-color    $urgent-bg-color    $text-color             $bg-color
+
+# use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+#
+# Window management
+#
+# kill focused window
+bindsym $mod+c kill
+# focus window requiring action
+bindsym $mod+a [urgent=latest] focus
+# split in horizontal orientation
+bindsym $mod+g split h
+# split in vertical orientation
+bindsym $mod+v split v
+# change container layout (tabbed, toggle split)
+bindsym $mod+n layout tabbed
+# container navigation
+bindsym $mod+d focus parent
+bindsym $mod+b focus child
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Up focus up
+bindsym $mod+Down focus down
+bindsym $mod+Right focus right
+bindsym Mod1+Tab focus right
+bindsym Mod1+Shift+Tab focus left
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move up
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Right move right
+bindsym $mod+x layout toggle all
+# Toggle fullscreen
+bindsym $mod+f fullscreen toggle
+# Toggle floating/tiling
+bindsym $mod+t floating toggle
+# Toggle sticky window
+bindsym $mod+Shift+s sticky toggle
+# change focus between tiling / floating windows
+bindsym $mod+Shift+t focus mode_toggle
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
+# Show the sup-mail scratchpad window, if any.
+bindsym $mod+s [title="^Sup ::"] scratchpad show
+# Assign windows to workspaces
+#assign [class="Firefox|Thunderbird|Chromium"] → $WS1
+assign [class="Thunderbird"] → $WS1
+assign [class="Atom|jetbrains-goland|jetbrains-idea|jetbrains-clion|Code"] → $WS3
+assign [class="Rhythmbox"] → $WS4
+assign [title="^ncmpcpp.*"] → $WS4
+assign [class="Franz|Brick|discord|TelegramDesktop|Slack|Caprine"] → $WS5
+# Assign stubborn windows
+for_window [class="Spotify"] move to workspace $WS4
+for_window [class="discord"] move to workspace $WS5
+# rename focused window
+bindsym $mod+Shift+R exec ~/src/scripts/i3_rename_title.sh parent
+
+
+#
+# Workspaces management
+#
+# multimonitor shortcuts
+bindsym $mod+semicolon move workspace to output left
+bindsym $mod+Shift+semicolon move workspace to output right
+# switch to workspace
+bindsym $mod+1 workspace $WS1
+bindsym $mod+2 workspace $WS2
+bindsym $mod+3 workspace $WS3
+bindsym $mod+4 workspace $WS4
+bindsym $mod+5 workspace $WS5
+bindsym $mod+6 workspace $WS6
+bindsym $mod+7 workspace $WS7
+bindsym $mod+8 workspace $WS8
+bindsym $mod+9 workspace $WS9
+bindsym $mod+Mod1+9 workspace $WS10
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $WS1
+bindsym $mod+Shift+2 move container to workspace $WS2
+bindsym $mod+Shift+3 move container to workspace $WS3
+bindsym $mod+Shift+4 move container to workspace $WS4
+bindsym $mod+Shift+5 move container to workspace $WS5
+bindsym $mod+Shift+6 move container to workspace $WS6
+bindsym $mod+Shift+7 move container to workspace $WS7
+bindsym $mod+Shift+8 move container to workspace $WS8
+bindsym $mod+Shift+9 move container to workspace $WS9
+bindsym $mod+Mod1+Shift+9 move container to workspace $WS10
+# switch to last workspace
+bindsym $mod+0 workspace back_and_forth
+bindsym $mod+button2 workspace back_and_forth
+# switch to next/prev workspace
+bindsym $mod+Shift+Tab workspace prev
+bindsym $mod+button6 workspace prev
+bindsym $mod+Tab workspace next
+bindsym $mod+button7 workspace next
+
+
+#
+# Shortcuts
+#
+# start a terminal
+bindsym $mod+Return exec termite
+# start a file manager
+bindsym $mod+e exec termite -e ranger
+bindsym $mod+Shift+e exec pcmanfm
+# start music player
+set $mode_player Player: (n)cmpcpp (s)potify (y)outube
+bindsym $mod+Shift+m mode "$mode_player"
+mode "$mode_player" {
+    bindsym "s" exec spotify; mode "default"
+    bindsym "n" exec termite -e ncmpcpp; mode "default"
+    bindsym "y" exec chromium --new-window https://youtube.com; mode "default"
+
+    # back to normal: Enter or Escape or q or ^[
+    bindsym Return mode "default"
+    bindsym q mode "default"
+    bindsym Escape mode "default"
+    bindcode Control+34 mode "default"
+}
+# start dmenu (a program launcher)
+#bindsym $mod+p exec "i3-dmenu-desktop"
+bindsym $mod+p exec "~/src/scripts/rofi.sh"
+bindsym $mod+space exec "xkb-switch -n && pkill -SIGRTMIN+15 i3blocks"
+# screen lock
+bindsym Control+$mod+l exec "xset s activate"
+# Pulse Audio controls
+set $volumeupdate pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/src/scripts/volume.sh up  && $volumeupdate
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/src/scripts/volume.sh down && $volumeupdate
+bindsym XF86AudioMute exec --no-startup-id ~/src/scripts/volume.sh mute && $volumeupdate
+# Sreen brightness controls
+set $brightnessupdate pkill -SIGRTMIN+16 i3blocks
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/src/scripts/brightness.sh up && $brightnessupdate
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/src/scripts/brightness.sh down && $brightnessupdate
+# Media player controls
+bindsym XF86AudioPlay exec --no-startup-id ~/src/scripts/mediakeys.sh toggleplay
+bindsym XF86AudioNext exec --no-startup-id ~/src/scripts/mediakeys.sh next
+bindsym XF86AudioPrev exec --no-startup-id ~/src/scripts/mediakeys.sh prev
+bindsym XF86Display exec "arandr"
+# scrot & gimp - root
+bindsym Print exec scrot -e 'mv $f /tmp/ && gimp /tmp/$f'
+# scrot & gimp - select window or rectangle
+bindsym Shift+Print exec scrot -s -e 'mv $f /tmp/ && gimp /tmp/$f'
+
+#
+# MISC
+#
+bindsym $mod+z reload
+bindsym $mod+Shift+z restart
+bindsym $mod+Mod1+Shift+z exit
+for_window [class="Qalculate-gtk"] floating enable; resize shrink width 400px; resize grow width 400px; resize shrink height 800px; resize grow height 800px;
+for_window [class="instance"] floating disable;
+for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 30 px
+
+mode "resize" {
+        bindsym h   resize shrink width 5 px or 5 ppt
+        bindsym j   resize grow height 5 px or 5 ppt
+        bindsym k   resize shrink height 5 px or 5 ppt
+        bindsym l   resize grow width 5 px or 5 ppt
+
+        # the same with arrows
+        bindsym Left    resize shrink width 5 px or 5 ppt
+        bindsym Up      resize grow height 5 px or 5 ppt
+        bindsym Down    resize shrink height 5 px or 5 ppt
+        bindsym Right   resize grow width 5 px or 5 ppt
+
+
+        # back to normal: Enter or Escape or q or ^[
+        bindsym Return mode "default"
+        bindsym q mode "default"
+        bindsym Escape mode "default"
+        bindcode Control+34 mode "default"
+}
+bindsym $mod+r mode "resize"
+
+mode "moveit" {
+    bindsym h move left 50px
+    bindsym j move up 50px
+    bindsym k move down 50px
+    bindsym l move right 50px
+
+    bindsym Left move left 50px
+    bindsym Up move up 50px
+    bindsym Down move down 50px
+    bindsym Right move right 50px
+
+    # back to normal: Enter or Escape or q or ^[
+    bindsym Return mode "default"
+    bindsym q mode "default"
+    bindsym Escape mode "default"
+    bindcode Control+34 mode "default"
+}
+bindsym Mod4+m focus floating; mode "moveit"
+
+set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_horiz Horizontal Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_verti Vertical Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_top Top Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_right Right Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_bottom Bottom Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_left Left Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym h      mode "$mode_gaps_horiz"
+        bindsym v      mode "$mode_gaps_verti"
+        bindsym t      mode "$mode_gaps_top"
+        bindsym r      mode "$mode_gaps_right"
+        bindsym b      mode "$mode_gaps_bottom"
+        bindsym l      mode "$mode_gaps_left"
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_horiz" {
+        bindsym plus  gaps horizontal current plus 5
+        bindsym minus gaps horizontal current minus 5
+        bindsym 0     gaps horizontal current set 0
+
+        bindsym Shift+plus  gaps horizontal all plus 5
+        bindsym Shift+minus gaps horizontal all minus 5
+        bindsym Shift+0     gaps horizontal all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_verti" {
+        bindsym plus  gaps vertical current plus 5
+        bindsym minus gaps vertical current minus 5
+        bindsym 0     gaps vertical current set 0
+
+        bindsym Shift+plus  gaps vertical all plus 5
+        bindsym Shift+minus gaps vertical all minus 5
+        bindsym Shift+0     gaps vertical all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_top" {
+        bindsym plus  gaps top current plus 5
+        bindsym minus gaps top current minus 5
+        bindsym 0     gaps top current set 0
+
+        bindsym Shift+plus  gaps top all plus 5
+        bindsym Shift+minus gaps top all minus 5
+        bindsym Shift+0     gaps top all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_right" {
+        bindsym plus  gaps right current plus 5
+        bindsym minus gaps right current minus 5
+        bindsym 0     gaps right current set 0
+
+        bindsym Shift+plus  gaps right all plus 5
+        bindsym Shift+minus gaps right all minus 5
+        bindsym Shift+0     gaps right all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_bottom" {
+        bindsym plus  gaps bottom current plus 5
+        bindsym minus gaps bottom current minus 5
+        bindsym 0     gaps bottom current set 0
+
+        bindsym Shift+plus  gaps bottom all plus 5
+        bindsym Shift+minus gaps bottom all minus 5
+        bindsym Shift+0     gaps bottom all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_left" {
+        bindsym plus  gaps left current plus 5
+        bindsym minus gaps left current minus 5
+        bindsym 0     gaps left current set 0
+
+        bindsym Shift+plus  gaps left all plus 5
+        bindsym Shift+minus gaps left all minus 5
+        bindsym Shift+0     gaps left all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+
+
+bar {
+        position top
+        status_command i3blocks
+#        output eDP1
+        font pango:Consolas, Icons 12
+        colors {
+                statusline $inactive-text-color
+                background $inactive-bg-color
+
+                #                   border              background          text
+                focused_workspace   $bg-color           $bg-color           $text-color
+                inactive_workspace  $inactive-bg-color  $inactive-bg-color  $inactive-text-color
+                urgent_workspace    $urgent-bg-color    $urgent-bg-color    $text-color
+        }
+}
+
+
+#
+# Autostart
+#
+exec --no-startup-id "setxkbmap en_US,'sk(qwerty)'"
+exec --no-startup-id "xset dpms 900 2400 3600"
+exec --no-startup-id "touchegg"
+exec --no-startup-id "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock"
+
+exec --no-startup-id "caffeine-indicator"
+exec --no-startup-id "dunst --config /home/sveatlo/.config/dunst/dunstrc"
+exec --no-startup-id "nm-applet"
+exec --no-startup-id "fluxgui"
+exec --no-startup-id "kdeconnect-indicator"
+
+# Restore layouts
+exec ~/src/scripts/restore_layout.sh 5 $WS5
+exec ~/src/scripts/restore_layout.sh 2 $WS2
+exec ~/src/scripts/restore_layout.sh 1 $WS1
+#exec --no-startup-id sh -c 'i3-msg "workspace $WS4"; LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8 termite -e ncmpcpp'

@@ -1,0 +1,11 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Svätopluk Hanzel
+	email = svatoplukhanzel@gmail.com
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[url "git@git.tumeo.eu:"]
+	insteadOf = https://git.tumeo.eu/
+[url "git@git.moderntv.eu:"]
+	insteadOf = https://git.moderntv.eu/
+    email = svatopluk.hanzel@moderntv.eu
