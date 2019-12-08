@@ -13,6 +13,16 @@ set $WS7 7
 set $WS8 8
 set $WS9 "9 not porn"
 set $WS10 "10 misc"
+set $WS11 11
+set $WS12 12
+set $WS13 13
+set $WS14 14
+set $WS15 15
+set $WS16 16
+set $WS17 17
+set $WS18 18
+set $WS19 19
+set $WS20 20
 # Colours
 set $bg-color               #2F343F
 set $inactive-bg-color      #24272D
@@ -134,7 +144,17 @@ bindsym $mod+6 workspace $WS6
 bindsym $mod+7 workspace $WS7
 bindsym $mod+8 workspace $WS8
 bindsym $mod+9 workspace $WS9
-bindsym $mod+Mod1+9 workspace $WS10
+bindsym $mod+0 workspace $WS10
+bindsym $mod+Mod1+1 workspace $WS11
+bindsym $mod+Mod1+2 workspace $WS12
+bindsym $mod+Mod1+3 workspace $WS13
+bindsym $mod+Mod1+4 workspace $WS14
+bindsym $mod+Mod1+5 workspace $WS15
+bindsym $mod+Mod1+6 workspace $WS16
+bindsym $mod+Mod1+7 workspace $WS17
+bindsym $mod+Mod1+8 workspace $WS18
+bindsym $mod+Mod1+9 workspace $WS19
+bindsym $mod+Mod1+0 workspace $WS20
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $WS1
 bindsym $mod+Shift+2 move container to workspace $WS2
@@ -145,15 +165,29 @@ bindsym $mod+Shift+6 move container to workspace $WS6
 bindsym $mod+Shift+7 move container to workspace $WS7
 bindsym $mod+Shift+8 move container to workspace $WS8
 bindsym $mod+Shift+9 move container to workspace $WS9
-bindsym $mod+Mod1+Shift+9 move container to workspace $WS10
+bindsym $mod+Shift+0 move container to workspace $WS10
+bindsym $mod+Mod1+Shift+1 move container to workspace $WS11
+bindsym $mod+Mod1+Shift+2 move container to workspace $WS12
+bindsym $mod+Mod1+Shift+3 move container to workspace $WS13
+bindsym $mod+Mod1+Shift+4 move container to workspace $WS14
+bindsym $mod+Mod1+Shift+5 move container to workspace $WS15
+bindsym $mod+Mod1+Shift+6 move container to workspace $WS16
+bindsym $mod+Mod1+Shift+7 move container to workspace $WS17
+bindsym $mod+Mod1+Shift+8 move container to workspace $WS18
+bindsym $mod+Mod1+Shift+9 move container to workspace $WS19
+bindsym $mod+Mod1+Shift+0 move container to workspace $WS20
 # switch to last workspace
-bindsym $mod+0 workspace back_and_forth
+bindsym $mod+grave workspace back_and_forth
 bindsym $mod+button2 workspace back_and_forth
 # switch to next/prev workspace
-bindsym $mod+Shift+Tab workspace prev
-bindsym $mod+button6 workspace prev
-bindsym $mod+Tab workspace next
-bindsym $mod+button7 workspace next
+# bindsym $mod+Tab workspace next
+# bindsym $mod+Shift+Tab workspace prev
+# bindsym $mod+button7 workspace next
+# bindsym $mod+button6 workspace prev
+bindsym $mod+Tab workspace next_on_output
+bindsym $mod+Shift+Tab workspace prev_on_output
+bindsym $mod+button7 workspace next_on_output
+bindsym $mod+button6 workspace prev_on_output
 
 
 #
