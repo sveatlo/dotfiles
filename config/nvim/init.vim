@@ -19,6 +19,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
     Plug 'scrooloose/nerdcommenter'
     Plug 'junegunn/vim-easy-align'
+    Plug 'alpaca-tc/beautify.vim'
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'liuchengxu/vim-which-key'
     Plug 'Yggdroot/indentLine'
