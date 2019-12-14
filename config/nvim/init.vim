@@ -10,19 +10,24 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    " NERDTree
     Plug 'scrooloose/nerdtree'
     Plug 'tsony-tsonev/nerdtree-git-plugin'
-    "Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
     Plug 'ryanoasis/vim-devicons'
+    " git helpers
     Plug 'airblade/vim-gitgutter'
+    Plug 'tpope/vim-fugitive'
     Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
     Plug 'scrooloose/nerdcommenter'
     Plug 'junegunn/vim-easy-align'
     Plug 'alpaca-tc/beautify.vim'
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'liuchengxu/vim-which-key'
     Plug 'Yggdroot/indentLine'
+    Plug 'editorconfig/editorconfig-vim'
 
     "Themes
     Plug 'ayu-theme/ayu-vim'
@@ -50,7 +55,7 @@ set enc=utf-8
 set hidden
 set history=100
 set hlsearch
-set ignorecase smartcase
+set ignorecase smartcase " use \c or \C to change case-sensitivity
 set incsearch
 let mapleader=","
 set mouse=nvch
@@ -131,9 +136,11 @@ map <C-y> v%holc
 " forces (re)indentation of a block of code
 nmap <C-i> vip=
 autocmd BufWritePre * %s/\s\+$//e " remove leading whitespace
-set statusline=%<%f\ %h%m%r%y
-        \%{exists('g:loaded_fugitive')?fugitive#statusline():''}
-        \%=%-14.(%l,%c%V%)\ %P
+" CoC statusline
+"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline=%<%f\ %h%m%r%y
+"         \%{exists('g:loaded_fugitive')?fugitive#statusline():''}
+"         \%=%-14.(%l,%c%V%)\ %P
 imap <C-s> <Esc>:w<CR><Insert>
 
 
@@ -154,6 +161,12 @@ autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeIm
 autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
 autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
 autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
+
+
+" Airline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
 
 " CoC
@@ -225,8 +238,6 @@ function! s:select_current_word()
   endif
   return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunc
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 augroup mygroup
   autocmd!
@@ -263,7 +274,7 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " NERDTree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-inoremap jk <ESC>
+" inoremap jk <ESC>
 nmap <C-e> :NERDTreeToggle<CR>
 nmap <F3> :NERDTreeToggle<CR>
 " open NERDTree automatically
@@ -333,6 +344,10 @@ let g:NERDToggleCheckAllLines = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufEnter GitGutterEnable
 
+" editorconfig
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
 " EasyAlign
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 xmap ga <Plug>(EasyAlign)
@@ -346,3 +361,5 @@ nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>
 autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
     \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+
