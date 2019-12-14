@@ -1,5 +1,5 @@
 [options]
-font = Consolas-with-Yahei 12
+font = Inconsolata 12
 browser = chromium
 clickable_url = true
 dynamic_title = true
