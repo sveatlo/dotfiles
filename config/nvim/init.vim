@@ -41,7 +41,10 @@ call plug#end()
 set termguicolors
 let ayucolor="mirage"
 colorscheme ayu
+" airline statusline
+let g:airline_powerline_fonts = 1
 let g:airline_theme = "ayu"
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
 " General options
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -162,13 +165,6 @@ autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
 autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
 autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
 
-
-" Airline
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-
-
 " CoC
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:coc_global_extensions = [
@@ -179,6 +175,7 @@ let g:coc_global_extensions = [
     \ 'coc-prettier',
     \ 'coc-json',
     \ 'coc-go',
+    \ 'coc-python',
     \ ]
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
@@ -297,7 +294,7 @@ let g:NERDTreeColorMapCustom = {
     \ "Ignored"   : "#808080"
     \ }
 
-let g:NERDTreeIgnore = ['^node_modules$']
+let g:NERDTreeIgnore = ['^node_modules$', '\.pb\.go$', '\.micro\.go$']
 " sync open file with NERDTree
 " " Check if NERDTree is open or active
 function! IsNERDTreeOpen()
