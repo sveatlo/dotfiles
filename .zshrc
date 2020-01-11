@@ -121,3 +121,5 @@ PATH="$PATH:$HOME/.cargo/bin"
 
 # autorun
 cowfortune
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

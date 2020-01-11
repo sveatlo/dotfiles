@@ -9,29 +9,40 @@
 " Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    " NERDTree
-    Plug 'scrooloose/nerdtree'
-    Plug 'tsony-tsonev/nerdtree-git-plugin'
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-    Plug 'ryanoasis/vim-devicons'
-    " git helpers
-    Plug 'airblade/vim-gitgutter'
-    Plug 'tpope/vim-fugitive'
-    Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-    Plug 'scrooloose/nerdcommenter'
-    Plug 'junegunn/vim-easy-align'
-    Plug 'alpaca-tc/beautify.vim'
-    Plug 'christoomey/vim-tmux-navigator'
-    Plug 'liuchengxu/vim-which-key'
-    Plug 'Yggdroot/indentLine'
-    Plug 'editorconfig/editorconfig-vim'
-
-    "Themes
+    " visual
     Plug 'ayu-theme/ayu-vim'
     "Plug 'morhetz/gruvbox'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'junegunn/seoul256.vim'
+
+    " code
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'scrooloose/nerdcommenter'                 " easy commenting
+    Plug 'junegunn/vim-easy-align'                  " aligning text
+    Plug 'alpaca-tc/beautify.vim'
+    Plug 'terryma/vim-multiple-cursors'             " multiple cursors support
+
+    " git
+    Plug 'airblade/vim-gitgutter'
+    Plug 'tpope/vim-fugitive'
+
+    " helpers
+    Plug 'tpope/vim-abolish'            " super smart search and replace
+    Plug 'mhinz/vim-startify'               " startup screen
+    Plug 'thaerkh/vim-workspace'            " ultimate session management
+    Plug 'editorconfig/editorconfig-vim'    " vim support for editorconfig
+    Plug 'scrooloose/nerdtree'              " file browser
+    Plug 'tsony-tsonev/nerdtree-git-plugin' " show git file status in nerdtree
+    Plug 'psliwka/vim-smoothie'             " smooth scrolling
+    Plug 'Yggdroot/indentLine'              " show indentation level
+    Plug 'liuchengxu/vim-which-key'
+    " Plug 'ctrlpvim/ctrlp.vim'               " fuzzy find files
+
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+
 " Initialize plugin system
 call plug#end()
 
@@ -50,7 +61,7 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:which_key_map =  {}
 
-set autochdir
+" set autochdir
 set backspace=eol,start,indent " allow backspacing over indent, eol, & start
 set cindent
 set cmdheight=2
@@ -68,6 +79,7 @@ set number relativenumber
 set shortmess+=c
 set signcolumn=yes
 set titlestring=%f title " Display filename in terminal window
+set guitablabel=\[%N\]\ %t\ %M
 set undolevels=100
 set updatetime=300
 set whichwrap=b,s,<,>,[,]  " Allow tranversing to prev/next line from beginning/end of line
@@ -104,21 +116,22 @@ map <C-Pageup> :tabp<CR>
 map <C-t> :tabe<CR>
 map <C-q> :tabclose<CR>
 " manage buffers
-:map <Leader>sv <C-w>v<CR>
-:map <Leader>sh <C-w>s<CR>
+map <Leader>sv <C-w>v<CR>
+map <Leader>sh <C-w>s<CR>
 let g:which_key_map.s = {
     \ 'name': '+split',
     \ 'v': 'vertically',
     \ 'h': 'horizontally',
     \ }
-:map <Leader>bw :bdelete<CR>
-:map <Leader>bd :bdelete<CR>
-:map <Leader>bc :bdelete<CR>
-:nmap <Leader>bn :bnext<CR>
-:nmap <Leader>bp :bprev<CR>
-:nmap <Leader>bf :bfirst<CR>
-:nmap <Leader>bl :blast<CR>
-:nmap <Leader>b? :CtrlPBuffer<CR>
+map <Leader>bw :bdelete<CR>
+map <Leader>bd :bdelete<CR>
+map <Leader>bc :bdelete<CR>
+nmap <Leader>bn :bnext<CR>
+nmap <Leader>bp :bprev<CR>
+nmap <Leader>bf :bfirst<CR>
+nmap <Leader>bl :blast<CR>
+" :nmap <Leader>b? :CtrlPBuffer<CR>
+:nmap <Leader>b? :Buffers<CR>
 let g:which_key_map.b = {
     \ 'name' : '+buffer' ,
     \ 'd' : ['bd'        , 'delete-buffer']   ,
@@ -128,16 +141,23 @@ let g:which_key_map.b = {
     \ 'p' : ['bprevious' , 'previous-buffer'] ,
     \ '?' : ['Buffers'   , 'fzf-buffer']      ,
     \ }
+nmap <Leader>fg :GFiles<CR>
+map <C-p> :Files<CR>
+let g:which_key_map.f = {
+    \ 'name': '+files'
+    \ }
 " add copy/paste from clipboard (need xclip package)
 vmap <C-c> y: call system("xclip -i -selection clipboard", getreg("\""))<CR>
 nmap <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
 imap <C-v> <Esc><C-v>a
+" clear search
+nmap <F4> :let @/ = ""<CR>
+" replace word under cursor
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 " map double-click to enter in insert mode
 nmap <2-LeftMouse> a
 " delete everything between current brackets
-map <C-y> v%holc
-" forces (re)indentation of a block of code
-nmap <C-i> vip=
+map <Leader>db v%holc
 autocmd BufWritePre * %s/\s\+$//e " remove leading whitespace
 " CoC statusline
 "set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
@@ -226,15 +246,6 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 " Remap for rename current word
 nmap <F2> <Plug>(coc-rename)
-" multicursors
-hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
-nmap <expr> <silent> <C-d> <SID>select_current_word()
-function! s:select_current_word()
-  if !get(g:, 'coc_cursors_activated', 0)
-    return "\<Plug>(coc-cursors-word)"
-  endif
-  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
-endfunc
 
 augroup mygroup
   autocmd!
@@ -269,15 +280,24 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 
+" vim-workspace
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>w :ToggleWorkspace<CR>
+let g:workspace_session_directory = $HOME . '/.vim/sessions/' " save sessions globally
+let g:workspace_persist_undo_history = 1  " persist history
+let g:workspace_undodir = $HOME . '/.vim/undodir/'
+let g:workspace_session_disable_on_args = 1 " disable vim sessions when opening specific file
+let g:workspace_autosave = 0
+
 " NERDTree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " inoremap jk <ESC>
-nmap <C-e> :NERDTreeToggle<CR>
+" nmap <C-e> :NERDTreeToggle<CR>
 nmap <F3> :NERDTreeToggle<CR>
 " open NERDTree automatically
-autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * NERDTree
-autocmd VimEnter * execute 'NERDTree' | wincmd p
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * NERDTree
+" autocmd VimEnter * execute 'NERDTree' | wincmd p
 autocmd WinEnter * if winnr('$') == 1 && exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) == 1 | quit | endif
 
 let g:NERDTreeGitStatusWithFlags = 1
@@ -296,15 +316,14 @@ let g:NERDTreeColorMapCustom = {
 
 let g:NERDTreeIgnore = ['^node_modules$', '\.pb\.go$', '\.micro\.go$']
 " sync open file with NERDTree
-" " Check if NERDTree is open or active
+" Check if NERDTree is open or active
 function! IsNERDTreeOpen()
   return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
 endfunction
-
 " Call NERDTreeFind if NERDTree is active, current window contains a modifiable
 " file, and we're not in vimdiff
 function! SyncTree()
-  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+  if bufname('%') !~# 'NERD_tree_' && &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
     NERDTreeFind
     wincmd p
   endif
@@ -332,24 +351,9 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 
 
-" CtrlP
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:ctrlp_use_caching = 0
-
-
-" GitGutter
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufEnter GitGutterEnable
-
 " editorconfig
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
-
-" EasyAlign
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-
 
 " WhichKey
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -359,4 +363,27 @@ autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
     \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
+" GitGutter
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufEnter GitGutterEnable
 
+" EasyAlign
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+" Beautify
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:beautify#default_outputter = 'current_buffer'
+
+" multiple-cursors
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:multi_cursor_use_default_mapping = 0
+let g:multi_cursor_start_word_key      = '<C-d>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-d>'
+let g:multi_cursor_select_all_key      = 'g<A-d>'
+let g:multi_cursor_next_key            = '<C-d>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
