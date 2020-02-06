@@ -1,5 +1,5 @@
 [options]
-font = Inconsolata 12
+font = Fira Code 12
 browser = chromium
 clickable_url = true
 dynamic_title = true
