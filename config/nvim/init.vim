@@ -29,7 +29,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-fugitive'
 
     " helpers
-    Plug 'tpope/vim-abolish'            " super smart search and replace
+    Plug 'sheerun/vim-polyglot'             " multi-language pack
+    Plug 'tpope/vim-abolish'                " super smart search and replace
     Plug 'mhinz/vim-startify'               " startup screen
     Plug 'thaerkh/vim-workspace'            " ultimate session management
     Plug 'editorconfig/editorconfig-vim'    " vim support for editorconfig
@@ -67,7 +68,7 @@ set cindent
 set cmdheight=2
 set enc=utf-8
 set hidden
-set history=100
+set history=1000
 set hlsearch
 set ignorecase smartcase " use \c or \C to change case-sensitivity
 set incsearch
@@ -111,6 +112,8 @@ let g:which_key_map.t = {
     \ 'c' : 'close tab',
     \ 'w' : 'close tab'
     \ }
+map <C-S-PageDown> :tabmove +1<CR>
+map <C-S-Pageup> :tabmove -1<CR>
 map <C-PageDown> :tabn<CR>
 map <C-Pageup> :tabp<CR>
 map <C-t> :tabe<CR>
@@ -151,7 +154,8 @@ vmap <C-c> y: call system("xclip -i -selection clipboard", getreg("\""))<CR>
 nmap <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
 imap <C-v> <Esc><C-v>a
 " clear search
-nmap <F4> :let @/ = ""<CR>
+nmap <F4> :let @/ = ""<CR><F6>
+nmap <F6> :<Backspace>
 " replace word under cursor
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 " map double-click to enter in insert mode
@@ -217,9 +221,9 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Or use `complete_info` if your vim support it, like:
 " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" Navigate diagnostics
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> <Leader>gd <Plug>(coc-definition)
