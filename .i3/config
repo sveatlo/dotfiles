@@ -22,7 +22,7 @@ set $WS16 16
 set $WS17 17
 set $WS18 18
 set $WS19 19
-set $WS20 20
+set $WS20 "20 mon"
 # Colours
 set $bg-color               #2F343F
 set $inactive-bg-color      #24272D
@@ -441,7 +441,7 @@ exec --no-startup-id "fluxgui"
 exec --no-startup-id "kdeconnect-indicator"
 
 # Restore layouts
-exec ~/src/scripts/restore_layout.sh 5 $WS5
-exec ~/src/scripts/restore_layout.sh 2 $WS2
 exec ~/src/scripts/restore_layout.sh 1 $WS1
-#exec --no-startup-id sh -c 'i3-msg "workspace $WS4"; LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8 termite -e ncmpcpp'
+exec ~/src/scripts/restore_layout.sh 2 $WS2
+exec ~/src/scripts/restore_layout.sh 5 $WS5
+# exec ~/src/scripts/restore_layout.sh 20 $WS20

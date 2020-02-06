@@ -33,7 +33,7 @@ export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
 gpg-connect-agent updatestartuptty /bye
 
 # composition manager
-picom --config ~/.i3/picom.conf &
+picom -b --config ~/.i3/picom.conf
 
 xrandr --auto
 xrandr --dpi 144
