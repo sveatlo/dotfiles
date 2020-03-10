@@ -45,6 +45,6 @@ Xft.rgba      : rgb
 
 !Fading
 URxvt.fading    : 50
-URxvt.fadeColor : #29303a
+!URxvt.fadeColor : #29303a
 
 #include "dark.xresources"

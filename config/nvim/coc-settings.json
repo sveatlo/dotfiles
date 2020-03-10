@@ -7,7 +7,8 @@
         "javascriptreact",
         "typescript.tsx",
         "graphql",
-        "go"
+        "go",
+        "rust"
     ],
     "languageserver": {
         "golang": {
@@ -27,6 +28,9 @@
             }
         }
     },
-    "python.jediEnabled": false
+    "python.condaPath": "conda",
+    "python.sortImports.path": "isort",
+    "rust.all_features": true,
+    "rust.clippy_preference": "on"
 }
 

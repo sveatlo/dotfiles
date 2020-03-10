@@ -63,27 +63,32 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:which_key_map =  {}
 
 " set autochdir
+let mapleader=","
 set backspace=eol,start,indent " allow backspacing over indent, eol, & start
 set cindent
 set cmdheight=2
 set enc=utf-8
+set guitablabel=\[%N\]\ %t\ %M
 set hidden
 set history=1000
 set hlsearch
 set ignorecase smartcase " use \c or \C to change case-sensitivity
 set incsearch
-let mapleader=","
 set mouse=nvch
 set nobackup
 set nowritebackup
 set number relativenumber
+set sessionoptions-=blank
 set shortmess+=c
 set signcolumn=yes
 set titlestring=%f title " Display filename in terminal window
-set guitablabel=\[%N\]\ %t\ %M
 set undolevels=100
 set updatetime=300
 set whichwrap=b,s,<,>,[,]  " Allow tranversing to prev/next line from beginning/end of line
+
+" reload vim configuration
+map <Leader>z :so $MYVIMRC<CR>
+
 " Indentation
 set expandtab         " Insert spaces instead of tab
 set tabstop=4         " Number of spaces for a tab
@@ -91,13 +96,13 @@ set shiftwidth=4      " Tab size
 set softtabstop=4     " Makes one backspace go back a full 4 spaces
 set listchars=tab:»·,trail:·
 set list
-" reload vim configuration
-map <Leader>z :so $MYVIMRC<CR>
+
 " switch easily between splits
 map <C-h> <C-w>h<C-w>=
 map <C-j> <C-w>j<C-w>=
 map <C-k> <C-w>k<C-w>=
 map <C-l> <C-w>l<C-w>=
+
 " manage tabs
 map <Leader>tn :tabn<CR>
 map <Leader>tp :tabp<CR>
@@ -112,12 +117,13 @@ let g:which_key_map.t = {
     \ 'c' : 'close tab',
     \ 'w' : 'close tab'
     \ }
-map <C-S-PageDown> :tabmove +1<CR>
 map <C-S-Pageup> :tabmove -1<CR>
-map <C-PageDown> :tabn<CR>
+map <C-S-PageDown> :tabmove +1<CR>
 map <C-Pageup> :tabp<CR>
+map <C-PageDown> :tabn<CR>
 map <C-t> :tabe<CR>
 map <C-q> :tabclose<CR>
+
 " manage buffers
 map <Leader>sv <C-w>v<CR>
 map <Leader>sh <C-w>s<CR>
@@ -156,6 +162,7 @@ imap <C-v> <Esc><C-v>a
 " clear search
 nmap <F4> :let @/ = ""<CR><F6>
 nmap <F6> :<Backspace>
+inoremap jk <Esc>
 " replace word under cursor
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 " map double-click to enter in insert mode
@@ -292,6 +299,7 @@ let g:workspace_persist_undo_history = 1  " persist history
 let g:workspace_undodir = $HOME . '/.vim/undodir/'
 let g:workspace_session_disable_on_args = 1 " disable vim sessions when opening specific file
 let g:workspace_autosave = 0
+let g:workspace_autosave_ignore = ['gitcommit', 'qf', 'nerdtree', 'tagbar']
 
 " NERDTree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

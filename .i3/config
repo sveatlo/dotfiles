@@ -214,7 +214,7 @@ mode "$mode_player" {
 }
 # start dmenu (a program launcher)
 #bindsym $mod+p exec "i3-dmenu-desktop"
-bindsym $mod+p exec "~/src/scripts/rofi.sh"
+bindsym $mod+p exec rofi -show combi
 bindsym $mod+space exec "xkb-switch -n && pkill -SIGRTMIN+15 i3blocks"
 # screen lock
 bindsym Control+$mod+l exec "xset s activate"
@@ -228,9 +228,9 @@ set $brightnessupdate pkill -SIGRTMIN+16 i3blocks
 bindsym XF86MonBrightnessUp exec --no-startup-id ~/src/scripts/brightness.sh up && $brightnessupdate
 bindsym XF86MonBrightnessDown exec --no-startup-id ~/src/scripts/brightness.sh down && $brightnessupdate
 # Media player controls
-bindsym XF86AudioPlay exec --no-startup-id ~/src/scripts/mediakeys.sh toggleplay
-bindsym XF86AudioNext exec --no-startup-id ~/src/scripts/mediakeys.sh next
-bindsym XF86AudioPrev exec --no-startup-id ~/src/scripts/mediakeys.sh prev
+bindsym XF86AudioPlay exec --no-startup-id ~/src/scripts/player-mpris-tail.py play-pause
+bindsym XF86AudioNext exec --no-startup-id ~/src/scripts/player-mpris-tail.py next
+bindsym XF86AudioPrev exec --no-startup-id ~/src/scripts/player-mpris-tail.py previous
 bindsym XF86Display exec "arandr"
 # scrot & gimp - root
 bindsym Print exec scrot -e 'mv $f /tmp/ && gimp /tmp/$f'
@@ -409,32 +409,30 @@ mode "$mode_gaps_left" {
 }
 
 
-bar {
-        position top
-        status_command i3blocks
-#        output eDP1
-        font pango:Consolas, Icons 12
-        colors {
-                statusline $inactive-text-color
-                background $inactive-bg-color
-
-                #                   border              background          text
-                focused_workspace   $bg-color           $bg-color           $text-color
-                inactive_workspace  $inactive-bg-color  $inactive-bg-color  $inactive-text-color
-                urgent_workspace    $urgent-bg-color    $urgent-bg-color    $text-color
-        }
-}
+# bar {
+#         position top
+#         status_command i3blocks
+# #        output eDP1
+#         font pango:Consolas, Icons 12
+#         colors {
+#                 statusline $inactive-text-color
+#                 background $inactive-bg-color
+#
+#                 #                   border              background          text
+#                 focused_workspace   $bg-color           $bg-color           $text-color
+#                 inactive_workspace  $inactive-bg-color  $inactive-bg-color  $inactive-text-color
+#                 urgent_workspace    $urgent-bg-color    $urgent-bg-color    $text-color
+#         }
+# }
 
 
 #
 # Autostart
 #
-exec --no-startup-id "setxkbmap en_US,'sk(qwerty)'"
+exec_always --no-startup-id $HOME/src/scripts/launch-polybar.sh
 exec --no-startup-id "xset dpms 900 2400 3600"
-exec --no-startup-id "touchegg"
+# exec --no-startup-id "touchegg"
 exec --no-startup-id "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock"
-
-exec --no-startup-id "caffeine-indicator"
 exec --no-startup-id "dunst --config /home/sveatlo/.config/dunst/dunstrc"
 exec --no-startup-id "nm-applet"
 exec --no-startup-id "fluxgui"
