@@ -1,4 +1,5 @@
 [colors]
+white = #FFFFFF
 blue0 = #74b9ff
 blue1 = #74b9ff
 blue2 = #64a3e6
@@ -26,26 +27,16 @@ yellow5 = #f3a70d
 yellow6 = #f3a20f
 yellow7 = #f39c12
 
-shade0 = #f19066
-shade1 = #f3a683
-shade2 = #ea8685
-shade3 = #cf6a87
-shade4 = #778beb
-shade5 = #546de5
-shade6 = #786fa6
-shade7 = #574b90
-shade8 = #596275
-shade9 = #303952
-; shade0 = ${self.blue0}
-; shade1 = ${self.blue1}
-; shade2 = ${self.blue2}
-; shade3 = ${self.blue3}
-; shade4 = ${self.blue4}
-; shade5 = ${self.blue5}
-; shade6 = ${self.blue6}
-; shade7 = ${self.blue7}
-; shade8 = ${self.blue8}
-; shade9 = ${self.blue9}
+shade0 = ${self.blue0}
+shade1 = ${self.blue1}
+shade2 = ${self.blue2}
+shade3 = ${self.blue3}
+shade4 = ${self.blue4}
+shade5 = ${self.blue5}
+shade6 = ${self.blue6}
+shade7 = ${self.blue7}
+shade8 = ${self.blue8}
+shade9 = ${self.blue9}
 
 background = #1E2023
 background-alt = #555753
@@ -60,7 +51,7 @@ alert = ${self.red0}
 ;monitor = ${env:MONITOR:HDMI-1}
 enable-ipc = true
 width = 100%
-height = 40
+height = 30
 fixed-center = true
 
 background = ${colors.background}
@@ -71,18 +62,21 @@ module-margin-left = 0
 module-margin-right = 0
 
 ; font-0 = sfnsdisplay:pixelsize=20;0
-font-0 = firasans:pixelsize=18;2
-font-1 = unifont:fontformat=truetype:size=18:antialias=false;0
-font-2 = siji:size=20;0
-font-3 = fontawesome:size=20;3
-font-4 = fontawesome5pro:size=20;3
-font-5 = weathericons:size=20;8
-font-6 = materialdesignicons:size=20;0
-font-7 = Iosevka Nerd Font:style=Medium:size=25;4
+font-0 = firasans:pixelsize=18;3
+font-1 = weathericons:size=16;3
+font-2 = fontawesome5prolight:size=18;3
+font-3 = fontawesome5prosolid:size=18;3
+font-4 = unifont:fontformat=truetype:size=18:antialias=false;0
+font-5 = siji:size=18;0
+font-6 = materialdesignicons:size=18;3
+font-7 = firasans:pixelsize=15;3
 
 modules-left = i3
-; modules-center = multimedia
-modules-right = right0 weather right1 multimedia right2 xkeyboard right3 temperature right4 cpu right5 pulseaudio right6 xbacklight right7 battery right8 wlan eth right9 date
+modules-center = multimedia polypomo
+modules-right = weather xkeyboard temperature cpu pulseaudio xbacklight battery vpn wlan eth date kdeconnect
+
+; separator =  ] [
+; separator = |
 
 tray-position = right
 tray-padding = 2
@@ -96,8 +90,6 @@ scroll-down = i3wm-wsprev
 
 ; cursor-click = pointer
 ; cursor-scroll = ns-resize
-
-
 
 
 
@@ -140,108 +132,60 @@ label-urgent-background = ${colors.alert}
 label-urgent-underline = ${colors.alert}
 label-urgent-padding = ${self.label-focused-padding}
 
+label-mode = %mode%
+label-mode-padding = 2
+label-mode-background = ${colors.shade3}
+label-mode-foreground = ${colors.white}
 
 ;
 ; CENTER
 ;
 ;
+[module/multimedia]
+type = custom/script
+; format-prefix = "♪ "
+format-padding = 2
+exec = ~/.config/polybar/mpris-player-module.py -f '{:artist:t20:{artist}:}{:artist: - :}{:t40:{title}:}  %{A1:~/.config/polybar/mpris-player-module.py previous:} ⏮ %{A} %{A1:~/.config/polybar/mpris-player-module.py play-pause:} {icon-reversed} %{A} %{A1:~/.config/polybar/mpris-player-module.py next:} ⏭ %{A}'
+tail = true
+click-left = ~/.config/polybar/mpris-player-module.py previous &
+click-right = ~/.config/polybar/mpris-player-module.py next &
+click-middle = ~/.config/polybar/mpris-player-module.py play-pause &
 
+[module/polypomo]
+type = custom/script
+exec = ~/.config/polybar/polypomo
+tail = true
+
+format-padding = 2
+label = %output%
+click-left = ~/.config/polybar/polypomo toggle
+click-right = ~/.config/polybar/polypomo end
+click-middle = ~/.config/polybar/polypomo lock
+scroll-up = ~/.config/polybar/polypomo time +60
+scroll-down = ~/.config/polybar/polypomo time -60
 
 ;
 ; RIGHT
 ;
-;    
-[module/right0]
-type = custom/text
-content-background = ${colors.background}
-content-foreground = ${colors.shade1}
-content = "%{T8}%{T-}"
-
-[module/right1]
-type = custom/text
-content-background = ${colors.shade1}
-content-foreground = ${colors.shade2}
-content = "%{T8}%{T-}"
-
-[module/right2]
-type = custom/text
-content-background = ${colors.shade2}
-content-foreground = ${colors.shade3}
-content = "%{T8}%{T-}"
-
-[module/right3]
-type = custom/text
-content-background = ${colors.shade3}
-content-foreground = ${colors.shade4}
-content = "%{T8}%{T-}"
-
-[module/right4]
-type = custom/text
-content-background = ${colors.shade4}
-content-foreground = ${colors.shade5}
-content = "%{T8}%{T-}"
-
-[module/right5]
-type = custom/text
-content-background = ${colors.shade5}
-content-foreground = ${colors.shade6}
-content = "%{T8}%{T-}"
-
-[module/right6]
-type = custom/text
-content-background = ${colors.shade6}
-content-foreground = ${colors.shade7}
-content = "%{T8}%{T-}"
-
-[module/right7]
-type = custom/text
-content-background = ${colors.shade7}
-content-foreground = ${colors.shade8}
-content = "%{T8}%{T-}"
-
-[module/right8]
-type = custom/text
-content-background = ${colors.shade8}
-content-foreground = ${colors.shade9}
-content = "%{T8}%{T-}"
-
-[module/right9]
-type = custom/text
-content-background = ${colors.shade9}
-content-foreground = #111
-content = "%{T8}%{T-}"
-
-;
-; arrows
-;
-
 [module/weather]
 type = custom/script
-format-background = ${colors.shade1}
-format-foreground = ${colors.shade9}
 format-padding = 2
-exec = ~/bin/polybar-forecast-linux-x86_64
-exec-if = ping openweathermap.org -c 1
-interval = 600
-
-[module/multimedia]
-type = custom/script
-format-prefix = "♪ "
-format-padding = 2
-format-background = ${colors.shade2}
-format-foreground = ${colors.shade9}
-exec = ~/src/scripts/player-mpris-tail.py -f '{:artist:t20:{artist}:}{:artist: - :}{:t40:{title}:}  %{A1:~/src/scripts/player-mpris-tail.py previous:} ⏮ %{A} %{A1:~/src/scripts/player-mpris-tail.py play-pause:} {icon-reversed} %{A} %{A1:~/src/scripts/player-mpris-tail.py next:} ⏭ %{A}'
+exec = ~/.config/polybar/weather-module.sh
+; click-left = "kill -USR1 $(pgrep --oldest --parent %pid%)"
+click-left = kill -USR1 %pid%
 tail = true
-click-left = ~/src/scripts/player-mpris-tail.py previous &
-click-right = ~/src/scripts/player-mpris-tail.py next &
-click-middle = ~/src/scripts/player-mpris-tail.py play-pause &
+; exec = ~/bin/polybar-forecast-linux-x86_64
+; exec = ~/src/scripts/weather.py --output-format '%{T4}{{current.icon}}%{T-}  {{current.temperature}}°C'
+; exec = ~/src/scripts/weather.py --output-format '%{T4}{{current.icon}}%{T-}  {{current.temperature}}°C %{T3}%{T-} %{T4}{{next.icon}}%{T-}  {{next.temperature}}°C'
+; click-left = ~/src/scripts/weather.py --output-format '{{city}} {{current.temperature}}°C, {{current.description_long}} -> {{next.temperature}}°C, {{next.description_long}}'
+; exec-if = ping openweathermap.org -c 1
+; interval = 600
 
 [module/xkeyboard]
 type = internal/xkeyboard
 blacklist-0 = num lock
 blacklist-1 = scroll lock
 format-prefix = " "
-format-background = ${colors.shade3}
 format-padding = 2
 label-layout = %layout%
 ; label-indicator-padding = 2
@@ -249,28 +193,17 @@ label-layout = %layout%
 ; label-indicator-background = ${colors.secondary}
 ; label-indicator-underline = ${colors.secondary}
 
-[module/bluetooth]
-type = custom/script
-format-font = 1
-format-prefix = " "
-format-background = ${colors.shade4}
-format-padding = 2
-exec = ~/src/scripts/system-bluetooth-bluetoothctl.sh
-tail = true
-click-left = ~/src/scripts/system-bluetooth-bluetoothctl.sh --toggle &
 
 [module/temperature]
 type = internal/temperature
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input
 ; thermal-zone = 0
 warn-temperature = 65
 format = <ramp> <label>
-format-background = ${colors.shade4}
 format-padding = 2
 format-warn = <ramp> <label-warn>
-format-warn-background = ${self.format-background}
 format-warn-foreground = ${colors.warn}
-; format-warn-underline = ${self.format-underline}
+format-warn-padding = ${self.format-padding}
 
 label = %temperature-c%
 label-warn = ${self.label}
@@ -285,7 +218,6 @@ ramp-2 = 
 type = internal/cpu
 interval = 2
 format-prefix = " "
-format-background = ${colors.shade5}
 format-padding = 2
 ; format-underline = #f90000
 label = %percentage:2%%
@@ -293,7 +225,7 @@ label = %percentage:2%%
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = " "
+format-prefix = " "
 format-underline = #4bffdc
 label = %percentage_used%%
 
@@ -301,18 +233,16 @@ label = %percentage_used%%
 type = internal/pulseaudio
 
 format-volume = <ramp-volume> <label-volume>
-format-volume-background = ${colors.shade6}
 format-volume-padding = 2
 ; format-volume = <label-volume> <bar-volume>
 label-volume = %percentage%%
 ; label-volume-foreground = ${root.foreground}
 
 format-muted-prefix = "  "
-format-muted-background = ${colors.shade6}
+format-muted-prefix-font = 3
 format-muted-padding = 2
-label-muted = "0%"
-; label-muted-font = 3
 
+ramp-volume-font = 3
 ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
@@ -341,9 +271,8 @@ click-right = pavucontrol &
 [module/xbacklight]
 type = internal/xbacklight
 
-format-prefix = "  "
+format-prefix = " "
 format = <label>
-format-background = ${colors.shade7}
 format-padding = 2
 label = %percentage%%
 
@@ -364,13 +293,12 @@ battery = BAT0
 adapter = AC
 full-at = 98
 
+
 format-charging = <animation-charging> <label-charging>
-format-charging-background = ${colors.shade8}
 format-charging-padding = 2
 ; format-charging-underline = #ffb52a
 
 format-discharging = <ramp-capacity> <label-discharging>
-format-discharging-background = ${colors.shade8}
 format-discharging-padding = 2
 ; format-discharging-underline = ${self.format-charging-underline}
 
@@ -385,24 +313,29 @@ ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
 ramp-capacity-0-foreground = ${colors.warn}
-; ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
-; animation-charging-foreground = ${colors.foreground-alt}
+animation-charging-0 = ${self.ramp-capacity-0}
+animation-charging-1 = ${self.ramp-capacity-1}
+animation-charging-2 = ${self.ramp-capacity-2}
+animation-charging-3 = ${self.ramp-capacity-3}
+animation-charging-4 = ${self.ramp-capacity-4}
 animation-charging-framerate = 750
-
-; animation-discharging-0 = 
-; animation-discharging-1 = 
-; animation-discharging-2 = 
-; animation-discharging-3 = 
-; animation-discharging-4 = 
+; animation-discharging-0 = ${self.ramp-capacity-4}
+; animation-discharging-1 = ${self.ramp-capacity-3}
+; animation-discharging-2 = ${self.ramp-capacity-2}
+; animation-discharging-3 = ${self.ramp-capacity-1}
+; animation-discharging-4 = ${self.ramp-capacity-0}
 ; animation-discharging-foreground = ${colors.foreground-alt}
 ; animation-discharging-framerate = 750
 
+[module/vpn]
+type = custom/script
+format-font = 3
+format-padding = 2
+exec = ~/.config/polybar/vpn-module.sh
+; tail = true
+click-left = networkmanager_dmenu &
+interval = 10
 
 [module/wlan]
 type = internal/network
@@ -410,10 +343,10 @@ interface = wlan0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-background = ${colors.shade9}
 format-connected-padding = 2
 ; format-connected-underline = #9f78e1
-label-connected = %essid%
+label-connected = %{A1:networkmanager_dmenu:}%local_ip% %{T8}(%signal%%)%{T-}%{A}
+; label-connected = %local_ip% %{T8}(%signal%%; ⬇ %downspeed% ⬆ %upspeed%)%{T-}
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>
@@ -421,20 +354,26 @@ format-disconnected =
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
+ramp-signal-font = 3
 ramp-signal-0 = 
-ramp-signal-1 = 
+ramp-signal-1 = 
+ramp-signal-1-font = 4
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-3-font = 4
 ramp-signal-4 = 
-ramp-signal-font = 5
+ramp-signal-5 = 
+ramp-signal-5-font = 4
 
 [module/eth]
 type = internal/network
 interface = eth0
 interval = 3.0
 
-format-connected-underline = #55aa55
-format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
+; format-connected-underline = #55aa55
+format-connected-prefix = 
+; format-connected-prefix-foreground = ${colors.foreground-alt}
+label-connected = %{A1:networkmanager_dmenu:}%local_ip%%{A}
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>
@@ -443,18 +382,61 @@ format-disconnected =
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
 [module/date]
-type = internal/date
+type = custom/script
 interval = 5
-
-label = %date% %time%
-date =
-date-alt = "%a %d %b"
-time = %H:%M:%S
-time-alt = %H:%M:%S
-
-format-background = #111
-format-foreground = ${colors.primary}
+exec = echo "`TZ='Europe/Bratislava' date +'%a %d %b'` `date +'%T'`"
+tail = true
+click-left = gsimplecal &!
 format-padding = 2
+
+; [module/date]
+; type = internal/date
+; interval = 5
+;
+; label = %date% %time%
+; date =
+; date-alt = "%a %d %b"
+; time = %H:%M:%S
+; time-alt = %H:%M:%S
+;
+; format-background = #111
+; format-padding = 2
+
+[module/kdeconnect]
+type = custom/script
+exec = ~/.config/polybar/kdeconnect-module.sh -d
+tail = true
+format-padding = 2
+
+[module/bluetooth]
+type = custom/script
+format-font = 3
+format-prefix = ""
+; format-padding = 2
+exec = ~/.config/polybar/bluetooth-module.sh
+tail = true
+click-left = ~/.config/polybar/bluetooth-module.sh --toggle &
+
+[module/easteregg-pornhub]
+type = custom/script
+exec = echo " hub "
+interval = 3600
+click-left = firefox --private-window https://pornhub.com/random &
+
+format = <label>
+format-prefix = "  Porn "
+format-prefix-foreground = #ffffff
+format-prefix-background = #000000
+
+format-overline = #000000
+format-underline = #000000
+format-foreground = #000000
+format-background = #ffa500
+
+format-suffix = " "
+format-suffix-background = #000000
+format-suffix-foreground = #000000
+
 
 [settings]
 screenchange-reload = true

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+MEDIAPLAYER_SCRIPT=${1:-$HOME/src/scripts/i3blocks-contrib/mediaplayer/mediaplayer}
+MAX_LENGTH=50
+
+truncate_length=$((MAX_LENGTH - 3))
+data=$($MEDIAPLAYER_SCRIPT 2>/dev/null)
+
+# cleanup
+data=$(echo $data | sed -E 's/^https:\/\/www\..+\.com\ -\ //g')
+data=$(echo $data | sed 's/\ -\ YouTube$//g')
+
+# truncate to length
+(( ${#data} > $MAX_LENGTH)) && data="${data:0:$truncate_length}..."
+echo $data

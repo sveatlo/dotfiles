@@ -32,7 +32,7 @@ set $urgent-bg-color        #E53935
 
 
 #font pango:Hack 12px
-font pango:System San Francisco Display 12px
+font pango:system-ui 12px
 new_window pixel 3
 focus_follows_mouse  no
 #don't move to neighbouring screen with hjkl
@@ -204,7 +204,7 @@ bindsym $mod+Shift+m mode "$mode_player"
 mode "$mode_player" {
     bindsym "s" exec spotify; mode "default"
     bindsym "n" exec termite -e ncmpcpp; mode "default"
-    bindsym "y" exec chromium --new-window https://youtube.com; mode "default"
+    bindsym "y" exec firefox --new-window https://youtube.com; mode "default"
 
     # back to normal: Enter or Escape or q or ^[
     bindsym Return mode "default"
@@ -228,9 +228,9 @@ set $brightnessupdate pkill -SIGRTMIN+16 i3blocks
 bindsym XF86MonBrightnessUp exec --no-startup-id ~/src/scripts/brightness.sh up && $brightnessupdate
 bindsym XF86MonBrightnessDown exec --no-startup-id ~/src/scripts/brightness.sh down && $brightnessupdate
 # Media player controls
-bindsym XF86AudioPlay exec --no-startup-id ~/src/scripts/player-mpris-tail.py play-pause
-bindsym XF86AudioNext exec --no-startup-id ~/src/scripts/player-mpris-tail.py next
-bindsym XF86AudioPrev exec --no-startup-id ~/src/scripts/player-mpris-tail.py previous
+bindsym XF86AudioPlay exec --no-startup-id ~/.config/polybar/mpris-player-module.py play-pause
+bindsym XF86AudioNext exec --no-startup-id ~/.config/polybar/mpris-player-module.py next
+bindsym XF86AudioPrev exec --no-startup-id ~/.config/polybar/mpris-player-module.py previous
 bindsym XF86Display exec "arandr"
 # scrot & gimp - root
 bindsym Print exec scrot -e 'mv $f /tmp/ && gimp /tmp/$f'
@@ -244,6 +244,7 @@ bindsym $mod+z reload
 bindsym $mod+Shift+z restart
 bindsym $mod+Mod1+Shift+z exit
 for_window [class="Qalculate-gtk"] floating enable; resize shrink width 400px; resize grow width 400px; resize shrink height 800px; resize grow height 800px;
+for_window [class="Pavucontrol"] floating enable; resize shrink width 1920px; resize grow width 1920px; resize shrink height 1080px; resize grow height 1080px;
 for_window [class="instance"] floating disable;
 for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 30 px
 
@@ -413,7 +414,16 @@ mode "$mode_gaps_left" {
 #         position top
 #         status_command i3blocks
 # #        output eDP1
-#         font pango:Consolas, Icons 12
+# #
+#         font pango:firasans:pixelsize=18;2
+#         font pango:unifont:fontformat=truetype:size=18:antialias=false;0
+#         font pango:siji:size=20;0
+#         font pango:fontawesome:size=20;3
+#         font pango:fontawesome5pro:size=20;3
+#         font pango:weathericons:size=20;3
+#         font pango:materialdesignicons:size=20;0
+#         font pango:Iosevka Nerd Font:style=Medium:size=25;4
+#
 #         colors {
 #                 statusline $inactive-text-color
 #                 background $inactive-bg-color
@@ -424,7 +434,7 @@ mode "$mode_gaps_left" {
 #                 urgent_workspace    $urgent-bg-color    $urgent-bg-color    $text-color
 #         }
 # }
-
+#
 
 #
 # Autostart
@@ -432,11 +442,11 @@ mode "$mode_gaps_left" {
 exec_always --no-startup-id $HOME/src/scripts/launch-polybar.sh
 exec --no-startup-id "xset dpms 900 2400 3600"
 # exec --no-startup-id "touchegg"
-exec --no-startup-id "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock"
+exec --no-startup-id "XSECURELOCK_FONT='Fira Code 12' xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock"
 exec --no-startup-id "dunst --config /home/sveatlo/.config/dunst/dunstrc"
 exec --no-startup-id "nm-applet"
 exec --no-startup-id "fluxgui"
-exec --no-startup-id "kdeconnect-indicator"
+# exec --no-startup-id "kdeconnect-indicator"
 
 # Restore layouts
 exec ~/src/scripts/restore_layout.sh 1 $WS1

@@ -17,7 +17,7 @@ URxvt.keysym.M-c           : perl:clipboard:copy
 URxvt.keysym.M-v           : perl:clipboard:paste
 URxvt.keysym.M-s           : perl:keyboard-select:search
 URxvt.keysym.M-C-v         : perl:clipboard:paste_escaped
-URxvt.url-select.launcher  : chromium
+URxvt.url-select.launcher  : firefox
 URxvt.url-select.autocopy  : true
 URxvt.url-select.underline : true
 

@@ -1,5 +1,5 @@
 [global]
-    font = Roboto 13
+    font = sans fira 12
 
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -136,10 +136,11 @@
     startup_notification = false
 
     # dmenu path.
-    dmenu = /usr/bin/dmenu -p dunst:
+    # dmenu = /usr/bin/dmenu -p dunst:
+    dmenu = /usr/bin/rofi -dmenu -p "dunst"
 
     # Browser for opening urls in context menu.
-    browser = /usr/bin/chromium --new-tab
+    browser = /usr/bin/firefox --new-tab
 
     # Align icons left/right/off
     icon_position = off
@@ -172,7 +173,7 @@
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
-    # Otherwise the "#" and follomod4g would be interpreted as a comment.
+    # Otherwise the "#" and following text would be interpreted as a comment.
     background = "#404040"
     foreground = "#CCCCCC"
     timeout = 10
@@ -184,7 +185,7 @@
 
 [urgency_critical]
     background = "#DC322F"
-    foreground = "#DDDDDD"
+    foreground = "#FFFFFF"
     timeout = 0
 
 

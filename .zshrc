@@ -61,7 +61,7 @@ plugins=(git compleat common-aliases kubectl minikube node pass sudo firewalld k
 
 # User configuration
 
-export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.composer/vendor/bin:$HOME/bin:/opt/android-sdk/tools:/opt/android-sdk/platform-tools"
+export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/bin:$HOME/src/scripts"
 # export MANPATH="/usr/local/man:$MANPATH"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/opt/cuda/extras/CUPTI/lib64/:/opt/cuda/lib64:/opt/cuda/nvvm/lib64/:/opt/cuda/targets/x86_64-linux/lib"    # cuda/cudnn/... libraries
@@ -96,14 +96,15 @@ alias vim="nvim"
 
 # Go
 export GOROOT=/usr/lib/go
-export GO111MODULE=on
 export GOPATH=$HOME/src/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+export GOPRIVATE=git.moderntv.eu
 
 # Java
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/
 # Android
 export ANDROID_HOME=/opt/android-sdk
+export PATH="$PATH:/opt/android-sdk/tools:/opt/android-sdk/platform-tools"
 
 # Perl
 PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
