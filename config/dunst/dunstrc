@@ -213,6 +213,10 @@
     urgency = low
     timeout = 3
 
+[rocketchat]
+    appname = Rocket.Chat
+    timeout = 0
+
 [batterywarn]
     appname = System
     summary = "Battery warning"
