@@ -92,8 +92,8 @@ bindsym Mod1+Tab focus right
 bindsym Mod1+Shift+Tab focus left
 # move focused window
 bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move up
-bindsym $mod+Shift+k move down
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Up move up
@@ -442,7 +442,7 @@ mode "$mode_gaps_left" {
 exec_always --no-startup-id $HOME/src/scripts/launch-polybar.sh
 exec --no-startup-id "xset dpms 900 2400 3600"
 # exec --no-startup-id "touchegg"
-exec --no-startup-id "XSECURELOCK_FONT='Fira Code 12' xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock"
+exec --no-startup-id "XSECURELOCK_FONT='system-ui 12' xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock"
 exec --no-startup-id "dunst --config /home/sveatlo/.config/dunst/dunstrc"
 exec --no-startup-id "nm-applet"
 exec --no-startup-id "fluxgui"
