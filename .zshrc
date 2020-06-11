@@ -57,7 +57,7 @@ autoload -Uz compinit && compinit -i
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git compleat common-aliases kubectl minikube node pass sudo firewalld keybase rust)
+plugins=(git git-flow-avh compleat common-aliases kubectl minikube node pass sudo firewalld keybase rust)
 
 # User configuration
 
@@ -119,8 +119,9 @@ PATH="$PATH:$HOME/.cargo/bin"
 # Conda
 [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
 
+# fuzzy search
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 
 # autorun
 cowfortune
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
