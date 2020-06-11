@@ -108,7 +108,6 @@ map <Leader>tn :tabn<CR>
 map <Leader>tp :tabp<CR>
 map <Leader>te :tabe<CR>
 map <Leader>tc :tabclose<CR>
-map <Leader>tw :tabclose<CR>
 let g:which_key_map.t = {
     \ 'name': '+tab',
     \ 'n' : 'next tab',
@@ -132,8 +131,6 @@ let g:which_key_map.s = {
     \ 'v': 'vertically',
     \ 'h': 'horizontally',
     \ }
-map <Leader>bw :bdelete<CR>
-map <Leader>bd :bdelete<CR>
 map <Leader>bc :bdelete<CR>
 nmap <Leader>bn :bnext<CR>
 nmap <Leader>bp :bprev<CR>
