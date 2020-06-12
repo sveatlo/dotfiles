@@ -246,7 +246,7 @@ bindsym $mod+Mod1+Shift+z exit
 for_window [class="Qalculate-gtk"] floating enable; resize shrink width 400px; resize grow width 400px; resize shrink height 800px; resize grow height 800px;
 for_window [class="Pavucontrol"] floating enable; resize shrink width 1920px; resize grow width 1920px; resize shrink height 1080px; resize grow height 1080px;
 for_window [class="instance"] floating disable;
-for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 30 px
+for_window [class="ProtonMail Bridge"] floating enable;
 
 mode "resize" {
         bindsym h   resize shrink width 5 px or 5 ppt
@@ -446,6 +446,7 @@ exec --no-startup-id "XSECURELOCK_FONT='system-ui 12' xss-lock -n /usr/lib/xsecu
 exec --no-startup-id "dunst --config /home/sveatlo/.config/dunst/dunstrc"
 exec --no-startup-id "nm-applet"
 exec --no-startup-id "fluxgui"
+exec --no-startup-id "protonmail-bridge"
 # exec --no-startup-id "kdeconnect-indicator"
 
 # Restore layouts
