@@ -73,7 +73,7 @@ font-7 = system-ui:pixelsize=15;3
 
 modules-left = i3
 modules-center = multimedia polypomo
-modules-right = weather xkeyboard temperature cpu pulseaudio xbacklight battery wlan eth date
+modules-right = weather xkeyboard pulseaudio xbacklight battery wlan eth date
 
 ; separator =  ] [
 ; separator = |
@@ -145,7 +145,7 @@ label-mode-foreground = ${colors.white}
 type = custom/script
 ; format-prefix = "♪ "
 format-padding = 2
-exec = ~/.config/polybar/mpris-player-module.py -f '{:artist:t20:{artist}:}{:artist: - :}{:t40:{title}:}  %{A1:~/.config/polybar/mpris-player-module.py previous:} ⏮ %{A} %{A1:~/.config/polybar/mpris-player-module.py play-pause:} {icon-reversed} %{A} %{A1:~/.config/polybar/mpris-player-module.py next:} ⏭ %{A}'
+exec = ~/.config/polybar/mpris-player-module.py -f '{:artist:t20:{artist}:}{:artist: - :}{:t30:{title}:}  %{A1:~/.config/polybar/mpris-player-module.py previous:} ⏮ %{A} %{A1:~/.config/polybar/mpris-player-module.py play-pause:} {icon-reversed} %{A} %{A1:~/.config/polybar/mpris-player-module.py next:} ⏭ %{A}'
 tail = true
 click-left = ~/.config/polybar/mpris-player-module.py previous &
 click-right = ~/.config/polybar/mpris-player-module.py next &
@@ -187,16 +187,14 @@ blacklist-0 = num lock
 blacklist-1 = scroll lock
 format-prefix = " "
 format-padding = 2
+format = <label-layout> <label-indicator>
 label-layout = %layout%
-; label-indicator-padding = 2
-; label-indicator-margin = 1
-; label-indicator-background = ${colors.secondary}
-; label-indicator-underline = ${colors.secondary}
-
+label-indicator = (%name%)
+label-indicator-font = 8
 
 [module/temperature]
 type = internal/temperature
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon7/temp1_input
 ; thermal-zone = 0
 warn-temperature = 65
 format = <ramp> <label>
@@ -380,27 +378,28 @@ format-disconnected =
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
+;
+; [module/date]
+; type = custom/script
+; interval = 5
+; ; exec = echo "`TZ='Europe/Bratislava' date +'%a %d %b'` `date +'%T'`"
+; exec = echo "`TZ='Europe/Bratislava' date +'%a %d %b'` `date +'%T'`"
+; tail = true
+; click-left = gsimplecal &!
+; format-padding = 2
 
 [module/date]
-type = custom/script
+type = internal/date
 interval = 5
-exec = echo "`TZ='Europe/Bratislava' date +'%a %d %b'` `date +'%T'`"
-tail = true
-click-left = gsimplecal &!
-format-padding = 2
 
-; [module/date]
-; type = internal/date
-; interval = 5
-;
-; label = %date% %time%
-; date =
-; date-alt = "%a %d %b"
-; time = %H:%M:%S
-; time-alt = %H:%M:%S
-;
-; format-background = #111
-; format-padding = 2
+label = %{A3:gsimplecal &!:}%date% %time%%{A}
+
+date =
+date-alt = "%a %d %b"
+time = %H:%M:%S
+time-alt = %H:%M:%S
+
+format-padding = 2
 
 [module/kdeconnect]
 type = custom/script
