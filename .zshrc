@@ -1,4 +1,4 @@
-[[ "$TERM" = "xterm-termite" ]] && export TERM=xterm
+[[ "$TERM" = "xterm-kitty" ]] && export TERM=xterm
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -8,6 +8,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="haribo"
+# ZSH_THEME="bureau"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
