@@ -1,0 +1,50 @@
+open_with 1
+rename nextlevel
+rename aggregator
+rename aggregator.proto
+mkdir cmd
+mkdir bin
+mkdir internal
+mkdir 
+mkdir server
+mkdir client
+rename finance
+
+rename batch.go
+rename batch_test.go
+rename job.go
+rename job_test.go
+search personi
+search collecto
+search collec
+search 
+search collector
+rename personigo-exporter.service.j2
+rename personigo-gateway.service.j2
+rename config-processore.yml.j2
+rename config-gateway.yml.j2
+rename config-processor.yml.j2
+search perso
+rename install_gateway.yml
+rename service-aggregator.service.j2
+rename service-processor.service.j2
+rename service-gateway.service.j2
+touch 
+find 
+open_with vim
+open_with nvim
+rename The.Chronicles.of.Narnia.The.Lion.The Witch.And.The.Wardrobe.2005.1080p.Brrip.x264.Deceit.YIFY.eng.srt
+rename The.Chronicles.of.Narnia.The.Lion.The Witch.And.The.Wardrobe.2005.1080p.Brrip.x264.Deceit.YIFY.cze.srt
+open_with code
+open_with 
+rename DSC_0910.NEF
+mkdir 29
+rename 20200801
+shell touch kokot.txt
+mkdir some time
+rename some time @ majcichov with Tana
+mkdir analog
+mkdir 13 - teambuilding
+rename alexs.jpg
+rename errors_bundle.go
+delete
