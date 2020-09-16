@@ -1,0 +1,35 @@
+layer=top
+width=350
+height=1000
+padding=10
+margin=10
+border-size=2
+font=system-ui 11
+icons=0
+max-icon-size=32
+
+format=%a\n<b>%s</b>\n%b
+
+[grouped]
+format=(%g) %a\n<b>%s</b>\n%b
+
+[actionable]
+format=(A) %a\n<b>%s</b>\n%b
+
+[app-name="System"]
+format=%a\n<b>%s</b>\n%b
+group-by=app-name
+default-timeout=1000
+
+[app-name="KDE Connect"]
+default-timeout=5000
+
+[urgency=low]
+background-color=#404040
+border-color=#aaaaaa
+text-color=#cccccc
+
+[urgency=high]
+background-color=#ae1c19
+border-color=#dc322f
+ignore-timeout=1
