@@ -33,10 +33,11 @@ set $urgent-bg-color        #E53935
 
 #font pango:Hack 12px
 font pango:system-ui 12px
-new_window pixel 3
+# new_window pixel 3
+default_border pixel 3
 focus_follows_mouse  no
 #don't move to neighbouring screen with hjkl
-force_focus_wrapping yes
+focus_wrapping yes
 
 #
 # Desktop feel
@@ -202,9 +203,9 @@ bindsym $mod+Shift+e exec pcmanfm
 set $mode_player Player: (n)cmpcpp (s)potify (y)outube
 bindsym $mod+Shift+m mode "$mode_player"
 mode "$mode_player" {
-    bindsym "s" exec spotify; mode "default"
-    bindsym "n" exec termite -e ncmpcpp; mode "default"
-    bindsym "y" exec firefox --new-window https://youtube.com; mode "default"
+    bindsym s exec spotify; mode "default"
+    bindsym n exec termite -e ncmpcpp; mode "default"
+    bindsym y exec firefox --new-window https://youtube.com; mode "default"
 
     # back to normal: Enter or Escape or q or ^[
     bindsym Return mode "default"
@@ -450,7 +451,7 @@ exec --no-startup-id "protonmail-bridge"
 # exec --no-startup-id "kdeconnect-indicator"
 
 # Restore layouts
-exec ~/src/scripts/restore_layout.sh 1 $WS1
-exec ~/src/scripts/restore_layout.sh 2 $WS2
-exec ~/src/scripts/restore_layout.sh 5 $WS5
+# exec ~/src/scripts/restore_layout.sh 1 $WS1
+# exec ~/src/scripts/restore_layout.sh 2 $WS2
+# exec ~/src/scripts/restore_layout.sh 5 $WS5
 # exec ~/src/scripts/restore_layout.sh 20 $WS20

@@ -1,13 +1,14 @@
 ! vim: set filetype=xdefaults :
 
-Xft.dpi: 144
-!Xft.dpi: 160
-Xft.autohint: 0
+! Xft.dpi: 144
+! Xft.dpi: 160
+Xft.dpi: 96
+Xft.autohint: false
 Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintfull
-Xft.hinting: 1
-Xft.antialias: 1
-Xft.rgba: rgb
+Xft.hinting: true
+Xft.antialias: true
+!Xft.rgba: rgb
 
 URxvt.perl-ext-common : default,keyboard-select,url-select,clipboard,font-size
 
@@ -26,25 +27,18 @@ URxvt.keysym.C-equal:     perl:font-size:increase
 URxvt.keysym.C-minus:   perl:font-size:decrease
 
 
-URxvt.font        : xft:Consolas:pixelsize=12
+URxvt.font        : xft:monospace:pixelsize=12
 URxvt.termName    : rxvt-256color
 URxvt.iso14755    : false
 
 URxvt.urgentOnBell: true
 
-URxvt.saveLines   : 12000
+URxvt.saveLines   : 9999999
 URxvt.scrollBar   : false
 URxvt.scrollstyle : rxvt
 
-! XFT
-Xft.lcdfilter : lcddefault
-Xft.hintstyle : hintslight
-Xft.hinting   : true
-Xft.antialias : true
-Xft.rgba      : rgb
-
 !Fading
-URxvt.fading    : 50
-!URxvt.fadeColor : #29303a
+! URxvt.fading    : 50
+! URxvt.fadeColor : #29303a
 
 #include "dark.xresources"
