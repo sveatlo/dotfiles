@@ -1,36 +1,40 @@
 {
-    "coc.preferences.formatOnSaveFiletypes": [
-        "javascript",
-        "typescript",
-        "typescriptreact",
-        "json",
-        "javascriptreact",
-        "typescript.tsx",
-        "graphql",
-        "go",
-        "rust"
-    ],
-    "languageserver": {
-        "golang": {
-            "command": "gopls",
-            "rootPatterns": [
-                "go.mod",
-                ".vim/",
-                ".git/",
-                ".hg/"
-            ],
-            "filetypes": [
-                "go"
-            ],
-            "initializationOptions": {
-                "usePlaceholders": true,
-                "completeUnimported": true
-            }
+  "coc.preferences.formatOnSaveFiletypes": [
+    "c",
+    "c++",
+    "go",
+    "graphql",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "rust",
+    "typescript",
+    "typescript.tsx",
+    "typescriptreact"
+  ],
+  "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [
+        ".ccls",
+        "compile_commands.json",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "initializationOptions": {
+        "cache": {
+          "directory": "/tmp/ccls"
         }
-    },
-    "python.condaPath": "conda",
-    "python.sortImports.path": "isort",
-    "rust.all_features": true,
-    "rust.clippy_preference": "on"
+      }
+    }
+  },
+  "go.goplsOptions": {
+    "completeUnimported": true
+  },
+  "python.condaPath": "conda",
+  "python.sortImports.path": "isort",
+  "rust.all_features": true,
+  "rust.clippy_preference": "on"
 }
-

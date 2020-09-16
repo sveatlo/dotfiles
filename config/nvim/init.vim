@@ -22,7 +22,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'scrooloose/nerdcommenter'                 " easy commenting
     Plug 'junegunn/vim-easy-align'                  " aligning text
     Plug 'alpaca-tc/beautify.vim'
-    Plug 'terryma/vim-multiple-cursors'             " multiple cursors support
+    " Plug 'terryma/vim-multiple-cursors'             " multiple cursors support
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
 
     " git
     Plug 'airblade/vim-gitgutter'
@@ -34,11 +36,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'mhinz/vim-startify'               " startup screen
     Plug 'thaerkh/vim-workspace'            " ultimate session management
     Plug 'editorconfig/editorconfig-vim'    " vim support for editorconfig
-    Plug 'scrooloose/nerdtree'              " file browser
-    Plug 'tsony-tsonev/nerdtree-git-plugin' " show git file status in nerdtree
+    Plug 'preservim/nerdtree'               " file browser
+    Plug 'Xuyuanp/nerdtree-git-plugin'      " show git file status in nerdtree
     Plug 'psliwka/vim-smoothie'             " smooth scrolling
     Plug 'Yggdroot/indentLine'              " show indentation level
-    Plug 'liuchengxu/vim-which-key'
     " Plug 'ctrlpvim/ctrlp.vim'               " fuzzy find files
 
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -60,10 +61,10 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
 " General options
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:which_key_map =  {}
 
-" set autochdir
 let mapleader=","
+" set autochdir
+set autoread
 set backspace=eol,start,indent " allow backspacing over indent, eol, & start
 set cindent
 set cmdheight=2
@@ -108,14 +109,6 @@ map <Leader>tn :tabn<CR>
 map <Leader>tp :tabp<CR>
 map <Leader>te :tabe<CR>
 map <Leader>tc :tabclose<CR>
-let g:which_key_map.t = {
-    \ 'name': '+tab',
-    \ 'n' : 'next tab',
-    \ 'p' : 'previous tab',
-    \ 'e' : 'new tab',
-    \ 'c' : 'close tab',
-    \ 'w' : 'close tab'
-    \ }
 map <C-S-Pageup> :tabmove -1<CR>
 map <C-S-PageDown> :tabmove +1<CR>
 map <C-Pageup> :tabp<CR>
@@ -126,11 +119,6 @@ map <C-q> :tabclose<CR>
 " manage buffers
 map <Leader>sv <C-w>v<CR>
 map <Leader>sh <C-w>s<CR>
-let g:which_key_map.s = {
-    \ 'name': '+split',
-    \ 'v': 'vertically',
-    \ 'h': 'horizontally',
-    \ }
 map <Leader>bc :bdelete<CR>
 nmap <Leader>bn :bnext<CR>
 nmap <Leader>bp :bprev<CR>
@@ -138,23 +126,9 @@ nmap <Leader>bf :bfirst<CR>
 nmap <Leader>bl :blast<CR>
 " :nmap <Leader>b? :CtrlPBuffer<CR>
 :nmap <Leader>b? :Buffers<CR>
-let g:which_key_map.b = {
-    \ 'name' : '+buffer' ,
-    \ 'd' : ['bd'        , 'delete-buffer']   ,
-    \ 'f' : ['bfirst'    , 'first-buffer']    ,
-    \ 'l' : ['blast'     , 'last-buffer']     ,
-    \ 'n' : ['bnext'     , 'next-buffer']     ,
-    \ 'p' : ['bprevious' , 'previous-buffer'] ,
-    \ '?' : ['Buffers'   , 'fzf-buffer']      ,
-    \ }
-nmap <Leader>fg :GFiles<CR>
-map <C-p> :Files<CR>
-let g:which_key_map.f = {
-    \ 'name': '+files'
-    \ }
-" add copy/paste from clipboard (need xclip package)
-vmap <C-c> y: call system("xclip -i -selection clipboard", getreg("\""))<CR>
-nmap <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
+" add copy/paste from clipboard
+vmap <C-c> y: call system("wl-copy", getreg("\""))<CR>
+nmap <C-v> :call setreg("\"",system("wl-paste"))<CR>p
 imap <C-v> <Esc><C-v>a
 " clear search
 nmap <F4> :let @/ = ""<CR><F6>
@@ -191,19 +165,23 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
 autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
+autocmd FileType go nmap gtm :CocCommand go.tags.add mapstructure<cr>
 autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
+autocmd FileType go nmap ggt :CocCommand go.test.generate.file<cr>
+
+" FZF
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:fzf_buffers_jump = 1
+nmap <Leader>fg :GFiles<CR>
+map <C-p> :Files<CR>
 
 " CoC
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:coc_global_extensions = [
     \ 'coc-snippets',
+    \ 'coc-ultisnips',
     \ 'coc-pairs',
-    \ 'coc-tsserver',
-    \ 'coc-eslint',
     \ 'coc-prettier',
-    \ 'coc-json',
-    \ 'coc-go',
-    \ 'coc-python',
     \ ]
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
@@ -223,7 +201,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Navigate diagnostics
 nmap <silent> [d <Plug>(coc-diagnostic-prev)
@@ -234,13 +212,6 @@ nmap <silent> <Leader>gd <Plug>(coc-definition)
 nmap <silent> <Leader> gy <Plug>(coc-type-definition)
 nmap <silent> <Leader>gi <Plug>(coc-implementation)
 nmap <silent> <Leader>gr <Plug>(coc-references)
-let g:which_key_map.g = {
-    \ 'name': '+goto',
-    \ 'd': 'definition',
-    \ 'y': 'type-definition',
-    \ 'i': 'implementation',
-    \ 'r': 'references'
-    \}
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -276,8 +247,8 @@ xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 " Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <C-d> <Plug>(coc-range-select)
-xmap <silent> <C-d> <Plug>(coc-range-select)
+" nmap <silent> <C-d> <Plug>(coc-range-select)
+" xmap <silent> <C-d> <Plug>(coc-range-select)
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
 " Use `:Fold` to fold current buffer
@@ -300,8 +271,6 @@ let g:workspace_autosave_ignore = ['gitcommit', 'qf', 'nerdtree', 'tagbar']
 
 " NERDTree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" inoremap jk <ESC>
-" nmap <C-e> :NERDTreeToggle<CR>
 nmap <F3> :NERDTreeToggle<CR>
 " open NERDTree automatically
 " autocmd StdinReadPre * let s:std_in=1
@@ -310,6 +279,8 @@ nmap <F3> :NERDTreeToggle<CR>
 autocmd WinEnter * if winnr('$') == 1 && exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) == 1 | quit | endif
 
 let g:NERDTreeGitStatusWithFlags = 1
+let g:NERDTreeGitStatusUseNerdFonts = 1
+let g:NERDTreeGitStatusShowIgnored = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:NERDTreeGitStatusNodeColorization = 1
 let g:NERDTreeColorMapCustom = {
@@ -323,7 +294,7 @@ let g:NERDTreeColorMapCustom = {
     \ "Ignored"   : "#808080"
     \ }
 
-let g:NERDTreeIgnore = ['^node_modules$', '\.pb\.go$', '\.micro\.go$']
+let g:NERDTreeIgnore = ['^node_modules$', '^vendor$']
 " sync open file with NERDTree
 " Check if NERDTree is open or active
 function! IsNERDTreeOpen()
@@ -342,35 +313,19 @@ autocmd BufEnter * call SyncTree()
 
 " NERDCommenter
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-" Set a language to use its alternate delimiters by default
-let g:NERDAltDelims_java = 1
-" Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
-" Enable NERDCommenterToggle to check all selected lines is commented or not
-let g:NERDToggleCheckAllLines = 1
+let g:NERDSpaceDelims = 1                                             " Add spaces after comment delimiters by default
+let g:NERDCompactSexyComs = 1                                         " Use compact syntax for prettified multi-line comments
+let g:NERDDefaultAlign = 'left'                                       " Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDAltDelims_java = 1                                          " Set a language to use its alternate delimiters by default
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } } " Add your own custom formats or override the defaults
+let g:NERDCommentEmptyLines = 1                                       " Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDTrimTrailingWhitespace = 1                                  " Enable trimming of trailing whitespace when uncommenting
+let g:NERDToggleCheckAllLines = 1                                     " Enable NERDCommenterToggle to check all selected lines is commented or not
 
 
 " editorconfig
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
-
-" WhichKey
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call which_key#register(',', "g:which_key_map")
-nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>
-autocmd! FileType which_key
-autocmd  FileType which_key set laststatus=0 noshowmode noruler
-    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " GitGutter
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -384,15 +339,3 @@ nmap ga <Plug>(EasyAlign)
 " Beautify
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:beautify#default_outputter = 'current_buffer'
-
-" multiple-cursors
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:multi_cursor_use_default_mapping = 0
-let g:multi_cursor_start_word_key      = '<C-d>'
-let g:multi_cursor_select_all_word_key = '<A-n>'
-let g:multi_cursor_start_key           = 'g<C-d>'
-let g:multi_cursor_select_all_key      = 'g<A-d>'
-let g:multi_cursor_next_key            = '<C-d>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
