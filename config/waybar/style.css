@@ -1,0 +1,52 @@
+* {
+    border:        none;
+    border-radius: 0;
+    font-family:   system-ui, FontAwesome;
+    font-size:     13px;
+    box-shadow:    none;
+    text-shadow:   none;
+    transition-duration: 0.2s;
+}
+
+window#waybar {
+    background: rgb(43, 48, 59);
+    color: white;
+}
+
+#workspaces button {
+    border-top: 3px solid rgba(0,0,0,0);
+    color: white;
+    padding: 0 5px;
+}
+
+#workspaces button:hover {
+    background: rgba(0, 0, 0, 0.0);
+}
+
+#workspaces button.focused {
+    border-top: 3px solid white;
+}
+
+#workspaces button.urgent {
+    background: #dc322f;
+}
+
+#mode {
+    background: #74b9ff;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#battery, #cpu, #memory, #network, #pulseaudio, #idle_inhibitor, #backlight, #custom-weather, #custom-mediaplayer, #custom-pomodoro, #clock {
+    padding: 0;
+    margin: 0 10px;
+    min-width: 25px;
+}
+
+#battery.warning:not(.charging) {
+    color: #f39c12;
+}
+
+#battery.critical:not(.charging) {
+    color: #dc322f;
+}

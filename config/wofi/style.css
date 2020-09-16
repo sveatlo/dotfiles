@@ -1,0 +1,45 @@
+window {
+	background-color: rgba(--wofi-rgb-color0,1);
+	font-family: system-ui;
+    font-size: 1.2em;
+    color: --wofi-rgb-color1;
+}
+
+#outer-box {
+	/* border: 5px solid --wofi-color2; */
+	/* transition: 0.2s ease-in-out; */
+}
+
+/* #input image { */
+/*     color: rgba(0,0,0,0) */
+/* } */
+
+#input {
+	margin-bottom: 20px;
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	box-shadow: none;
+	background-color: --wofi-color0;
+    /* border: 5px solid --wofi-color3; */
+	border-radius: 0px;
+	/* transition: 0.2s ease-in-out; */
+    color: rgba(--wofi-rgb-color3, 0.5);
+}
+#input:focus {
+	background-color: rgba(--wofi-rgb-color2,0.2);
+}
+
+#entry {
+    display: block !important;
+    border-bottom: 1px solid #2e343f;
+	color: --wofi-color1;
+}
+
+#img {
+    margin-right: 15px;
+}
+
+#selected {
+    color: rgb(--wofi-rgb-color3);
+}

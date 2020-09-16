@@ -1,0 +1,7 @@
+show=drun,run
+stylesheet=style.css
+watch_css=true
+colors=colors
+insensitive=true
+allow_images=true
+image_size=20
