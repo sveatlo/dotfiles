@@ -9,3 +9,5 @@
 [url "git@git.moderntv.eu:"]
 	insteadOf = https://git.moderntv.eu/
     email = svatopluk.hanzel@moderntv.eu
+[pull]
+	rebase = true
