@@ -2,9 +2,10 @@ configuration {
     modi: "drun,window,ssh";
     combi-modi: "drun,window";
 
-    font: "Fira Sans 20";
+    font: "Fira Sans 14";
     theme: "slate";
 
     hide-scrollbar: true;
     show-icons: true;
+    lines: 20;
 }

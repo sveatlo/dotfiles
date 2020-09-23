@@ -256,21 +256,19 @@ bindsym XF86AudioNext exec --no-startup-id ~/.config/polybar/mpris-player-module
 bindsym XF86AudioPrev exec --no-startup-id ~/.config/polybar/mpris-player-module.py previous
 bindsym XF86Display exec "wdisplays"
 # start a program launcher
-# bindsym $mod+p exec "i3-dmenu-desktop"
-bindsym $mod+p exec wofi --show drun
+bindsym $mod+p exec rofi -modi drun -show drun
 bindsym $mod+Shift+d exec wldash
 # screen lock
 bindsym Control+$mod+l exec $lockcmd
 # printscreen
-bindsym Print exec grim - | wl-copy
-bindsym Shift+Print exec fn=/tmp/grim_$(date +%s); grim "$fn" && pinta "$fn"
+bindsym Print exec ~/src/scripts/screenshot.sh
 # clipman
-bindsym $mod+Shift+c exec clipman pick -t wofi
+bindsym $mod+Shift+c exec clipman pick -t rofi
 bindsym $mod+Mod1+Shift+c exec clipman clear -a
 
 bindsym $mod+backslash exec makoctl dismiss
 bindsym $mod+Shift+backslash exec makoctl dismiss -a
-bindsym $mod+slash exec makoctl menu wofi -d -p 'Choose Action: '
+bindsym $mod+slash exec makoctl menu rofi -dmenu -p 'Choose Action: '
 bindsym $mod+apostrophe exec makoctl restore
 
 #
@@ -477,7 +475,7 @@ mode "$mode_gaps_left" {
 #
 # exec xset s 90000 90000
 # exec xss-lock -l -- $lockcmd
-exec "wl-paste --watch clipman store -P"
+exec "wl-paste -t text --watch clipman store -P"
 exec swayidle -w timeout 90 "$lockcmd" timeout 60 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' timeout 3600 'systemctl suspend' before-sleep "$lockcmd"
 exec "/usr/share/sway/scripts/inactive-windows-transparency.py"
 exec_always "~/.config/waybar/waybar.sh"
@@ -486,10 +484,10 @@ exec "/usr/lib/kdeconnectd"
 exec "nm-applet --indicator"
 exec "kdeconnect-indicator"
 exec "udiskie"
-exec "mako"
 
 # # Restore layouts
 # exec ~/src/scripts/restore_layout.sh 1 $WS1
 # exec ~/src/scripts/restore_layout.sh 2 $WS2
 # exec ~/src/scripts/restore_layout.sh 5 $WS5
-# # exec ~/src/scripts/restore_layout.sh 20 $WS20
+# exec ~/src/scripts/restore_layout.sh 20 $WS20
+exec ~/src/scripts/startup.sh

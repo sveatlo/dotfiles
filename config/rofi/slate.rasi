@@ -12,7 +12,7 @@ inputbar {
 }
 
 prompt {
-  padding: 16px;
+  padding: 10px;
   border: 0 1px 0 0;
 }
 
@@ -20,11 +20,11 @@ textbox {
   background-color: #2e343f;
   border: 0 0 1px 0;
   border-color: #282C33;
-  padding: 8px 16px;
+  padding: 8px 8px;
 }
 
 entry {
-  padding: 16px;
+  padding: 10px 5px;
 }
 
 listview {
@@ -35,7 +35,11 @@ listview {
 
 element {
   border: 0 0 1px 0;
-  padding: 16px;
+  padding: 5px 2px;
+}
+
+element-icon {
+  size: 1.1em;
 }
 
 element selected {
