@@ -94,6 +94,7 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 alias zshconfig="$EDITOR $HOME/.zshrc"
 alias ohmyzsh="$EDITOR $HOME/.oh-my-zsh"
 alias vim="nvim"
+alias wttr="curl wttr.in"
 
 # Go
 export GOROOT=/usr/lib/go
