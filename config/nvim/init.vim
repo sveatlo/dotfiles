@@ -61,7 +61,6 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
 " General options
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let mapleader=","
 " set autochdir
 set autoread
@@ -212,6 +211,7 @@ nmap <silent> <Leader>gd <Plug>(coc-definition)
 nmap <silent> <Leader> gy <Plug>(coc-type-definition)
 nmap <silent> <Leader>gi <Plug>(coc-implementation)
 nmap <silent> <Leader>gr <Plug>(coc-references)
+nmap <silent> <Leader>o :CocList outline<CR>
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
