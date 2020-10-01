@@ -36,7 +36,8 @@
         "interval": 1800,
         "return-type": "json",
         "exec": "~/.config/waybar/modules/weather.sh",
-        "exec-if": "ping openweathermap.org -c1"
+        "exec-if": "ping openweathermap.org -c1",
+        "signal": 8
     },
     "idle_inhibitor": {
         "format": "{icon}",
