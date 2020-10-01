@@ -39,7 +39,7 @@ element {
 }
 
 element-icon {
-  size: 1.1em;
+  size: 1.2em;
 }
 
 element selected {
