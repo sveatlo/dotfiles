@@ -2,7 +2,7 @@
 # Variables
 #
 set $mod Mod4
-set $lockcmd swaylock -f -i ~/Pictures/wallpapers/nebula.jpg
+set $lockcmd swaylock -f -i ~/Pictures/wallpapers/c58adb_5406268.jpg
 # Workspaces
 set $WS1 "1 www"
 set $WS2 "2 term"
@@ -36,6 +36,7 @@ input type:keyboard {
     xkb_layout "us,sk"
     xkb_variant ",qwerty"
     xkb_options "grp:win_space_toggle"
+    xkb_numlock enabled
 }
 input type:touchpad {
     tap enabled
@@ -51,6 +52,9 @@ output eDP-1 {
 }
 output DP-3 {
     # bg ~/Pictures/wallpapers/pink-2.jpg fill
+    bg ~/Pictures/wallpapers/macos-1.jpg fill
+}
+output DP-1 {
     bg ~/Pictures/wallpapers/macos-1.jpg fill
 }
 seat * hide_cursor 10000
@@ -257,7 +261,7 @@ bindsym XF86AudioPrev exec --no-startup-id ~/.config/polybar/mpris-player-module
 bindsym XF86Display exec "wdisplays"
 # start a program launcher
 bindsym $mod+p exec rofi -modi drun -show drun
-bindsym $mod+Shift+d exec wldash
+bindsym $mod+Mod1+p exec wldash
 # screen lock
 bindsym Control+$mod+l exec $lockcmd
 # printscreen
