@@ -103,7 +103,7 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 export GOPRIVATE=git.moderntv.eu
 
 # Java
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/
+export JAVA_HOME=/usr/lib/jvm/java-14-openjdk/
 # Android
 export ANDROID_HOME=/opt/android-sdk
 export PATH="$PATH:/opt/android-sdk/tools:/opt/android-sdk/platform-tools"
