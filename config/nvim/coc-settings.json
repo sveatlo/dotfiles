@@ -10,8 +10,10 @@
     "rust",
     "typescript",
     "typescript.tsx",
-    "typescriptreact"
+    "typescriptreact",
+    "yaml"
   ],
+
   "languageserver": {
     "ccls": {
       "command": "ccls",
@@ -30,11 +32,17 @@
       }
     }
   },
+
   "go.goplsOptions": {
     "completeUnimported": true
   },
+
   "python.condaPath": "conda",
   "python.sortImports.path": "isort",
+
   "rust.all_features": true,
-  "rust.clippy_preference": "on"
+  "rust.clippy_preference": "on",
+
+  "yaml.validate": true,
+  "yaml.format.enable": true
 }
