@@ -1,2 +1,4 @@
 color1 = 4
 color2 = 2
+
+visualizer_fifo_path = "/tmp/mpd.fifo"
