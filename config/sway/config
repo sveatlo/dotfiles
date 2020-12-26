@@ -2,7 +2,7 @@
 # Variables
 #
 set $mod Mod4
-set $lockcmd swaylock -f -i ~/Pictures/wallpapers/c58adb_5406268.jpg
+set $lockcmd swaylock -f -i /usr/share/backgrounds/archlinux/archbtw.png
 # Workspaces
 set $WS1 "1 www"
 set $WS2 "2 term"
@@ -48,14 +48,14 @@ input type:touchpad {
 output eDP-1 {
     scale 1.5
     # bg ~/Pictures/wallpapers/pink.jpg fill
-    bg ~/Pictures/wallpapers/macos-0.jpg fill
+    bg /usr/share/backgrounds/archlinux/wave.png fill
 }
 output DP-3 {
     # bg ~/Pictures/wallpapers/pink-2.jpg fill
-    bg ~/Pictures/wallpapers/macos-1.jpg fill
+    bg /usr/share/backgrounds/archlinux/wave.png fill
 }
 output DP-1 {
-    bg ~/Pictures/wallpapers/macos-1.jpg fill
+    bg /usr/share/backgrounds/archlinux/wave.png fill
 }
 seat * hide_cursor 10000
 seat seat0 xcursor_theme default 16
@@ -167,57 +167,57 @@ bindsym $mod+Shift+R exec ~/src/scripts/i3_rename_title.sh parent
 bindsym $mod+semicolon move workspace to output left
 bindsym $mod+Shift+semicolon move workspace to output right
 # switch to workspace
-bindsym $mod+1 workspace $WS1
-bindsym $mod+2 workspace $WS2
-bindsym $mod+3 workspace $WS3
-bindsym $mod+4 workspace $WS4
-bindsym $mod+5 workspace $WS5
-bindsym $mod+6 workspace $WS6
-bindsym $mod+7 workspace $WS7
-bindsym $mod+8 workspace $WS8
-bindsym $mod+9 workspace $WS9
-bindsym $mod+0 workspace $WS10
-bindsym $mod+Mod1+1 workspace $WS11
-bindsym $mod+Mod1+2 workspace $WS12
-bindsym $mod+Mod1+3 workspace $WS13
-bindsym $mod+Mod1+4 workspace $WS14
-bindsym $mod+Mod1+5 workspace $WS15
-bindsym $mod+Mod1+6 workspace $WS16
-bindsym $mod+Mod1+7 workspace $WS17
-bindsym $mod+Mod1+8 workspace $WS18
-bindsym $mod+Mod1+9 workspace $WS19
-bindsym $mod+Mod1+0 workspace $WS20
+bindsym --to-code $mod+1 workspace $WS1
+bindsym --to-code $mod+2 workspace $WS2
+bindsym --to-code $mod+3 workspace $WS3
+bindsym --to-code $mod+4 workspace $WS4
+bindsym --to-code $mod+5 workspace $WS5
+bindsym --to-code $mod+6 workspace $WS6
+bindsym --to-code $mod+7 workspace $WS7
+bindsym --to-code $mod+8 workspace $WS8
+bindsym --to-code $mod+9 workspace $WS9
+bindsym --to-code $mod+0 workspace $WS10
+bindsym --to-code $mod+Mod1+1 workspace $WS11
+bindsym --to-code $mod+Mod1+2 workspace $WS12
+bindsym --to-code $mod+Mod1+3 workspace $WS13
+bindsym --to-code $mod+Mod1+4 workspace $WS14
+bindsym --to-code $mod+Mod1+5 workspace $WS15
+bindsym --to-code $mod+Mod1+6 workspace $WS16
+bindsym --to-code $mod+Mod1+7 workspace $WS17
+bindsym --to-code $mod+Mod1+8 workspace $WS18
+bindsym --to-code $mod+Mod1+9 workspace $WS19
+bindsym --to-code $mod+Mod1+0 workspace $WS20
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $WS1
-bindsym $mod+Shift+2 move container to workspace $WS2
-bindsym $mod+Shift+3 move container to workspace $WS3
-bindsym $mod+Shift+4 move container to workspace $WS4
-bindsym $mod+Shift+5 move container to workspace $WS5
-bindsym $mod+Shift+6 move container to workspace $WS6
-bindsym $mod+Shift+7 move container to workspace $WS7
-bindsym $mod+Shift+8 move container to workspace $WS8
-bindsym $mod+Shift+9 move container to workspace $WS9
-bindsym $mod+Shift+0 move container to workspace $WS10
-bindsym $mod+Mod1+Shift+1 move container to workspace $WS11
-bindsym $mod+Mod1+Shift+2 move container to workspace $WS12
-bindsym $mod+Mod1+Shift+3 move container to workspace $WS13
-bindsym $mod+Mod1+Shift+4 move container to workspace $WS14
-bindsym $mod+Mod1+Shift+5 move container to workspace $WS15
-bindsym $mod+Mod1+Shift+6 move container to workspace $WS16
-bindsym $mod+Mod1+Shift+7 move container to workspace $WS17
-bindsym $mod+Mod1+Shift+8 move container to workspace $WS18
-bindsym $mod+Mod1+Shift+9 move container to workspace $WS19
-bindsym $mod+Mod1+Shift+0 move container to workspace $WS20
+bindsym --to-code $mod+Shift+1 move container to workspace $WS1
+bindsym --to-code $mod+Shift+2 move container to workspace $WS2
+bindsym --to-code $mod+Shift+3 move container to workspace $WS3
+bindsym --to-code $mod+Shift+4 move container to workspace $WS4
+bindsym --to-code $mod+Shift+5 move container to workspace $WS5
+bindsym --to-code $mod+Shift+6 move container to workspace $WS6
+bindsym --to-code $mod+Shift+7 move container to workspace $WS7
+bindsym --to-code $mod+Shift+8 move container to workspace $WS8
+bindsym --to-code $mod+Shift+9 move container to workspace $WS9
+bindsym --to-code $mod+Shift+0 move container to workspace $WS10
+bindsym --to-code $mod+Mod1+Shift+1 move container to workspace $WS11
+bindsym --to-code $mod+Mod1+Shift+2 move container to workspace $WS12
+bindsym --to-code $mod+Mod1+Shift+3 move container to workspace $WS13
+bindsym --to-code $mod+Mod1+Shift+4 move container to workspace $WS14
+bindsym --to-code $mod+Mod1+Shift+5 move container to workspace $WS15
+bindsym --to-code $mod+Mod1+Shift+6 move container to workspace $WS16
+bindsym --to-code $mod+Mod1+Shift+7 move container to workspace $WS17
+bindsym --to-code $mod+Mod1+Shift+8 move container to workspace $WS18
+bindsym --to-code $mod+Mod1+Shift+9 move container to workspace $WS19
+bindsym --to-code $mod+Mod1+Shift+0 move container to workspace $WS20
 # switch to last workspace
-bindsym $mod+grave workspace back_and_forth
-bindsym $mod+button2 workspace back_and_forth
+bindsym --to-code $mod+grave workspace back_and_forth
+bindsym --to-code $mod+button2 workspace back_and_forth
 # switch to next/prev workspace
-# bindsym $mod+Tab workspace next
-# bindsym $mod+Shift+Tab workspace prev
-# bindsym $mod+button7 workspace next
-# bindsym $mod+button6 workspace prev
-bindsym $mod+Tab workspace next_on_output
-bindsym $mod+Shift+Tab workspace prev_on_output
+# bindsym --to-code $mod+Tab workspace next
+# bindsym --to-code $mod+Shift+Tab workspace prev
+# bindsym --to-code $mod+button7 workspace next
+# bindsym --to-code $mod+button6 workspace prev
+bindsym --to-code $mod+Tab workspace next_on_output
+bindsym --to-code $mod+Shift+Tab workspace prev_on_output
 bindsym $mod+button7 workspace next_on_output
 bindsym $mod+button6 workspace prev_on_output
 
@@ -245,14 +245,12 @@ mode "$mode_player" {
     bindcode Control+34 mode "default"
 }
 # Pulse Audio controls
-set $volumeupdate pkill -SIGRTMIN+10 i3blocks
-bindsym XF86AudioRaiseVolume exec --no-startup-id ~/src/scripts/volume.sh up  && $volumeupdate
-bindsym XF86AudioLowerVolume exec --no-startup-id ~/src/scripts/volume.sh down && $volumeupdate
-bindsym XF86AudioMute exec --no-startup-id ~/src/scripts/volume.sh mute && $volumeupdate
+bindsym --locked XF86AudioRaiseVolume exec --no-startup-id ~/src/scripts/volume.sh up
+bindsym --locked XF86AudioLowerVolume exec --no-startup-id ~/src/scripts/volume.sh down
+bindsym --locked XF86AudioMute exec --no-startup-id ~/src/scripts/volume.sh mute
 # Sreen brightness controls
-set $brightnessupdate pkill -SIGRTMIN+16 i3blocks
-bindsym XF86MonBrightnessUp exec --no-startup-id ~/src/scripts/brightness.sh up && $brightnessupdate
-bindsym XF86MonBrightnessDown exec --no-startup-id ~/src/scripts/brightness.sh down && $brightnessupdate
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/src/scripts/brightness.sh up
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/src/scripts/brightness.sh down
 # Media player controls
 bindsym XF86AudioPlay exec --no-startup-id ~/.config/polybar/mpris-player-module.py play-pause
 bindsym XF86AudioPause exec --no-startup-id ~/.config/polybar/mpris-player-module.py play-pause
@@ -477,21 +475,22 @@ mode "$mode_gaps_left" {
 #
 # Autostart
 #
-# exec xset s 90000 90000
-# exec xss-lock -l -- $lockcmd
 exec "wl-paste -t text --watch clipman store -P"
-exec swayidle -w timeout 90 "$lockcmd" timeout 60 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' timeout 3600 'systemctl suspend' before-sleep "$lockcmd"
+exec swayidle \
+    timeout 90 "$lockcmd" \
+    timeout 60 'swaymsg "output * dpms off"' \
+        resume 'swaymsg "output * dpms on"' \
+    timeout 60 'makoctl set default-timeout=0' \
+        resume 'makoctl set default-timeout=5000 && sleep 15 && makoctl dismiss --all' \
+    timeout 3600 'systemctl suspend' \
+    before-sleep "$lockcmd"
 exec "/usr/share/sway/scripts/inactive-windows-transparency.py"
 exec_always "~/.config/waybar/waybar.sh"
 # exec --no-startup-id "touchegg"
 exec "/usr/lib/kdeconnectd"
 exec "nm-applet --indicator"
 exec "kdeconnect-indicator"
+exec "lxsession"
 exec "udiskie"
 
-# # Restore layouts
-# exec ~/src/scripts/restore_layout.sh 1 $WS1
-# exec ~/src/scripts/restore_layout.sh 2 $WS2
-# exec ~/src/scripts/restore_layout.sh 5 $WS5
-# exec ~/src/scripts/restore_layout.sh 20 $WS20
 exec ~/src/scripts/startup.sh
