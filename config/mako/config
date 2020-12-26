@@ -7,6 +7,7 @@ border-size=2
 font=system-ui 11
 icons=0
 max-icon-size=32
+default-timeout=5000
 
 format=%a\n<b>%s</b>\n%b
 
@@ -20,6 +21,9 @@ format=(A) %a\n<b>%s</b>\n%b
 format=%a\n<b>%s</b>\n%b
 group-by=app-name
 default-timeout=1000
+
+[app-name="KDE Connect" summary="KDE Connect"]
+invisible=1
 
 [app-name="KDE Connect"]
 default-timeout=5000
