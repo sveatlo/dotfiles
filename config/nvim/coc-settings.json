@@ -34,7 +34,9 @@
   },
 
   "go.goplsOptions": {
-    "completeUnimported": true
+    "completeUnimported": true,
+    "experimentalDiagnosticsDelay": "100ms",
+    "usePlaceholders": true
   },
 
   "python.condaPath": "conda",

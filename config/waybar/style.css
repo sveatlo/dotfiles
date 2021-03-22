@@ -24,7 +24,7 @@ window#waybar {
 }
 
 #workspaces button.focused {
-    border-top: 3px solid white;
+    border-top: 3px solid #43a5d5;
 }
 
 #workspaces button.urgent {
@@ -32,7 +32,7 @@ window#waybar {
 }
 
 #mode {
-    background: #74b9ff;
+    background: #43a5d5;
     padding-left: 10px;
     padding-right: 10px;
 }

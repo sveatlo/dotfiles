@@ -1,0 +1,52 @@
+# default modifier key
+set $mod Mod4
+# use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+set $scripts_dir $HOME/src/scripts
+
+set $background /usr/share/backgrounds/archlinux/wave.png
+
+# lockscreen configuration
+set $locker swaylock --daemonize -f -i /usr/share/backgrounds/archlinux/archbtw.png
+
+# idle
+set $idle swayidle \
+    timeout 60 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+    timeout 60 'makoctl set default-timeout=0' resume 'makoctl set default-timeout=5000 && sleep 15 && makoctl dismiss --all' \
+    timeout 90 "$locker" \
+    timeout 3600 'systemctl suspend' \
+    before-sleep "$locker" \
+    idlehint 90
+
+
+# Workspaces
+set $WS1 "1 www"
+set $WS2 "2 term"
+set $WS3 "3 edit"
+set $WS4 "4 AV"
+set $WS5 "5 IM"
+set $WS6 6
+set $WS7 7
+set $WS8 8
+set $WS9 "9 not porn"
+set $WS10 "10 misc"
+set $WS11 11
+set $WS12 12
+set $WS13 13
+set $WS14 14
+set $WS15 15
+set $WS16 16
+set $WS17 17
+set $WS18 18
+set $WS19 19
+set $WS20 "20 mon"
+
+# shutdown command
+set $shutdown wlogout --buttons-per-row 3
+
+# onscreen bar
+set $onscreen_bar bash /usr/share/sway/scripts/wob.sh
+
+# calendar application
+set $calendar $term_float "khal interactive"

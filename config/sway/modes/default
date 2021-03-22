@@ -1,0 +1,161 @@
+#
+# Window management
+#
+# kill focused window
+bindsym $mod+c kill
+# focus window requiring action
+bindsym $mod+a [urgent=latest] focus
+# split in horizontal orientation
+bindsym $mod+g split h
+# split in vertical orientation
+bindsym $mod+v split v
+# change container layout (tabbed, toggle split)
+bindsym $mod+n layout tabbed
+# container navigation
+bindsym $mod+d focus parent
+bindsym $mod+b focus child
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Up focus up
+bindsym $mod+Down focus down
+bindsym $mod+Right focus right
+bindsym Mod1+Tab focus right
+bindsym Mod1+Shift+Tab focus left
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Right move right
+bindsym $mod+x layout toggle all
+# Toggle fullscreen
+bindsym $mod+f fullscreen toggle
+# Toggle floating/tiling
+bindsym $mod+t floating toggle
+# Toggle sticky window
+bindsym $mod+Shift+s sticky toggle
+# change focus between tiling / floating windows
+bindsym $mod+Shift+t focus mode_toggle
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
+# rename focused window
+bindsym $mod+Shift+R exec $scripts_dir/i3_rename_title.sh parent
+
+
+#
+# Workspaces management
+#
+# multimonitor shortcuts
+bindsym $mod+semicolon move workspace to output left
+bindsym $mod+Shift+semicolon move workspace to output right
+# switch to workspace
+bindsym --to-code $mod+1 workspace $WS1
+bindsym --to-code $mod+2 workspace $WS2
+bindsym --to-code $mod+3 workspace $WS3
+bindsym --to-code $mod+4 workspace $WS4
+bindsym --to-code $mod+5 workspace $WS5
+bindsym --to-code $mod+6 workspace $WS6
+bindsym --to-code $mod+7 workspace $WS7
+bindsym --to-code $mod+8 workspace $WS8
+bindsym --to-code $mod+9 workspace $WS9
+bindsym --to-code $mod+0 workspace $WS10
+bindsym --to-code $mod+Mod1+1 workspace $WS11
+bindsym --to-code $mod+Mod1+2 workspace $WS12
+bindsym --to-code $mod+Mod1+3 workspace $WS13
+bindsym --to-code $mod+Mod1+4 workspace $WS14
+bindsym --to-code $mod+Mod1+5 workspace $WS15
+bindsym --to-code $mod+Mod1+6 workspace $WS16
+bindsym --to-code $mod+Mod1+7 workspace $WS17
+bindsym --to-code $mod+Mod1+8 workspace $WS18
+bindsym --to-code $mod+Mod1+9 workspace $WS19
+bindsym --to-code $mod+Mod1+0 workspace $WS20
+# move focused container to workspace
+bindsym --to-code $mod+Shift+1 move container to workspace $WS1
+bindsym --to-code $mod+Shift+2 move container to workspace $WS2
+bindsym --to-code $mod+Shift+3 move container to workspace $WS3
+bindsym --to-code $mod+Shift+4 move container to workspace $WS4
+bindsym --to-code $mod+Shift+5 move container to workspace $WS5
+bindsym --to-code $mod+Shift+6 move container to workspace $WS6
+bindsym --to-code $mod+Shift+7 move container to workspace $WS7
+bindsym --to-code $mod+Shift+8 move container to workspace $WS8
+bindsym --to-code $mod+Shift+9 move container to workspace $WS9
+bindsym --to-code $mod+Shift+0 move container to workspace $WS10
+bindsym --to-code $mod+Mod1+Shift+1 move container to workspace $WS11
+bindsym --to-code $mod+Mod1+Shift+2 move container to workspace $WS12
+bindsym --to-code $mod+Mod1+Shift+3 move container to workspace $WS13
+bindsym --to-code $mod+Mod1+Shift+4 move container to workspace $WS14
+bindsym --to-code $mod+Mod1+Shift+5 move container to workspace $WS15
+bindsym --to-code $mod+Mod1+Shift+6 move container to workspace $WS16
+bindsym --to-code $mod+Mod1+Shift+7 move container to workspace $WS17
+bindsym --to-code $mod+Mod1+Shift+8 move container to workspace $WS18
+bindsym --to-code $mod+Mod1+Shift+9 move container to workspace $WS19
+bindsym --to-code $mod+Mod1+Shift+0 move container to workspace $WS20
+# switch to last workspace
+bindsym --to-code $mod+grave workspace back_and_forth
+bindsym --to-code $mod+button2 workspace back_and_forth
+# switch to next/prev workspace
+# bindsym --to-code $mod+Tab workspace next
+# bindsym --to-code $mod+Shift+Tab workspace prev
+# bindsym --to-code $mod+button7 workspace next
+# bindsym --to-code $mod+button6 workspace prev
+bindsym --to-code $mod+Tab workspace next_on_output
+bindsym --to-code $mod+Shift+Tab workspace prev_on_output
+bindsym $mod+button7 workspace next_on_output
+bindsym $mod+button6 workspace prev_on_output
+
+
+
+#
+# Shortcuts
+#
+# start a terminal
+bindsym $mod+Return exec kitty
+# start a file manager
+bindsym $mod+e exec kitty --class ranger -e ranger
+bindsym $mod+Shift+e exec pcmanfm
+# Pulse Audio controls
+bindsym --locked XF86AudioRaiseVolume exec --no-startup-id $scripts_dir/volume.sh up
+bindsym --locked XF86AudioLowerVolume exec --no-startup-id $scripts_dir/volume.sh down
+bindsym --locked XF86AudioMute exec --no-startup-id $scripts_dir/volume.sh mute
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec --no-startup-id $scripts_dir/brightness.sh up
+bindsym XF86MonBrightnessDown exec --no-startup-id $scripts_dir/brightness.sh down
+# Media player controls
+bindsym XF86AudioPlay exec --no-startup-id ~/.config/polybar/mpris-player-module.py play-pause
+bindsym XF86AudioPause exec --no-startup-id ~/.config/polybar/mpris-player-module.py play-pause
+bindsym XF86AudioNext exec --no-startup-id ~/.config/polybar/mpris-player-module.py next
+bindsym XF86AudioPrev exec --no-startup-id ~/.config/polybar/mpris-player-module.py previous
+bindsym XF86Display exec "wdisplays"
+# start a program launcher
+bindsym $mod+p exec rofi -modi drun -show drun
+bindsym $mod+Mod1+p exec wldash
+# screen lock
+bindsym Control+$mod+l exec $locker
+# printscreen
+bindsym Print exec $scripts_dir/screenshot.sh
+# clipman
+bindsym $mod+Shift+c exec clipman pick -t rofi
+bindsym $mod+Mod1+Shift+c exec clipman clear -a
+# rofimoji
+bindsym $mod+Mod1+e exec rofimoji
+
+bindsym $mod+backslash exec makoctl dismiss
+bindsym $mod+Shift+backslash exec makoctl dismiss -a
+bindsym $mod+slash exec makoctl menu rofi -dmenu -p 'Choose Action: '
+bindsym $mod+apostrophe exec makoctl restore
+
+#
+# MISC
+#
+bindsym $mod+z reload
+bindsym $mod+Shift+z restart
+bindsym $mod+Mod1+Shift+z exit

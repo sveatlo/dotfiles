@@ -1,0 +1,46 @@
+# based on Base16 Seti UI
+# Author: Appelgriebsch
+
+# some global theme specific variables
+set $gtk-theme Arc-Dark
+set $icon-theme Papirus-Dark
+set $cursor-theme Adwaita
+set $gui-font system-ui 12
+set $term-font monospace 12
+set $kvantum-theme KvArcDark
+
+# Colours
+set $bg-color            #2F343F
+set $inactive-bg-color   #24272D
+set $text-color          #FFFFFF
+set $inactive-text-color #AAAAAA
+set $urgent-bg-color     #900000
+set $blue-dim            #3B758C
+set $blue-bright         #43a5d5
+set $gray-dark           #41535B
+
+# Basic color configuration using the Base16 variables for windows and borders.
+# Property Name         Border              BG                  Text                    Indicator           Child Border
+client.focused          $bg-color           $bg-color           $text-color             $bg-color           $blue-bright
+client.unfocused        $inactive-bg-color  $inactive-bg-color  $inactive-text-color    $inactive-bg-color  $inactive-bg-color
+client.focused_inactive $inactive-bg-color  $inactive-bg-color  $inactive-text-color    $inactive-bg-color  $gray-dark
+client.urgent           $urgent-bg-color    $urgent-bg-color    $text-color             $bg-color           $urgent-bg-color
+
+set $theme_template_script "s/GTK_THEME/$gtk-theme/g; s/ICON_THEME/$icon-theme/g; s/CURSOR_THEME/$cursor-theme/g; s/GUI_FONT/$gui-font/g; s/KVANTUM_THEME/$kvantum-theme/g; s/BACKGROUND_COLOR/$base00/g; s/ACCENT_COLOR/$base0D/g; s/TEXT_COLOR/$base06/g; s/TERM_FONT/$term-font/g;"
+
+
+font pango:system-ui 10px
+default_border pixel 3
+hide_edge_borders smart
+focus_follows_mouse  no
+#don't move to neighbouring screen with hjkl
+focus_wrapping force
+
+# Set gaps
+gaps inner 10
+gaps outer 10
+# smart_gaps on
+workspace $WS1 gaps outer 0
+workspace $WS1 gaps inner 0
+workspace $WS5 gaps outer 15
+workspace $WS5 gaps inner 0

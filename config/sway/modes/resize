@@ -1,0 +1,20 @@
+set $mode_resize "resize"
+
+bindsym $mod+r mode "$mode_resize"
+mode "$mode_resize" {
+    bindsym h   resize shrink width 5 px or 5 ppt
+    bindsym j   resize grow height 5 px or 5 ppt
+    bindsym k   resize shrink height 5 px or 5 ppt
+    bindsym l   resize grow width 5 px or 5 ppt
+
+    # the same with arrows
+    bindsym Left    resize shrink width 5 px or 5 ppt
+    bindsym Up      resize grow height 5 px or 5 ppt
+    bindsym Down    resize shrink height 5 px or 5 ppt
+    bindsym Right   resize grow width 5 px or 5 ppt
+
+
+    # back to normal: Enter or Escape or q or ^[
+    bindsym q mode "default"
+    bindsym Escape mode "default"
+}

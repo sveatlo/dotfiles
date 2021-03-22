@@ -2,19 +2,19 @@
 # This file is supposed to be linked as ~/.zlogin, ~/.zprofile or ~/.profile
 #
 
-
 echo "Welcome back, $(whoami)!"
 
-# export GDK_BACKEND=wayland
-export MOZ_ENABLE_WAYLAND=1
-export QT_QPA_PLATFORM=wayland
-export CLUTTER_BACKEND=wayland
-export SDL_VIDEODRIVER=wayland
-export ECORE_EVAS_ENGINE=wayland_egl
-export ELM_ENGINE=wayland_egl
-export SAL_USE_VCLPLUGIN=gtk3
+# set default shell and terminal
+export SHELL=/usr/bin/zsh
+export TERM=xterm
+export TERMINAL_COMMAND='/usr/bin/kitty'
 
-export XDG_CURRENT_DESKTOP=Unity
+# make default editor Neovim
+export EDITOR=nvim
 
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec sway
+# sway-launcher-desktop with material icons
+export GLYPH_DESKTOP="󰄶 "
+export GLYPH_COMMAND="󰆍 "
+
+# [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec sway
 # [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx

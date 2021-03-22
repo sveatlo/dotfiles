@@ -1,4 +1,4 @@
-layer=top
+layer=overlay
 width=350
 height=1000
 padding=10
@@ -26,14 +26,14 @@ default-timeout=1000
 invisible=1
 
 [app-name="KDE Connect"]
-default-timeout=5000
+default-timeout=8000
 
 [urgency=low]
 background-color=#404040
 border-color=#aaaaaa
 text-color=#cccccc
 
-[urgency=high]
+[urgency=critical]
 background-color=#ae1c19
 border-color=#dc322f
 ignore-timeout=1

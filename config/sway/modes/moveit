@@ -1,0 +1,20 @@
+set $mode_moveit "moveit"
+
+bindsym Mod4+m focus floating; mode "$mode_moveit"
+mode "$mode_moveit" {
+    bindsym h move left 50px
+    bindsym j move up 50px
+    bindsym k move down 50px
+    bindsym l move right 50px
+
+    bindsym Left move left 50px
+    bindsym Up move up 50px
+    bindsym Down move down 50px
+    bindsym Right move right 50px
+
+    # back to normal: Enter or Escape or q or ^[
+    bindsym Return mode "default"
+    bindsym q mode "default"
+    bindsym Escape mode "default"
+    bindcode Control+34 mode "default"
+}

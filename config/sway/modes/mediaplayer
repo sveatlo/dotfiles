@@ -1,0 +1,12 @@
+# start music player
+set $mode_player Player: (n)cmpcpp (s)potify (y)outube
+bindsym $mod+Shift+m mode "$mode_player"
+mode "$mode_player" {
+    bindsym s exec spotify; mode "default"
+    bindsym n exec kitty --class ncmpcpp -e ncmpcpp; mode "default"
+    bindsym y exec firefox --new-window https://youtube.com; mode "default"
+
+    # back to normal: Enter or Escape or q or ^[
+    bindsym q mode "default"
+    bindsym Escape mode "default"
+}

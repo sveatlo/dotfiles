@@ -1,0 +1,22 @@
+# I/O config
+input type:keyboard {
+    xkb_layout "us,sk"
+    xkb_variant ",qwerty"
+    xkb_options "grp:win_space_toggle"
+    xkb_numlock enabled
+}
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+    dwt enabled
+    scroll_factor 0.5
+    tap_button_map lmr
+}
+output eDP-1 {
+    scale 1.5
+}
+output * {
+    bg $background fill
+}
+seat * hide_cursor 10000
+seat seat0 xcursor_theme default 16

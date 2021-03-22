@@ -1,116 +1,145 @@
 {
-    "layer": "top",
-    /* "height": 25, */
-    "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["custom/mediaplayer"],
-    "modules-right": ["custom/weather", "idle_inhibitor", "pulseaudio", "backlight", "battery", "network", "clock", "tray"],
+  "layer": "top",
+  /* "height": 25, */
+  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-center": ["custom/mediaplayer"],
+  "modules-right": [
+    "custom/sunpaper",
+    "custom/weather",
+    "temperature",
+    "cpu",
+    "idle_inhibitor",
+    "pulseaudio",
+    "backlight",
+    "battery",
+    "network",
+    "clock",
+    "tray"
+  ],
+  "custom/sunpaper": {
+    "exec": "~/src/dotfiles/sunpaper/sunpaper.sh",
+    "interval": 60,
+    "tooltip": false
+  },
 
-    "sway/workspaces": {
-        "all-outputs": true
-    },
+  "sway/workspaces": {
+    "all-outputs": true
+  },
 
-    "custom/mediaplayer": {
-        "format": {},
-        "tooltip": false,
-        /* "max-length": 48, */
-        "exec": "~/.config/waybar/modules/mediaplayer.sh",
-        "on-click": "~/src/scripts/mpris-player.py previous",
-        "on-click-right": "~/src/scripts/mpris-player.py next",
-        "on-click-middle": "~/src/scripts/mpris-player.py play-pause"
-    },
-    "custom/pomodoro": {
-        "format": {},
-        "tooltip": false,
-        "exec": "~/.config/waybar/modules/pomodoro-timer",
-        "on-click": "~/.config/waybar/modules/pomodoro-timer toggle",
-        "on-click-right": "~/.config/waybar/modules/pomodoro-timer end",
-        "on-click-middle": "~/.config/waybar/modules/pomodoro-timer lock",
-        "on-scroll-up": "~/.config/waybar/modules/pomodoro-timer time +60",
-        "on-scroll-down": "~/.config/waybar/modules/pomodoro-timer time -60"
-    },
+  "custom/mediaplayer": {
+    "format": {},
+    "tooltip": false,
+    /* "max-length": 48, */
+    "exec": "~/.config/waybar/modules/mediaplayer.sh",
+    "on-click": "~/src/scripts/mpris-player.py previous",
+    "on-click-right": "~/src/scripts/mpris-player.py next",
+    "on-click-middle": "~/src/scripts/mpris-player.py play-pause"
+  },
+  "custom/pomodoro": {
+    "format": {},
+    "tooltip": false,
+    "exec": "~/.config/waybar/modules/pomodoro-timer",
+    "on-click": "~/.config/waybar/modules/pomodoro-timer toggle",
+    "on-click-right": "~/.config/waybar/modules/pomodoro-timer end",
+    "on-click-middle": "~/.config/waybar/modules/pomodoro-timer lock",
+    "on-scroll-up": "~/.config/waybar/modules/pomodoro-timer time +60",
+    "on-scroll-down": "~/.config/waybar/modules/pomodoro-timer time -60"
+  },
 
-    "custom/weather": {
-        "format": "{}",
-        "format-alt": "{alt}",
-        "format-alt-click": "click-left",
-        "interval": 1800,
-        "return-type": "json",
-        "exec": "~/.config/waybar/modules/weather.sh",
-        "exec-if": "ping openweathermap.org -c1",
-        "signal": 8
-    },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{icon} {volume}%",
-        "format-bluetooth": "{icon} {volume}%",
-        "format-bluetooth-muted": " ",
-        "format-muted": " ",
-        "format-source": " {volume}%",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            /* "hands-free": "", */
-            /* "headset": "", */
-            /* "phone": "", */
-            /* "portable": "", */
-            /* "car": "", */
-            "default": ["", "", ""]
-        },
-        "on-scroll-up": "~/src/scripts/volume.sh up",
-        "on-scroll-down": "~/src/scripts/volume.sh down",
-        "on-click": "pavucontrol"
-    },
-    "backlight": {
-        "format": "{icon} {percent}%",
-        "format-icons": ["<span font='FontAwesomeLight'></span>", "", ""],
-
-        "on-scroll-up": "~/src/scripts/brightness.sh up",
-        "on-scroll-down": "~/src/scripts/brightness.sh down"
-    },
-    "battery": {
-        "bat": "BAT0",
-        "adapter": "AC",
-        "format": "{icon}",
-        "format-alt": "{capacity}% - {time}",
-        "format-icons": ["", "", "", "", ""],
-        "format-charging": "",
-        "format-charging-alt": "{capacity}% - {time}",
-        "interval": 30,
-        "states": {
-            "warning": 20,
-            "critical": 15
-        },
-        "tooltip": true
-    },
-    "network": {
-        "format-wifi": "{icon} {essid} ({signalStrength}%)",
-        "format-ethernet": "{icon}",
-        "format-linked": " {ifname} (No IP)",
-        "format-disconnected": "⚠ Disconnected",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
-        "format-icons": {
-            "wifi": ["", "" ,""],
-            "ethernet": [""],
-            "disconnected": [""]
-        },
-        "tooltip": false,
-        "interval": 10
-    },
-    "clock": {
-        "format": "{:%H:%M:%S}",
-        "format-alt": "{:%a %b %d %H:%M:%S}",
-        "interval": 5,
-        "on-click-right": "gsimplecal &!"
-    },
-    "tray": {
-        "icon-size": 15
+  "custom/weather": {
+    "format": "{}",
+    "format-alt": "{alt}",
+    "format-alt-click": "click-left",
+    "interval": 1800,
+    "return-type": "json",
+    "exec": "~/.config/waybar/modules/weather.sh",
+    "exec-if": "ping openweathermap.org -c1",
+    "signal": 8
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
     }
-}
+  },
+  "cpu": {
+      "interval": 10,
+      "format": " {}%",
+  },
+  "temperature": {
+    "interval": 5,
+    "hwmon-path": "/sys/class/hwmon/hwmon7/temp1_input",
+    "format": " {temperatureC}°C"
+  },
+  "custom/layout": {
+    "tooltip": false,
+    "exec": "swaymsg -mrt subscribe '[\"input\"]' | jq -r --unbuffered \"select(.change == \\\"xkb_layout\\\") | .input | select(.identifier == \\\"1:1:AT_Translated_Set_2_keyboard\\\" and .type == \\\"keyboard\\\") | .xkb_active_layout_name | .[0:2] | ascii_upcase\""
+  },
+  "pulseaudio": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-bluetooth-muted": " ",
+    "format-muted": " ",
+    "format-source": " {volume}%",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      /* "hands-free": "", */
+      /* "headset": "", */
+      /* "phone": "", */
+      /* "portable": "", */
+      /* "car": "", */
+      "default": ["", "", ""]
+    },
+    "on-scroll-up": "~/src/scripts/volume.sh up",
+    "on-scroll-down": "~/src/scripts/volume.sh down",
+    "on-click": "pavucontrol"
+  },
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": ["<span font='FontAwesomeLight'></span>", "", ""],
 
+    "on-scroll-up": "~/src/scripts/brightness.sh up",
+    "on-scroll-down": "~/src/scripts/brightness.sh down"
+  },
+  "battery": {
+    "bat": "BAT0",
+    "adapter": "AC",
+    "format": "{icon}",
+    "format-alt": "{capacity}% - {time}",
+    "format-icons": ["", "", "", "", ""],
+    "format-charging": "",
+    "format-charging-alt": "{capacity}% - {time}",
+    "interval": 30,
+    "states": {
+      "warning": 20,
+      "critical": 15
+    },
+    "tooltip": true
+  },
+  "network": {
+    "format-wifi": "{icon} {essid} ({signalStrength}%)",
+    "format-ethernet": "{icon}",
+    "format-linked": " {ifname} (No IP)",
+    "format-disconnected": "⚠ Disconnected",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "format-icons": {
+      "wifi": ["", "", ""],
+      "ethernet": [""],
+      "disconnected": [""]
+    },
+    "tooltip": false,
+    "interval": 10
+  },
+  "clock": {
+    "format": "{:%H:%M:%S}",
+    "format-alt": "{:%a %b %d %H:%M:%S}",
+    "interval": 5,
+    "on-click-right": "gsimplecal &!"
+  },
+  "tray": {
+    "icon-size": 15
+  }
+}

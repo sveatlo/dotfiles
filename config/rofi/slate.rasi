@@ -3,7 +3,11 @@
   border-color: #2e343f;
   text-color: #8ca0aa;
   spacing: 0;
-  width: 40%;
+}
+
+window {
+  width: 30%;
+  border-radius: 10px;
 }
 
 inputbar {
@@ -39,7 +43,7 @@ element {
 }
 
 element-icon {
-  size: 1.2em;
+  size: 1.5em;
 }
 
 element selected {

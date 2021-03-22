@@ -1,4 +1,4 @@
-[[ "$TERM" = "xterm-kitty" ]] && export TERM=xterm
+# [[ "$TERM" = "xterm-kitty" ]] && export TERM=xterm
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -95,6 +95,7 @@ alias zshconfig="$EDITOR $HOME/.zshrc"
 alias ohmyzsh="$EDITOR $HOME/.oh-my-zsh"
 alias vim="nvim"
 alias wttr="curl wttr.in"
+alias ssh="TERM=xterm ssh"
 
 # Go
 export GOROOT=/usr/lib/go

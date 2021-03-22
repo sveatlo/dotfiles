@@ -125,6 +125,9 @@ nmap <Leader>bf :bfirst<CR>
 nmap <Leader>bl :blast<CR>
 " :nmap <Leader>b? :CtrlPBuffer<CR>
 :nmap <Leader>b? :Buffers<CR>
+
+
+
 " add copy/paste from clipboard
 vmap <C-c> y: call system("wl-copy", getreg("\""))<CR>
 nmap <C-v> :call setreg("\"",system("wl-paste"))<CR>p
@@ -132,6 +135,7 @@ imap <C-v> <Esc><C-v>a
 " clear search
 nmap <F4> :let @/ = ""<CR><F6>
 nmap <F6> :<Backspace>
+" escape insert by jk
 inoremap jk <Esc>
 " replace word under cursor
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
@@ -208,7 +212,7 @@ nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> <Leader>gd <Plug>(coc-definition)
-nmap <silent> <Leader> gy <Plug>(coc-type-definition)
+nmap <silent> <Leader>gy <Plug>(coc-type-definition)
 nmap <silent> <Leader>gi <Plug>(coc-implementation)
 nmap <silent> <Leader>gr <Plug>(coc-references)
 nmap <silent> <Leader>o :CocList outline<CR>
