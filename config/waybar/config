@@ -4,10 +4,7 @@
   "modules-left": ["sway/workspaces", "sway/mode"],
   "modules-center": ["custom/mediaplayer"],
   "modules-right": [
-    "custom/sunpaper",
     "custom/weather",
-    "temperature",
-    "cpu",
     "idle_inhibitor",
     "pulseaudio",
     "backlight",
@@ -16,11 +13,6 @@
     "clock",
     "tray"
   ],
-  "custom/sunpaper": {
-    "exec": "~/src/dotfiles/sunpaper/sunpaper.sh",
-    "interval": 60,
-    "tooltip": false
-  },
 
   "sway/workspaces": {
     "all-outputs": true
