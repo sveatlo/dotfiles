@@ -101,7 +101,7 @@ alias ssh="TERM=xterm ssh"
 export GOROOT=/usr/lib/go
 export GOPATH=$HOME/src/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-export GOPRIVATE=git.moderntv.eu
+export GOPRIVATE=git.moderntv.eu/*
 
 # Java
 export JAVA_HOME=/usr/lib/jvm/java-14-openjdk/
@@ -125,6 +125,15 @@ PATH="$PATH:$HOME/.cargo/bin"
 # fuzzy search
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# kubernetes tools
+function kps1() {
+    source '/opt/kube-ps1/kube-ps1.sh'
+    PROMPT='$(kube_ps1)'$PROMPT
+}
+alias kctx=kubectx
+alias kn=kubens
+
+source .env_secrets
 
 # autorun
 cowfortune

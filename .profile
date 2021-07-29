@@ -16,5 +16,10 @@ export EDITOR=nvim
 export GLYPH_DESKTOP="󰄶 "
 export GLYPH_COMMAND="󰆍 "
 
+# gnome keyring
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK
+
 # [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec sway
 # [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec /usr/local/bin/sway-run.sh
