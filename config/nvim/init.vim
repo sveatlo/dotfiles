@@ -126,8 +126,6 @@ nmap <Leader>bl :blast<CR>
 " :nmap <Leader>b? :CtrlPBuffer<CR>
 :nmap <Leader>b? :Buffers<CR>
 
-
-
 " add copy/paste from clipboard
 vmap <C-c> y: call system("wl-copy", getreg("\""))<CR>
 nmap <C-v> :call setreg("\"",system("wl-paste"))<CR>p
@@ -174,14 +172,31 @@ autocmd FileType go nmap gtg :CocCommand go.test.generate.file<cr>
 
 " FZF
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! s:GotoOrOpen(command, ...)
+    for file in a:000
+        if a:command == 'e'
+            exec 'drop ' . file
+        else
+            exec "tab drop " . file
+        endif
+    endfor
+endfunction
+
+command! -nargs=+ GotoOrOpen call s:GotoOrOpen(<f-args>)
+
+let g:fzf_action = {
+  \ 'enter': 'GotoOrOpen e',
+  \ 'ctrl-t': 'GotoOrOpen tab',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 let g:fzf_buffers_jump = 1
-nmap <Leader>fg :GFiles<CR>
+
+" nmap <Leader>fg :GFiles<CR>
 map <C-p> :Files<CR>
 
 " CoC
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:coc_global_extensions = [
-    \ 'coc-snippets',
     \ 'coc-ultisnips',
     \ 'coc-pairs',
     \ 'coc-prettier',
@@ -227,8 +242,11 @@ function! s:show_documentation()
 endfunction
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
-" Remap for rename current word
+
+" Refactor
 nmap <F2> <Plug>(coc-rename)
+nmap <Leader>cr <Plug>(coc-refactor)
+nmap <Leader>f <Plug>(coc-format)
 
 augroup mygroup
   autocmd!
@@ -247,12 +265,25 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>qf  <Plug>(coc-fix-current)
 " Create mappings for function text object, requires document symbols feature of languageserver.
 xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
 omap af <Plug>(coc-funcobj-a)
-" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-" nmap <silent> <C-d> <Plug>(coc-range-select)
-" xmap <silent> <C-d> <Plug>(coc-range-select)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
 " Use `:Fold` to fold current buffer
