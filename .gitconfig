@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 [user]
 	name = Svätopluk Hanzel
-	email = svatoplukhanzel@gmail.com
+	email = svatoplukhanzel@pm.me
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 [url "git@git.tumeo.eu:"]
@@ -11,3 +11,5 @@
     email = svatopluk.hanzel@moderntv.eu
 [pull]
 	rebase = true
+[init]
+	defaultBranch = master
