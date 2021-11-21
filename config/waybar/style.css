@@ -37,7 +37,7 @@ window#waybar {
     padding-right: 10px;
 }
 
-#battery, #cpu, #memory, #network, #pulseaudio, #idle_inhibitor, #backlight, #custom-weather, #custom-mediaplayer, #custom-pomodoro, #clock {
+#battery, #custom-bluetooth-battery, #cpu, #memory, #network, #pulseaudio, #idle_inhibitor, #language, #backlight, #custom-weather, #custom-mediaplayer, #custom-pomodoro, #clock {
     padding: 0;
     margin: 0 10px;
     min-width: 25px;
@@ -49,4 +49,8 @@ window#waybar {
 
 #battery.critical:not(.charging) {
     color: #dc322f;
+}
+
+#custom-bluetooth-battery {
+    margin-left: 0;
 }

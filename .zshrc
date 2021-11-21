@@ -58,7 +58,7 @@ autoload -Uz compinit && compinit -i
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow-avh compleat common-aliases kubectl minikube node pass sudo firewalld keybase rust)
+plugins=(git git-flow-avh compleat common-aliases kubectl kubectx kube-ps1 minikube node pass sudo firewalld keybase rust)
 
 # User configuration
 
@@ -77,6 +77,7 @@ export LC_ALL=en_US.UTF-8
 # Preferred editor for local and remote sessions
 export VISUAL='nvim'
 export EDITOR=$VISUAL
+SYSTEMD_EDITOR=$EDITOR
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -128,12 +129,13 @@ PATH="$PATH:$HOME/.cargo/bin"
 # kubernetes tools
 function kps1() {
     source '/opt/kube-ps1/kube-ps1.sh'
-    PROMPT='$(kube_ps1)'$PROMPT
+    RPROMPT='$(kube_ps1)'$RPROMPT
 }
 alias kctx=kubectx
 alias kn=kubens
+alias docker-compose=docker compose
 
-source .env_secrets
+source $HOME/.env_secrets
 
 # autorun
 cowfortune

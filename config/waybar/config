@@ -6,9 +6,11 @@
   "modules-right": [
     "custom/weather",
     "idle_inhibitor",
+    "sway/language",
     "pulseaudio",
     "backlight",
     "battery",
+    "custom/bluetooth-battery",
     "network",
     "clock",
     "tray"
@@ -55,9 +57,13 @@
       "deactivated": ""
     }
   },
+  "sway/language": {
+      "format": " {short}",
+      "tooltip-format": "{long} {variant}"
+  },
   "cpu": {
       "interval": 10,
-      "format": " {}%",
+      "format": " {}%"
   },
   "temperature": {
     "interval": 5,
@@ -110,6 +116,14 @@
       "critical": 15
     },
     "tooltip": true
+  },
+  "custom/bluetooth-battery": {
+    "format": "{}",
+    "return-type": "json",
+    "interval": 5,
+    "exec": "~/.config/waybar/modules/bluetooth-battery.sh",
+    "exec-if": "bluetooth_battery_status.sh >/dev/null 2>&1",
+    "signal": 9
   },
   "network": {
     "format-wifi": "{icon} {essid} ({signalStrength}%)",
