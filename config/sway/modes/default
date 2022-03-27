@@ -120,7 +120,7 @@ bindsym $mod+button6 workspace prev_on_output
 # start a terminal
 bindsym $mod+Return exec kitty
 # start a file manager
-bindsym $mod+e exec kitty --class ranger -e ranger
+bindsym $mod+e exec kitty --class ranger --title ranger -e ranger
 bindsym $mod+Shift+e exec pcmanfm
 # Pulse Audio controls
 bindsym --locked XF86AudioRaiseVolume exec --no-startup-id $scripts_dir/volume.sh up
@@ -157,6 +157,7 @@ bindsym $mod+apostrophe exec makoctl restore
 #
 # MISC
 #
+bindsym --inhibited $mod+Ctrl+Shift+q shortcuts_inhibitor deactivate
 bindsym XF86PowerOff exec wlogout
 bindsym $mod+z reload
 bindsym $mod+Shift+z restart
