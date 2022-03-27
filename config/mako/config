@@ -17,6 +17,14 @@ format=(%g) %a\n<b>%s</b>\n%b
 [actionable]
 format=(A) %a\n<b>%s</b>\n%b
 
+[mode=away]
+default-timeout=0
+ignore-timeout=1
+
+# == Mode: Do Not Disturb ==
+[mode=do-not-disturb]
+invisible=1
+
 [app-name="System"]
 format=%a\n<b>%s</b>\n%b
 group-by=app-name
