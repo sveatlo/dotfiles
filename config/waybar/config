@@ -9,6 +9,7 @@
     "sway/language",
     "pulseaudio",
     "backlight",
+    "custom/ddc-brightness",
     "battery",
     "custom/bluetooth-battery",
     "network",
@@ -101,6 +102,16 @@
 
     "on-scroll-up": "~/src/scripts/brightness.sh up",
     "on-scroll-down": "~/src/scripts/brightness.sh down"
+  },
+  "custom/ddc-brightness": {
+    "format": "{}",
+    "return-type": "json",
+    "interval": 30,
+    "exec": "~/.config/waybar/modules/ddc-brightness.sh",
+    "exec-if": "ddc_brightness.sh >/dev/null 2>&1",
+    "on-scroll-up": "ddc_brightness.sh up",
+    "on-scroll-down": "ddc_brightness.sh down",
+    "signal": 7
   },
   "battery": {
     "bat": "BAT0",

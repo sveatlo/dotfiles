@@ -40,8 +40,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'Xuyuanp/nerdtree-git-plugin'      " show git file status in nerdtree
     Plug 'psliwka/vim-smoothie'             " smooth scrolling
     Plug 'Yggdroot/indentLine'              " show indentation level
-    " Plug 'ctrlpvim/ctrlp.vim'               " fuzzy find files
-
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
 
@@ -114,6 +112,14 @@ map <C-Pageup> :tabp<CR>
 map <C-PageDown> :tabn<CR>
 map <C-t> :tabe<CR>
 map <C-q> :tabclose<CR>
+" Switch to last-active tab
+if !exists('g:Lasttab')
+    let g:Lasttab = 1
+    let g:Lasttab_backup = 1
+endif
+autocmd! TabLeave * let g:Lasttab_backup = g:Lasttab | let g:Lasttab = tabpagenr()
+autocmd! TabClosed * let g:Lasttab = g:Lasttab_backup
+nmap <silent> <C>` :exe "tabn " . g:Lasttab<cr>
 
 " manage buffers
 map <Leader>sv <C-w>v<CR>
@@ -374,3 +380,8 @@ nmap ga <Plug>(EasyAlign)
 " Beautify
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:beautify#default_outputter = 'current_buffer'
+
+" Markdown (from ployglot)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_new_list_item_indent = 0
