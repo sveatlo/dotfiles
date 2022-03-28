@@ -48,16 +48,7 @@ opt.listchars = "tab:»·,trail:·"
 
 -- ui
 opt.titlestring = "%f title"                -- display filename in terminal window
-opt.signcolumn = 'yes'
-
-
--- Highlight on yank
-exec([[
-  augroup YankHighlight
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=800}
-  augroup end
-]], false)
+opt.signcolumn = 'number'
 
 -- Remove whitespace on save
 cmd [[autocmd BufWritePre * :%s/\s\+$//e]]
