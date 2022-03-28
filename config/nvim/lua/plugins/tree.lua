@@ -11,4 +11,7 @@ require("nvim-tree").setup({
   },
 })
 
-vim.api.nvim_set_keymap('n', '<F3>', ':NvimTreeToggle<CR>', { noremap=true, silent=true })
+local wk = require("which-key")
+wk.register({
+    ["<F3>"] = { ":NvimTreeToggle<CR>", "Open file tree" }, -- create a binding with label
+}, {})

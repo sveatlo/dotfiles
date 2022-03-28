@@ -69,11 +69,6 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  ["Comment.nvim"] = {
-    loaded = true,
-    path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/Comment.nvim",
-    url = "https://github.com/numToStr/Comment.nvim"
-  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -99,6 +94,11 @@ _G.packer_plugins = {
     path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
   },
+  ["editorconfig.nvim"] = {
+    loaded = true,
+    path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/editorconfig.nvim",
+    url = "https://github.com/gpanders/editorconfig.nvim"
+  },
   ["fzf-lua"] = {
     loaded = true,
     path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/fzf-lua",
@@ -108,6 +108,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
+  },
+  ["lsp_extensions.nvim"] = {
+    loaded = true,
+    path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/lsp_extensions.nvim",
+    url = "https://github.com/nvim-lua/lsp_extensions.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
@@ -119,10 +124,10 @@ _G.packer_plugins = {
     path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/neoscroll.nvim",
     url = "https://github.com/karb94/neoscroll.nvim"
   },
-  ["neovim-ayu"] = {
+  nerdcommenter = {
     loaded = true,
-    path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/neovim-ayu",
-    url = "https://github.com/Shatur/neovim-ayu"
+    path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/nerdcommenter",
+    url = "https://github.com/scrooloose/nerdcommenter"
   },
   ["nvim-autopairs"] = {
     loaded = true,
@@ -133,6 +138,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-lightbulb"] = {
+    loaded = true,
+    path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/nvim-lightbulb",
+    url = "https://github.com/kosayoda/nvim-lightbulb"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -159,6 +169,11 @@ _G.packer_plugins = {
     path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
+  ["onedark.nvim"] = {
+    loaded = true,
+    path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/onedark.nvim",
+    url = "https://github.com/navarasu/onedark.nvim"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/packer.nvim",
@@ -168,6 +183,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
+  },
+  ["trouble.nvim"] = {
+    loaded = true,
+    path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/trouble.nvim",
+    url = "https://github.com/folke/trouble.nvim"
   },
   ultisnips = {
     loaded = true,
@@ -189,15 +209,30 @@ _G.packer_plugins = {
     path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
   },
+  ["vim-polyglot"] = {
+    loaded = true,
+    path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/vim-polyglot",
+    url = "https://github.com/sheerun/vim-polyglot"
+  },
   ["vim-startify"] = {
     loaded = true,
     path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/vim-startify",
     url = "https://github.com/mhinz/vim-startify"
   },
+  ["vim-workspace"] = {
+    loaded = true,
+    path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/vim-workspace",
+    url = "https://github.com/thaerkh/vim-workspace"
+  },
   ["vista.vim"] = {
     loaded = true,
     path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/vista.vim",
     url = "https://github.com/liuchengxu/vista.vim"
+  },
+  ["which-key.nvim"] = {
+    loaded = true,
+    path = "/home/sveatlo/.local/share/nvim/site/pack/packer/start/which-key.nvim",
+    url = "https://github.com/folke/which-key.nvim"
   }
 }
 

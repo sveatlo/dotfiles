@@ -1,7 +1,4 @@
-ayu = require('ayu')
-
-ayu.setup({
-    mirage = true
-})
-
-ayu.colorscheme()
+require('onedark').setup {
+  style = 'dark',
+}
+require('onedark').load()

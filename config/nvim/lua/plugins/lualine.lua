@@ -1,4 +1,4 @@
-lualine = require('lualine')
+local lualine = require('lualine')
 
 -- setup lualine
 lualine.setup({
