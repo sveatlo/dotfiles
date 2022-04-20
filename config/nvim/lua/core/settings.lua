@@ -23,7 +23,7 @@ opt.completeopt = "menu,menuone,noselect"
 opt.undofile = true                         -- save history undo file
 opt.updatetime = 250
 opt.whichwrap = "b,s,<,>,[,]"
-opt.clipboard:append("unnamedplus")
+-- opt.clipboard:append("unnamedplus")
 opt.shortmess:append("c")
 opt.sessionoptions:remove("blank")
 

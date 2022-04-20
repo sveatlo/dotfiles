@@ -5,7 +5,7 @@ require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     -- visual
-    use 'Shatur/neovim-ayu'
+    use { 'Shatur/neovim-ayu', branch = 'master' }
     use 'nvim-lualine/lualine.nvim'
     use 'kyazdani42/nvim-web-devicons'
 
@@ -39,7 +39,7 @@ end)
 vim.cmd([[
     augroup packer_user_config
         autocmd!
-        autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+        autocmd BufWritePost plugins.lua source <afile> | PackerSync
     augroup end
 ]])
 

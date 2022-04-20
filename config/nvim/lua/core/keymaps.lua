@@ -45,6 +45,11 @@ map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent
 map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
 -- Ctrl+C & Ctrl+V
-map('v', '<C-c>', 'y')
-map('n', '<C-v>', 'p')
-map('i', '<C-v>', '<Esc><C-v>a')
+-- map('v', '<C-c>', 'y')
+-- map('n', '<C-v>', 'p')
+-- map('i', '<C-v>', '<Esc><C-v>a')
+vim.cmd [[
+vmap <C-c> y: call system("wl-copy", getreg("\""))<CR>
+nmap <C-v> :call setreg("\"",system("wl-paste"))<CR>p
+imap <C-v> <Esc><C-v>a
+]]
