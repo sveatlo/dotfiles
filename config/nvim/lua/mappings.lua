@@ -9,28 +9,29 @@ expr_options = { expr = true, silent = true }
 map({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.g.mapleader = ","
 
--- manage tabs - partly using bufferline
+-- manage tabs
+-- NOTE: partly using bufferline
+-- TODO: simplify
 -- map('', '<C-Pageup>', ':tabp<CR>')
 -- map('', '<C-PageDown>', ':tabn<CR>')
-map("", "<C-Pageup>", ":BufferLineCyclePrev<CR>")
-map("", "<C-PageDown>", ":BufferLineCycleNext<CR>")
+map("", "<C-Pageup>", "<cmd>BufferLineCyclePrev<CR>")
+map("", "<C-PageDown>", "<cmd>BufferLineCycleNext<CR>")
 -- map("", "<C-A-Pageup>", ":BufferLineMovePrev<CR>")
 -- map("", "<C-A-PageDown>", ":BufferLineMoveNext<CR>")
-map("", "<C-A-Pageup>", ":tabmove -1<CR>")
-map("", "<C-A-PageDown>", ":tabmove +1<CR>")
+map("", "<C-A-Pageup>", "<cmd>tabmove -1<CR> <cmd>BufferLineSortByTabs<CR>")
+map("", "<C-A-PageDown>", "<cmd>tabmove +1<CR> <cmd>BufferLineSortByTabs<CR>")
 map("", "<C-t>", ":tabe<CR>")
 map("", "<C-q>", ":tabclose<CR>")
-vim.cmd([[
-nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>
-nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR>
-nnoremap <silent><leader>3 <Cmd>BufferLineGoToBuffer 3<CR>
-nnoremap <silent><leader>4 <Cmd>BufferLineGoToBuffer 4<CR>
-nnoremap <silent><leader>5 <Cmd>BufferLineGoToBuffer 5<CR>
-nnoremap <silent><leader>6 <Cmd>BufferLineGoToBuffer 6<CR>
-nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
-nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
-nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
-]])
+map("", "<A-1>", "<Cmd>BufferLineGoToBuffer 1<CR>")
+-- jump to tab no.
+map("", "<A-2>", "<Cmd>BufferLineGoToBuffer 2<CR>")
+map("", "<A-3>", "<Cmd>BufferLineGoToBuffer 3<CR>")
+map("", "<A-4>", "<Cmd>BufferLineGoToBuffer 4<CR>")
+map("", "<A-5>", "<Cmd>BufferLineGoToBuffer 5<CR>")
+map("", "<A-6>", "<Cmd>BufferLineGoToBuffer 6<CR>")
+map("", "<A-7>", "<Cmd>BufferLineGoToBuffer 7<CR>")
+map("", "<A-8>", "<Cmd>BufferLineGoToBuffer 8<CR>")
+map("", "<A-9>", "<Cmd>BufferLineGoToBuffer 9<CR>")
 
 --Remap for dealing with visual line wraps
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", expr_options)
@@ -66,14 +67,14 @@ map("i", "<C-v>", "<Esc><C-v>a")
 
 -- starlite mappings
 map("n", "*", function()
-	return require("starlite").star()
+    return require("starlite").star()
 end, default_options)
 map("n", "g*", function()
-	return require("starlite").g_star()
+    return require("starlite").g_star()
 end, default_options)
 map("n", "#", function()
-	return require("starlite").hash()
+    return require("starlite").hash()
 end, default_options)
 map("n", "g#", function()
-	return require("starlite").g_hash()
+    return require("starlite").g_hash()
 end, default_options)
