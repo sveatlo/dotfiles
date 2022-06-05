@@ -19,9 +19,9 @@ nls.setup({
                 buffer = bufnr,
                 callback = function()
                     -- NOTE: on < 0.8, you should use vim.lsp.buf.formatting_sync() instead
-                    -- vim.lsp.buf.format({ bufnr = bufnr })
-                    vim.lsp.buf.formatting_sync({ bufnr = bufnr })
-                end
+                    vim.lsp.buf.format({ bufnr = bufnr })
+                    -- vim.lsp.buf.formatting_sync({ bufnr = bufnr })
+                end,
             })
         end
     end,
