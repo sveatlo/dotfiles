@@ -1,13 +1,19 @@
 layer=overlay
+default-timeout=5000
+
 width=350
 height=1000
 padding=10
 margin=10
-border-size=2
 font=system-ui 11
 icons=0
 max-icon-size=32
-default-timeout=5000
+# background-color=#3b4252
+# progress-color=over #282d38
+text-color=#eceff4
+border-size=2
+# border-color=#4c566a
+border-radius=5
 
 format=%a\n<b>%s</b>\n%b
 

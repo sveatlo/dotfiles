@@ -1,14 +1,44 @@
-color=#282a2b
-inside-color=#282a2b
-inside-clear-color=#eeeeee
-ring-color=#3B758C
-ring-ver-color=#55b5db
-ring-clear-color=#9fca56
-ignore-empty-password
-show-failed-attempts
-screenshots
 clock
+show-failed-attempts
+image=/usr/share/backgrounds/archlinux/archbtw.png
+# screenshots
 effect-blur=7x5
-effect-vignette=0.5:0.5
-grace=2
-fade-in=0.2
+effect-greyscale
+# grace=2 # don't require password for the first n seconds
+grace-no-mouse
+fade-in=0.1
+indicator-radius=150
+hide-keyboard-layout
+indicator-idle-visible
+
+# text
+font-size=100
+text-color=#eceff4ff
+text-ver-color=#43a5d5ff
+text-clear-color=#7bd482
+text-wrong-color=#d55643ff
+
+# inside
+inside-color=#eeeeee00
+inside-clear-color=#ffffff00
+inside-ver-color=#ffffff00
+inside-wrong-color=#ffffff00
+
+# ring
+ring-color=#ffffff00
+ring-ver-color=#43a5d5ff
+ring-clear-color=#7bd482
+ring-wrong-color=#d55643ff
+# highlighted segments
+key-hl-color=#ffffffff
+caps-lock-bs-hl-color=00000000
+caps-lock-key-hl-color=00000000
+
+# line
+line-color=#00000000
+line-ver-color=#00000000
+line-clear-color=#00000000
+line-wrong-color=#00000000
+
+separator-color=#0000000
+layout-bg-color=#00000000

@@ -3,9 +3,10 @@ configuration {
     combi-modi: "drun";
 
     font: "system-ui 14";
-    theme: "slate";
 
     /* hide-scrollbar: true; */
     show-icons: true;
     /* lines: 10; */
 }
+
+@theme "slate"

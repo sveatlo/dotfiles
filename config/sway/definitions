@@ -8,7 +8,7 @@ set $scripts_dir $HOME/src/scripts
 set $background /usr/share/backgrounds/archlinux/wave.png
 
 # lockscreen configuration
-set $locker swaylock --daemonize -f -i /usr/share/backgrounds/archlinux/archbtw.png
+set $locker swaylock --daemonize
 
 # idle
 set $idle swayidle \

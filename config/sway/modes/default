@@ -113,7 +113,6 @@ bindsym $mod+button7 workspace next_on_output
 bindsym $mod+button6 workspace prev_on_output
 
 
-
 #
 # Shortcuts
 #

@@ -3,8 +3,8 @@
 
 # some global theme specific variables
 set $gtk-theme Arc-Dark
-set $icon-theme Papirus-Dark
-set $cursor-theme Adwaita
+set $icon-theme Arc
+set $cursor-theme breeze_cursors
 set $gui-font system-ui 12
 set $term-font monospace 12
 set $kvantum-theme KvArcDark
