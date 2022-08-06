@@ -20,6 +20,9 @@ export GLYPH_COMMAND="󰆍 "
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_AUTH_SOCK
 
+# fix kitty slow startup - https://github.com/kovidgoyal/kitty/issues/4292
+export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json
+
 # [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec sway
 # [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec /usr/local/bin/sway-run.sh
+# [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec /usr/local/bin/sway-run.sh

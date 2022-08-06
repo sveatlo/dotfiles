@@ -104,8 +104,8 @@ export GOPATH=$HOME/src/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 export GOPRIVATE=git.moderntv.eu/*
 
-# Java
-# export JAVA_HOME=/usr/lib/jvm/java-14-openjdk/
+# # Java
+# export JAVA_HOME=/usr/lib/jvm/java-18-openjdk/
 # # Android
 # export ANDROID_HOME=/opt/android-sdk
 # export PATH="$PATH:/opt/android-sdk/tools:/opt/android-sdk/platform-tools"
@@ -140,6 +140,5 @@ source $HOME/.env_secrets
 # autorun
 cowfortune
 
-
-# fix kitty slow startup - https://github.com/kovidgoyal/kitty/issues/4292
-export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json
+# Scaleway CLI autocomplete initialization.
+eval "$(scw autocomplete script shell=zsh)"

@@ -8,7 +8,7 @@
 	insteadOf = https://git.tumeo.eu/
 [url "git@git.moderntv.eu:"]
 	insteadOf = https://git.moderntv.eu/
-    email = svatopluk.hanzel@moderntv.eu
+	email = svatopluk.hanzel@moderntv.eu
 [pull]
 	rebase = true
 [init]
