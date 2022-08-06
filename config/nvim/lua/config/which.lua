@@ -84,8 +84,7 @@ wk.setup({
 wk.register({
 	-- code/LSP
 	K = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Show help" },
-	-- ["<F2>"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
-	["<F2>"] = { "<cmd>lua require('lspsaga.rename').rename()<CR>", "Rename" },
+	["<F2>"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
 	["[d"] = { "<cmd>lua vim.diagnostic.goto_prev()<CR>", "Previous diagnostic error" },
 	["]d"] = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next diagnostic error" },
 
@@ -169,8 +168,7 @@ wk.register({
 			"<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>",
 			"List Workspace Folders",
 		},
-		--R = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-		R = { "<cmd>lua require('lspsaga.rename').rename()<CR>", "Rename" },
+		R = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
 		S = {
 			"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
 			"Workspace Symbols",
@@ -180,10 +178,9 @@ wk.register({
 			"Remove Workspace Folder",
 		},
 		a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-		-- a = { "<cmd>lua require('lspsaga.codeaction').code_action()<cr>", "Code Action" }, -- TODO: this is currently broken in lspsaga
 		d = { "<cmd>lua vim.lsp.buf.definition()<cr>", "Go To Definition" },
 		e = { "<cmd>Telescope diagnostics bufnr=0<cr>", "Document Diagnostics" },
-		f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
+		f = { "<cmd>lua vim.lsp.buf.format()<cr>", "Format" },
 		i = { "<cmd>LspInfo<cr>", "Connected Language Servers" },
 		k = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature Help" },
 		l = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Line diagnostics" },
@@ -204,6 +201,7 @@ wk.register({
 		d = { "<cmd>lua require('utils').toggle_diagnostics()<cr>", "Toggle Diagnostics" },
 		l = { "<cmd>source ~/.config/nvim/snippets/*<cr>", "Reload snippets" },
 		p = { "<cmd>PackerSync<cr>", "PackerSync" },
+		z = { "<cmd>ZenMode<cr>", "Toggle ZenMode" },
 	},
 	s = {
 		name = "Search",

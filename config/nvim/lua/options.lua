@@ -53,8 +53,11 @@ opt.foldmethod = "manual"
 
 -- completion
 opt.wildmode = "full"
-opt.completeopt = { "menu", "menuone", "noselect", "noinsert" } -- A comma separated list of options for Insert mode completion
-opt.wildignorecase = true -- When set case is ignored when completing file names and directories
+-- menuone: popup even when there's only one match
+-- noinsert: Do not insert text until a selection is made
+-- noselect: Do not select, force user to select one from the menu
+opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
+opt.wildignorecase = true
 opt.wildignore = [[
 .git,.hg,.svn
 *.aux,*.out,*.toc
