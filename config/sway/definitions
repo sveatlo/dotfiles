@@ -11,12 +11,14 @@ set $background /usr/share/backgrounds/archlinux/wave.png
 set $locker swaylock --daemonize
 
 # idle
-set $idle swayidle \
+set $idle swayidle -w \
     timeout 60 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
     timeout 30 "makoctl set-mode away" resume "makoctl set-mode default" \
     timeout 90 "$locker" \
     timeout 3600 'systemctl suspend' \
     before-sleep "$locker" \
+    lock "$locker" \
+    unlock "pkill swaylock" \
     idlehint 90
 
 
