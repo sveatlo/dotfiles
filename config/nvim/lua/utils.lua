@@ -3,6 +3,14 @@ local fn = vim.fn
 
 local M = {}
 
+M.notify = function(message, level, title)
+	local notify_options = {
+		title = title,
+		timeout = 2000,
+	}
+	vim.api.nvim_notify(message, level, notify_options)
+end
+
 -- check if a variable is not empty nor nil
 M.isNotEmpty = function(s)
 	return s ~= nil and s ~= ""
@@ -45,17 +53,6 @@ M.escapePair = function()
 		vim.api.nvim_win_set_cursor(0, { row, col + closer_col })
 	else
 		vim.api.nvim_win_set_cursor(0, { row, col + 1 })
-	end
-end
-
-diagnostics_active = true -- must be global since this function is called in which.lua
--- toggle diagnostics line
-M.toggle_diagnostics = function()
-	diagnostics_active = not diagnostics_active
-	if diagnostics_active then
-		vim.diagnostic.show()
-	else
-		vim.diagnostic.hide()
 	end
 end
 

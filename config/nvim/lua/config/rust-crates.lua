@@ -1,6 +1,6 @@
 require("crates").setup({
-    null_ls = {
-        enabled = true,
-        name = "crates.nvim",
-    },
+	null_ls = {
+		enabled = true,
+		name = "crates.nvim",
+	},
 })

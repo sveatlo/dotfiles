@@ -1,7 +1,7 @@
 local utils = require("utils")
 require("bufferline").setup({
     options = {
-        mode = "tabs",
+        mode = "buffers",
         numbers = function(opts)
             return string.format("%s", opts.ordinal) -- :h bufferline-numbers
         end,
@@ -9,7 +9,10 @@ require("bufferline").setup({
         right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
         left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
         middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
-        indicator_icon = " ",
+        indicator = {
+            style = "icon",
+            icon = " ",
+        },
         buffer_close_icon = "",
         modified_icon = "●",
         close_icon = "",
@@ -34,8 +37,8 @@ require("bufferline").setup({
         },
         show_buffer_icons = true, -- disable filetype icons for buffers
         show_buffer_close_icons = false,
-        show_close_icon = true,
-        show_tab_indicators = true,
+        show_close_icon = false,
+        show_tab_indicators = false,
         persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
         -- can also be a table containing 2 custom separators
         -- [focused and unfocused]. eg: { '|', '|' }

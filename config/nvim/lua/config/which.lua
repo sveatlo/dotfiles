@@ -80,54 +80,20 @@ wk.setup({
 --                    MAPPINGS                  --
 --------------------------------------------------
 
--- non-leader mappings
-wk.register({
-	-- code/LSP
-	K = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Show help" },
-	["<F2>"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
-	["[d"] = { "<cmd>lua vim.diagnostic.goto_prev()<CR>", "Previous diagnostic error" },
-	["]d"] = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next diagnostic error" },
-
-	-- MISC
-	["<F3>"] = { ":NvimTreeToggle<CR>", "Open file tree" },
-	ga = { "<Plug>(EasyAlign)", "Align", mode = "x" },
-	ss = { "<Plug>Lightspeed_s", "Search 2-character forward" },
-	["<C-p>"] = { "<cmd>lua require'telescope.builtin'.find_files()<cr>", "Find File" },
-}, {})
-
 -- Register all leader based mappings
 wk.register({
-	["<Tab>"] = { "<cmd>e#<cr>", "Switch to previously opened buffer" },
-	["<leader>"] = {
-		name = "Leader",
-		a = { "<cmd>lua print('fasfAS')<cr>", "test" },
-	},
-	b = {
-		name = "Buffers",
-		["?"] = {
-			"<cmd>Telescope buffers<cr>",
-			"Find buffer",
-		},
-		d = { "<cmd>Bdelete!<CR>", "Close Buffer" },
-	},
 	c = {
 		name = "Code",
 		-- comment bindings in config/comment.lua
 		o = { "<cmd>SymbolsOutline<cr>", "Toggle SymbolsOutline" },
 	},
-	f = {
-		name = "Files",
-		b = { "<cmd>Telescope file_browser<cr>", "File browser" },
-		f = {
-			"<cmd>lua require'telescope.builtin'.find_files()<cr>",
-			"Find File",
-		},
-		l = { "<cmd>Lf<cr>", "Open LF" },
-		p = { "<cmd>NvimTreeToggle<cr>", "Toogle Tree" },
-		r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-		s = { "<cmd>w<cr>", "Save Buffer" },
-		T = { "<cmd>NvimTreeFindFile<CR>", "Find in Tree" },
-		z = { "<cmd>Telescope zoxide list<CR>", "Zoxide" },
+	d = {
+		name = "Debug",
+		u = { "<cmd>lua require('dapui').toggle()<cr>", "Toggle UI" },
+		b = { "<cmd>lua require('dap').toggle_breakpoint()<cr>", "Toggle breakpoint" },
+		c = { "<cmd>lua require('dap').continue()<cr>", "Launch/Resume debug session" },
+		o = { "<cmd>lua require('dap').step_over()<cr>", "Step over" },
+		i = { "<cmd>lua require('dap').step_into()<cr>", "Step into" },
 	},
 	g = {
 		name = "Git",
@@ -150,103 +116,6 @@ wk.register({
 		C = {
 			"<cmd>Telescope git_bcommits<cr>",
 			"Checkout commit(for current file)",
-		},
-	},
-	l = {
-		name = "LSP",
-		A = {
-			"<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>",
-			"Add Workspace Folder",
-		},
-		D = { "<cmd>lua vim.lsp.buf.declaration()<cr>", "Go To Declaration" },
-		I = {
-			"<cmd>lua vim.lsp.buf.implementation()<cr>",
-			"Show implementations",
-		},
-		K = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover Commands" },
-		L = {
-			"<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>",
-			"List Workspace Folders",
-		},
-		R = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-		S = {
-			"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
-			"Workspace Symbols",
-		},
-		W = {
-			"<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>",
-			"Remove Workspace Folder",
-		},
-		a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-		d = { "<cmd>lua vim.lsp.buf.definition()<cr>", "Go To Definition" },
-		e = { "<cmd>Telescope diagnostics bufnr=0<cr>", "Document Diagnostics" },
-		f = { "<cmd>lua vim.lsp.buf.format()<cr>", "Format" },
-		i = { "<cmd>LspInfo<cr>", "Connected Language Servers" },
-		k = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature Help" },
-		l = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Line diagnostics" },
-		n = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "Next Diagnostic" },
-		p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
-		q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
-		r = { "<cmd>lua vim.lsp.buf.references()<cr>", "References" },
-		s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
-		t = { "<cmd>lua vim.lsp.buf.type_definition()<cr>", "Type Definition" },
-		w = { "<cmd>Telescope diagnostics<cr>", "Workspace Diagnostics" },
-	},
-	m = {
-		name = "Misc",
-		a = {
-			"<cmd>lua require'telegraph'.telegraph({cmd='gitui', how='tmux_popup'})<cr>",
-			"Test Telegraph",
-		},
-		d = { "<cmd>lua require('utils').toggle_diagnostics()<cr>", "Toggle Diagnostics" },
-		l = { "<cmd>source ~/.config/nvim/snippets/*<cr>", "Reload snippets" },
-		p = { "<cmd>PackerSync<cr>", "PackerSync" },
-		z = { "<cmd>ZenMode<cr>", "Toggle ZenMode" },
-	},
-	s = {
-		name = "Search",
-		C = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
-		h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
-		H = { "<cmd>Telescope heading<cr>", "Find Header" },
-		M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-		R = { "<cmd>Telescope registers<cr>", "Registers" },
-		t = { "<cmd>Telescope live_grep<cr>", "Text" },
-		T = { "<cmd>Telescope grep_string<cr>", "Text under cursor" },
-		s = { "<cmd>SessionManager load_session<cr>", "Sessions" },
-		S = { "<cmd>Telescope symbols<cr>", "Search symbols" },
-		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
-		c = { "<cmd>Telescope commands<cr>", "Commands" },
-		p = { "<cmd>Telescope projects<cr>", "Projects" },
-		P = {
-			"<cmd>lua require('telescope.builtin.internal').colorscheme({enable_preview = true})<cr>",
-			"Colorscheme with Preview",
-		},
-		z = { "<cmd>Telescope packer<cr>", "Plugins" },
-	},
-	p = {
-		name = "Project",
-		w = { ":SessionManager save_current_session<CR>", "Save session" },
-		W = { ":SessionManager delete_session<CR>", "Delete session" },
-		["?"] = { ":SessionManager load_session<CR>", "Load session" },
-	},
-	t = {
-		name = "Tabs",
-		n = { ":tabn<CR>", "Next tab" },
-		p = { ":tabp<CR>", "Previous tab" },
-		e = { ":tabe<CR>", "New tab" },
-		c = { ":tabclose<CR>", "Close tab" },
-	},
-	w = {
-		name = "Window",
-		p = { "<c-w>x", "Swap" },
-		q = { "<cmd>:q<cr>", "Close" },
-		s = { "<cmd>:split<cr>", "Horizontal Split" },
-		t = { "<c-w>t", "Move to new tab" },
-		["="] = { "<c-w>=", "Equally size" },
-		v = { "<cmd>:vsplit<cr>", "Verstical Split" },
-		w = {
-			"<cmd>lua require('nvim-window').pick()<cr>",
-			"Choose window to jump",
 		},
 	},
 }, { prefix = "<leader>", mode = "n", default_options })
