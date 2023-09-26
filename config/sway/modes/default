@@ -20,23 +20,29 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 bindsym $mod+Left focus left
-bindsym $mod+Up focus up
 bindsym $mod+Down focus down
+bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 bindsym Mod1+Tab focus right
 bindsym Mod1+Shift+Tab focus left
+bindgesture swipe:3:right focus left
+bindgesture swipe:3:down focus down
+bindgesture swipe:3:up focus up
+bindgesture swipe:3:left focus right
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 bindsym $mod+x layout toggle all
 # Toggle fullscreen
 bindsym $mod+f fullscreen toggle
+bindgesture pinch:3:outward fullscreen enable
+bindgesture pinch:3:inward fullscreen disable
 # Toggle floating/tiling
 bindsym $mod+t floating toggle
 # Toggle sticky window
@@ -101,16 +107,12 @@ bindsym --to-code $mod+Mod1+Shift+9 move container to workspace $WS19
 bindsym --to-code $mod+Mod1+Shift+0 move container to workspace $WS20
 # switch to last workspace
 bindsym --to-code $mod+grave workspace back_and_forth
-bindsym --to-code $mod+button2 workspace back_and_forth
+bindgesture swipe:4:up workspace back_and_forth
 # switch to next/prev workspace
-# bindsym --to-code $mod+Tab workspace next
-# bindsym --to-code $mod+Shift+Tab workspace prev
-# bindsym --to-code $mod+button7 workspace next
-# bindsym --to-code $mod+button6 workspace prev
 bindsym --to-code $mod+Tab workspace next_on_output
 bindsym --to-code $mod+Shift+Tab workspace prev_on_output
-bindsym $mod+button7 workspace next_on_output
-bindsym $mod+button6 workspace prev_on_output
+bindgesture swipe:4:right workspace prev_on_output
+bindgesture swipe:4:left workspace next_on_output
 
 
 #
@@ -129,7 +131,7 @@ bindsym --locked XF86AudioMute exec --no-startup-id $scripts_dir/volume.sh mute
 bindsym --locked XF86MonBrightnessUp exec --no-startup-id $scripts_dir/brightness.sh up
 bindsym --locked XF86MonBrightnessDown exec --no-startup-id $scripts_dir/brightness.sh down
 # Media player controls
-# bindsym XF86AudioPlayPause exec --no-startup-id ~/.config/polybar/mpris-player-module.py play-pause
+# bindsym --locked XF86AudioPlayPause exec --no-startup-id ~/.config/polybar/mpris-player-module.py play-pause
 bindsym --locked XF86AudioPlay exec --no-startup-id ~/.config/polybar/mpris-player-module.py play-pause
 bindsym --locked XF86AudioPause exec --no-startup-id ~/.config/polybar/mpris-player-module.py pause
 bindsym --locked XF86AudioNext exec --no-startup-id ~/.config/polybar/mpris-player-module.py next
@@ -147,6 +149,8 @@ bindsym $mod+Shift+c exec clipman pick -t rofi
 bindsym $mod+Mod1+Shift+c exec clipman clear -a
 # rofimoji
 bindsym $mod+Mod1+e exec rofimoji
+# password manager
+bindsym $mod+Shift+p exec rofi-rbw
 
 bindsym $mod+backslash exec makoctl dismiss
 bindsym $mod+Shift+backslash exec makoctl dismiss -a

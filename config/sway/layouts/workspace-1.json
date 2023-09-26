@@ -1,0 +1,11 @@
+{
+  "layout": "tabbed",
+  "nodes": [
+    {
+      "swallows": { "cmd": "exec firefox" }
+    },
+    {
+      "swallows": { "cmd": "exec mailspring" }
+    }
+  ]
+}

@@ -5,22 +5,11 @@ floating_modifier $mod
 
 set $scripts_dir $HOME/src/scripts
 
-set $background /usr/share/backgrounds/archlinux/wave.png
+# set by random_wallpaper.sh
+set $background $HOME/Pictures/wallpapers/current_wallpaper
 
 # lockscreen configuration
 set $locker swaylock --daemonize
-
-# idle
-set $idle swayidle -w \
-    timeout 60 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-    timeout 30 "makoctl set-mode away" resume "makoctl set-mode default" \
-    timeout 90 "$locker" \
-    timeout 3600 'systemctl suspend' \
-    before-sleep "$locker" \
-    lock "$locker" \
-    unlock "pkill swaylock" \
-    idlehint 90
-
 
 # Workspaces
 set $WS1 "1 www"
@@ -43,12 +32,3 @@ set $WS17 17
 set $WS18 18
 set $WS19 19
 set $WS20 "20 mon"
-
-# shutdown command
-set $shutdown wlogout --buttons-per-row 3
-
-# onscreen bar
-set $onscreen_bar bash /usr/share/sway/scripts/wob.sh
-
-# calendar application
-set $calendar $term_float "khal interactive"

@@ -1,0 +1,18 @@
+{
+  "layout": "splith",
+  "nodes": [
+    {
+      "layout": "tabbed",
+      "width": 55,
+      "nodes": [
+        {
+          "swallows": { "cmd": "exec element-desktop" }
+        }
+      ]
+    },
+    {
+      "width": 45,
+      "swallows": { "cmd": "exec kitty" }
+    }
+  ]
+}

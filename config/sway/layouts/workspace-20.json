@@ -1,0 +1,10 @@
+{
+  "layout": "splith",
+  "nodes": [
+    {
+      "swallows": {
+        "cmd": "exec kitty --class bmonitoring -T bpytop --hold bpytop"
+      }
+    }
+  ]
+}

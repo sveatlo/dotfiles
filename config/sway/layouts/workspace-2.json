@@ -1,0 +1,19 @@
+{
+  "layout": "splith",
+  "nodes": [
+    {
+      "swallows": { "cmd": "exec kitty" }
+    },
+    {
+      "layout": "splitv",
+      "nodes": [
+        {
+          "swallows": { "cmd": "exec kitty" }
+        },
+        {
+          "swallows": { "cmd": "exec kitty" }
+        }
+      ]
+    }
+  ]
+}
