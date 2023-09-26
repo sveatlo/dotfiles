@@ -6,8 +6,7 @@ Adopted from:
 * [brainf+ck](https://github.com/brainfucksec/neovim-lua)
 --]]
 
-
-require("plugins")
-require("mappings")
-require("options")
-require("autocmd")
+require("core.options")
+require("core.lazy")
+require("core.mappings")
+require("core.autocmd")
