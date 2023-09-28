@@ -1,21 +1,26 @@
 #!/usr/bin/env python3
 
+import os
 import typing
 import jsons
 import requests
 import gi
-gi.require_version('NM', '1.0')
+
+gi.require_version("NM", "1.0")
 from gi.repository import NM
-from time import sleep
+
+GOOGLE_API_KEY = os.environ["GOOGLE_API_KEY"]
+
 
 class Location(object):
-    def __init__(self, latitude, longitude, accuracy = -1):
+    def __init__(self, latitude, longitude, accuracy=-1):
         self.latitude = latitude
         self.longitude = longitude
         self.accuracy = accuracy
 
     def __str__(self) -> str:
         return f"{self.latitude};{self.longitude};{self.accuracy}"
+
 
 class WifiAP(object):
     def __init__(self, nm_ap):
@@ -46,20 +51,23 @@ class Geolocator(object):
             "wifiAccessPoints": wifi_aps,
         }
 
-        params = {
-            "key": "AIzaSyDJ8ADSvQ-f06JNb7JEGcLQ1dGc3k97GEY"
-        }
+        params = {"key": GOOGLE_API_KEY}
 
-        headers = {'Content-Type': 'application/json'}
+        headers = {"Content-Type": "application/json"}
 
-        r = requests.post("https://www.googleapis.com/geolocation/v1/geolocate", params=params, data=jsons.dumps(payload), headers=headers)
+        r = requests.post(
+            "https://www.googleapis.com/geolocation/v1/geolocate",
+            params=params,
+            data=jsons.dumps(payload),
+            headers=headers,
+        )
         if r.status_code != 200:
             raise Exception("error querying geolocation API", r.json())
 
         d = r.json()
-        l = d['location']
+        l = d["location"]
 
-        return Location(l['lat'], l['lng'], d['accuracy'])
+        return Location(l["lat"], l["lng"], d["accuracy"])
 
     def _get_wifi_aps(self) -> typing.List[WifiAP]:
         aps = []
@@ -87,6 +95,7 @@ class Geolocator(object):
                 aps.append(WifiAP(ap))
 
         return aps
+
 
 if __name__ == "__main__":
     g = Geolocator()
