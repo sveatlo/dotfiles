@@ -58,11 +58,11 @@ autoload -Uz compinit && compinit -i
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(compleat common-aliases autoenv sudo git pass firewalld rust)
+plugins=(git git-flow-avh compleat common-aliases kubectl minikube node pass sudo firewalld keybase rust)
 
 # User configuration
 
-export PATH="$PATH:/usr/bin:$HOME/bin:$HOME/.local/bin:$HOME/src/scripts"
+export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/bin:$HOME/src/scripts"
 # export MANPATH="/usr/local/man:$MANPATH"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/opt/cuda/extras/CUPTI/lib64/:/opt/cuda/lib64:/opt/cuda/nvvm/lib64/:/opt/cuda/targets/x86_64-linux/lib"    # cuda/cudnn/... libraries
@@ -77,7 +77,6 @@ export LC_ALL=en_US.UTF-8
 # Preferred editor for local and remote sessions
 export VISUAL='nvim'
 export EDITOR=$VISUAL
-export SYSTEMD_EDITOR=$EDITOR
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -102,23 +101,23 @@ alias ssh="TERM=xterm ssh"
 export GOROOT=/usr/lib/go
 export GOPATH=$HOME/src/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-export GOPRIVATE=git.moderntv.eu/*
+export GOPRIVATE=git.moderntv.eu
 
-# # Java
-export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
-# # Android
-# export ANDROID_HOME=/opt/android-sdk
-# export PATH="$PATH:/opt/android-sdk/tools:/opt/android-sdk/platform-tools"
+# Java
+export JAVA_HOME=/usr/lib/jvm/java-14-openjdk/
+# Android
+export ANDROID_HOME=/opt/android-sdk
+export PATH="$PATH:/opt/android-sdk/tools:/opt/android-sdk/platform-tools"
 
 # Perl
-# PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
-# PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-# PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-# PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
-# PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
+PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 # Rust
-export PATH="$PATH:$HOME/.cargo/bin"
+PATH="$PATH:$HOME/.cargo/bin"
 
 # Conda
 [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
@@ -126,21 +125,7 @@ export PATH="$PATH:$HOME/.cargo/bin"
 # fuzzy search
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# kubernetes tools
-function kps1() {
-    source '/opt/kube-ps1/kube-ps1.sh'
-    RPROMPT='$(kube_ps1)'$RPROMPT
-}
-alias kctx=kubectx
-alias kn=kubens
-alias docker-compose=docker compose
-
-set -a
-source $HOME/.env_secrets
-set +a
 
 # autorun
 cowfortune
 
-# Scaleway CLI autocomplete initialization.
-eval "$(scw autocomplete script shell=zsh)"

@@ -2,14 +2,18 @@
 [user]
 	name = Svätopluk Hanzel
 	email = svatoplukhanzel@pm.me
-[url "git@github.com:"]
-	insteadOf = https://github.com/
-[url "git@git.tumeo.eu:"]
-	insteadOf = https://git.tumeo.eu/
-[url "git@git.moderntv.eu:"]
-	insteadOf = https://git.moderntv.eu/
-	email = svatopluk.hanzel@moderntv.eu
-[pull]
-	rebase = true
 [init]
 	defaultBranch = master
+[pull]
+	rebase = true
+[push]
+    autoSetupRemote = true
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+
+# Braiins
+[url "git@gitlab.ii.zone:"]
+	insteadOf = https://gitlab.ii.zone/
+[includeIf "gitdir:~/src/braiins/"]
+    path = /home/sveatlo/src/braiins/.gitconfig

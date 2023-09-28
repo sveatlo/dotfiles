@@ -1,5 +1,6 @@
 color1 = 4
 color2 = 2
 
+lyrics_directory = ~/Music/.lyrics
 visualizer_data_source = "localhost:5555"
 external_editor = "/usr/bin/nvim"

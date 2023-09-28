@@ -6,7 +6,7 @@ configuration {
 
     /* hide-scrollbar: true; */
     show-icons: true;
-    /* lines: 10; */
+    lines: 10;
 }
 
 @theme "slate"
