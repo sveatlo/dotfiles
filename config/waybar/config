@@ -18,7 +18,8 @@
   ],
 
   "sway/workspaces": {
-    "all-outputs": true
+    "all-outputs": true,
+    "warp-on-scroll": false,
   },
 
   "custom/mediaplayer": {
