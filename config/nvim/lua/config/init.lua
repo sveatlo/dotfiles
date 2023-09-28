@@ -1,0 +1,21 @@
+return {
+    pde = {
+        ai = true,
+        cpp = false,
+        docker = true,
+        go = true,
+        html = true,
+        json = true,
+        jupyter = false,
+        lua = true,
+        python = true,
+        react = true,
+        rust = true,
+        svelte = false,
+        tailwind = true,
+        terraform = false,
+        typescript = true,
+        vuejs = false,
+        yaml = true,
+    },
+}

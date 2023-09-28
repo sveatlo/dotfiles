@@ -1,12 +1,16 @@
---[[
-Neovim init file
+require("config.options")
+require("config.lazy")
 
-Adopted from:
-* [Allaman](https://github.com/Allaman/nvim)
-* [brainf+ck](https://github.com/brainfucksec/neovim-lua)
---]]
-
-require("core.options")
-require("core.lazy")
-require("core.mappings")
-require("core.autocmd")
+if vim.fn.argc(-1) == 0 then
+	vim.api.nvim_create_autocmd("User", {
+		group = vim.api.nvim_create_augroup("NeovimConfig", { clear = true }),
+		pattern = "VeryLazy",
+		callback = function()
+			require("config.autocmds")
+			require("config.keymaps")
+		end,
+	})
+else
+	require("config.autocmds")
+	require("config.keymaps")
+end
