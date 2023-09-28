@@ -1,15 +1,20 @@
-clock
+# clock
 show-failed-attempts
-image=/usr/share/backgrounds/archlinux/archbtw.png
+# set randomly by random_wallpaper.sh
+image=/home/sveatlo/Pictures/wallpapers/current_wallpaper
+# image=/usr/share/backgrounds/archlinux/archbtw.png # WARNING: burn-in on OLED
 # screenshots
-effect-blur=7x5
-effect-greyscale
+# effect-blur=7x5
+# effect-greyscale
 # grace=2 # don't require password for the first n seconds
-grace-no-mouse
-fade-in=0.1
+# grace-no-mouse
+# fade-in=0.1
 indicator-radius=150
 hide-keyboard-layout
 indicator-idle-visible
+
+# timestr=%T
+# datestr=
 
 # text
 font-size=100
