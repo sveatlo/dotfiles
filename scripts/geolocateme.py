@@ -2,7 +2,6 @@
 
 import os
 import typing
-import jsons
 import requests
 import gi
 
@@ -32,6 +31,13 @@ class WifiAP(object):
         self.macAddress = nm_ap.get_bssid()
         self.signalStrength = -1 * nm_ap.get_strength()
 
+    def to_dict(self):
+        return {
+            "macAddress": self.macAddress,
+            "signalStrength": self.signalStrength,
+            "channel": self.channel,
+        }
+
 
 class Geolocator(object):
     def __init(self, google_api_key: str):
@@ -48,7 +54,7 @@ class Geolocator(object):
 
         payload = {
             "considerIp": "true",
-            "wifiAccessPoints": wifi_aps,
+            "wifiAccessPoints": [ap.to_dict() for ap in wifi_aps]
         }
 
         params = {"key": GOOGLE_API_KEY}
@@ -58,7 +64,7 @@ class Geolocator(object):
         r = requests.post(
             "https://www.googleapis.com/geolocation/v1/geolocate",
             params=params,
-            data=jsons.dumps(payload),
+            json=payload,
             headers=headers,
         )
         if r.status_code != 200:

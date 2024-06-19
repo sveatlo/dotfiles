@@ -10,6 +10,7 @@ LOCK_CMD="$LOCKER --daemonize"
 SCREEN_TIMEOUT=60
 LOCK_TIMEOUT=90
 SUSPEND_TIMEOUT=3600
+WAYBAR_SHOW=1
 
 MODE="$1"
 if [[ "$MODE" == "" ]]; then
@@ -21,15 +22,17 @@ fi
 
 echo "Switching locking mode to $MODE"
 case "$MODE" in
-home)
+standalone)
 	SCREEN_TIMEOUT=30
+	LOCK_TIMEOUT=900
+	SUSPEND_TIMEOUT=1800
+    WAYBAR_SHOW=0
+	;;
+docked)
+	SCREEN_TIMEOUT=600
 	LOCK_TIMEOUT=3600
 	SUSPEND_TIMEOUT=28800 # 8 hours
-	;;
-coworking)
-	SCREEN_TIMEOUT=20
-	LOCK_TIMEOUT=30
-	SUSPEND_TIMEOUT=3600
+    WAYBAR_SHOW=1
 	;;
 $DEFAULT_MODE)
 	# no timeout overrides for default
@@ -60,6 +63,12 @@ swayidle -w \
 	lock "$LOCK_CMD" \
 	unlock "pkill $LOCKER" \
 	idlehint $SCREEN_TIMEOUT &!
+
+if [[ $WAYBAR_SHOW -eq 0 ]]; then
+    swaymsg bar bar-0 mode hide
+else
+    swaymsg bar bar-0 mode dock
+fi
 
 echo -n "$MODE" >$STATE_FILE_PATH
 

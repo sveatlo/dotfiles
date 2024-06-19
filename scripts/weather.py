@@ -88,16 +88,13 @@ icons = {
 class _WeatherInfo:
     def __init__(self, raw_json_data):
         raw_weather = raw_json_data["weather"][0]
-        raw_main = raw_json_data["main"]
 
         self._condition_id = raw_weather["id"]
         self.description_short = raw_weather["main"].lower()
         self.description_long = raw_weather["description"]
-        self.temperature = raw_main["temp"]
-        self.temperature_min = raw_main["temp_min"]
-        self.temperature_max = raw_main["temp_max"]
-        self.pressure = raw_main["pressure"]
-        self.humidity = raw_main["humidity"]
+        self.temperature = raw_json_data["temp"]
+        self.pressure = raw_json_data["pressure"]
+        self.humidity = raw_json_data["humidity"]
         self.icon = icons[self._condition_id]
 
     def __getitem__(self, item):
@@ -110,15 +107,14 @@ class WeatherMan(object):
         self._units = units
 
         self._city_id = city_id
-        self._gps = (lat, lon)
+        self.gps = (lat, lon)
 
-        self.city = ""
         self.current = None
         self.next = None
 
-        if self._city_id is None and (self._gps[0] is None or self._gps[1] is None):
+        if self._city_id is None and (self.gps[0] is None or self.gps[1] is None):
             coor = Geolocator().get_location()
-            self._gps = (coor.latitude, coor.longitude)
+            self.gps = (coor.latitude, coor.longitude)
 
         self._get_weather()
 
@@ -126,35 +122,73 @@ class WeatherMan(object):
         params = {
             "units": self._units,
             "appid": self._api_key,
+            "exclude": "minutely,daily,alerts",
         }
 
         if self._city_id is not None:
             params["id"] = self._city_id
         else:
-            params["lat"] = self._gps[0]
-            params["lon"] = self._gps[1]
+            params["lat"] = self.gps[0]
+            params["lon"] = self.gps[1]
 
         r = requests.get(
-            "http://api.openweathermap.org/data/2.5/forecast", params=params
+            "http://api.openweathermap.org/data/3.0/onecall", params=params
         )
         d = r.json()
 
-        if d["cod"] != "200":
-            raise Exception("cannot get weather forecast", d["message"])
+        if r.status_code != 200:
+            raise Exception("cannot get weather forecast", d)
 
-        self.city = d["city"]["name"]
-        self._city_id = d["city"]["id"] if self._city_id is None else self._city_id
-        self.current = _WeatherInfo(d["list"][0])
-        self.next = _WeatherInfo(d["list"][1])
+        self.current = _WeatherInfo(d["current"])
+        self.next = _WeatherInfo(d["hourly"][0])
+        if (self.gps[0] is None or self.gps[1] is None):
+            self.gps[0] = d["lat"]
+            self.gps[1] = d["lon"]
+
+    def __getitem__(self, item):
+        return getattr(self, item)
+
+class _LocationInfo:
+    def __init__(self, raw_json_data):
+        self.city = raw_json_data["name"]
+        self.country = raw_json_data["country"]
+        self.state = raw_json_data["state"]
+        self.lat = raw_json_data["lat"]
+        self.lon = raw_json_data["lon"]
 
     def __getitem__(self, item):
         return getattr(self, item)
 
 
+class ReverseGeolocator(object):
+    def __init__(self, api_key, lat, lon):
+        self._api_key = api_key
+        self._gps = (lat, lon)
+
+        self._get_location()
+
+    def _get_location(self):
+        params = {
+            "appid": self._api_key,
+            "lat": self._gps[0],
+            "lon": self._gps[1],
+            "limit": 1, # how many cities to return if multiple match
+        }
+
+        r = requests.get(
+            "http://api.openweathermap.org/geo/1.0/reverse", params=params
+        )
+
+        d = r.json()
+        self.current = _LocationInfo(d[0])
+
+
+
 def main(city_id, lat, lon, template):
-    weather = WeatherMan(api_key, city_id, lat, lon)
+    forecast = WeatherMan(api_key, city_id, lat, lon)
+    locator = ReverseGeolocator(api_key, forecast.gps[0], forecast.gps[1])
     t = jinja2.Template(template)
-    print(t.render(city=weather.city, current=weather.current, next=weather.next))
+    print(t.render(city=locator.current.city, current=forecast.current, next=forecast.next))
 
 
 if __name__ == "__main__":
