@@ -1,0 +1,37 @@
+[[profile]]
+name = "standalone"
+exec = [
+    "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
+    "~/src/dotfiles/scripts/set-mode.sh standalone"
+]
+    [[profile.output]]
+    search = "eDP-1"
+    enable = true
+
+[[profile]]
+name = "home"
+exec = [
+    "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
+    "~/src/dotfiles/scripts/set-mode.sh docked"
+]
+    [[profile.output]]
+    search = "n=eDP-1"
+    enable = false
+    [[profile.output]]
+    search = ["s=HJGLX13"] # s=serial, m=model
+    mode = "best"
+    enable = true
+
+[[profile]]
+name = "sideview"
+exec = [
+    "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
+    "~/src/dotfiles/scripts/set-mode.sh docked"
+]
+    [[profile.output]]
+    search = "n=eDP-1"
+    enable = true
+    [[profile.output]]
+    search = ["s=HJGLX13"] # s=serial, m=model
+    mode = "best"
+    enable = true
