@@ -121,7 +121,7 @@ bindgesture swipe:4:left workspace next_on_output
 # start a terminal
 bindsym $mod+Return exec kitty
 # start a file manager
-bindsym $mod+e exec kitty --class ranger --title ranger -e ranger
+bindsym $mod+e exec kitty --class yazi --title yazi -e yazi
 bindsym $mod+Shift+e exec pcmanfm
 # Pulse Audio controls
 bindsym --locked XF86AudioRaiseVolume exec --no-startup-id $scripts_dir/volume.sh up

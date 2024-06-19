@@ -1,4 +1,5 @@
 set $mode_hotkeygrab Hotkey grab: mod+Alt+z to exit
+
 bindsym $mod+Mod1+z mode "$mode_hotkeygrab"
 mode "$mode_hotkeygrab" {
 

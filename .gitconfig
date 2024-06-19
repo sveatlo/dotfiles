@@ -17,3 +17,8 @@
 	insteadOf = https://gitlab.ii.zone/
 [includeIf "gitdir:~/src/braiins/"]
     path = /home/sveatlo/src/braiins/.gitconfig
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f

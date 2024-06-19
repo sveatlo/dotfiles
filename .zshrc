@@ -1,5 +1,10 @@
 # [[ "$TERM" = "xterm-kitty" ]] && export TERM=xterm
 
+# Load secrets
+set -a
+source $HOME/.env_secrets
+set +a
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -97,6 +102,8 @@ alias ohmyzsh="$EDITOR $HOME/.oh-my-zsh"
 alias vim="nvim"
 alias wttr="curl wttr.in"
 alias ssh="TERM=xterm ssh"
+alias subdl="subdl --username \"$OSDB_USERNAME\" --password \"$OSDB_PASSWORD\""
+alias fm="yazi"
 
 # Go
 export GOROOT=/usr/lib/go
@@ -104,18 +111,8 @@ export GOPATH=$HOME/src/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 export GOPRIVATE=git.moderntv.eu/*
 
-# # Java
-export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
-# # Android
-# export ANDROID_HOME=/opt/android-sdk
-# export PATH="$PATH:/opt/android-sdk/tools:/opt/android-sdk/platform-tools"
-
-# Perl
-# PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
-# PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-# PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-# PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
-# PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
+# Java
+export JAVA_HOME=/usr/lib/jvm/default
 
 # Rust
 export PATH="$PATH:$HOME/.cargo/bin"
@@ -126,21 +123,9 @@ export PATH="$PATH:$HOME/.cargo/bin"
 # fuzzy search
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# kubernetes tools
-function kps1() {
-    source '/opt/kube-ps1/kube-ps1.sh'
-    RPROMPT='$(kube_ps1)'$RPROMPT
-}
-alias kctx=kubectx
-alias kn=kubens
-alias docker-compose=docker compose
-
-set -a
-source $HOME/.env_secrets
-set +a
+# disable opencv logging - howdy
+export OPENCV_LOG_LEVEL=0
+export OPENCV_VIDEOIO_PRIORITY_INTEL_MFX=0
 
 # autorun
 cowfortune
-
-# Scaleway CLI autocomplete initialization.
-eval "$(scw autocomplete script shell=zsh)"

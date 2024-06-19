@@ -5,7 +5,7 @@
       "swallows": { "cmd": "exec firefox" }
     },
     {
-      "swallows": { "cmd": "exec mailspring" }
+      "swallows": { "cmd": "exec thunderbird" }
     }
   ]
 }
