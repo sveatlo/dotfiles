@@ -28,12 +28,12 @@ return {
 		optional = true,
 		event = "VeryLazy",
 		opts = function(_, opts)
-			local Utils = require("utils")
+			local utils = require("utils")
 			local colors = {
-				[""] = Utils.fg("Special"),
-				["Normal"] = Utils.fg("Special"),
-				["Warning"] = Utils.fg("DiagnosticError"),
-				["InProgress"] = Utils.fg("DiagnosticWarn"),
+				[""] = utils.fg("Special"),
+				["Normal"] = utils.fg("Special"),
+				["Warning"] = utils.fg("DiagnosticError"),
+				["InProgress"] = utils.fg("DiagnosticWarn"),
 			}
 			table.insert(opts.sections.lualine_x, 2, {
 				function()

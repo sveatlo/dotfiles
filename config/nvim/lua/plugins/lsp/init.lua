@@ -4,10 +4,10 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			{ "folke/neoconf.nvim", cmd = "Neoconf", config = true },
-			{ "smjonas/inc-rename.nvim", config = true },
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"jay-babu/mason-null-ls.nvim",
+			"folke/todo-comments.nvim",
 		},
 		opts = {
 			servers = {
@@ -92,10 +92,9 @@ return {
 					-- ╰────────────╯
 					nls.builtins.formatting.shfmt,
 					nls.builtins.formatting.buf,
-					nls.builtins.formatting.protolint,
-					nls.builtins.formatting.latexindent.with({
-						extra_args = { "-g", "/dev/null" }, -- https://github.com/cmhughes/latexindent.pl/releases/tag/V3.9.3
-					}),
+					-- nls.builtins.formatting.latexindent.with({
+					-- 	extra_args = { "-g", "/dev/null" }, -- https://github.com/cmhughes/latexindent.pl/releases/tag/V3.9.3
+					-- }),
 
 					--  ╭──────────────╮
 					--  │ Code actions │
@@ -118,8 +117,37 @@ return {
 	{
 		"Bekaboo/dropbar.nvim",
 		event = "VeryLazy",
-		enabled = function()
-			return vim.fn.has("nvim-0.10.0") == 1
-		end,
+	},
+	{
+		"folke/trouble.nvim",
+		opts = {}, -- for default options, refer to the configuration section for custom setup.
+		cmd = { "Trouble" },
+		keys = {
+			{
+				"<leader>cdx",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
+			{
+				"<leader>cdX",
+				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+				desc = "Buffer Diagnostics (Trouble)",
+			},
+			{
+				"<leader>cdq",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "Quickfix List (Trouble)",
+			},
+			{
+				"<leader>ct",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "TODOs list toggle (Trouble)",
+			},
+		},
+	},
+	{
+		"j-hui/fidget.nvim",
+		event = "VeryLazy",
+		opts = {},
 	},
 }

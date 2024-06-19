@@ -4,11 +4,7 @@ return {
 	{
 		"nvim-tree/nvim-web-devicons",
 		dependencies = { "DaikyXendo/nvim-material-icon" },
-		config = function()
-			require("nvim-web-devicons").setup({
-				override = require("nvim-material-icon").get_icons(),
-			})
-		end,
+		config = true,
 	},
 	{ "yamatsum/nvim-nonicons", enabled = false, config = true },
 	{ "tpope/vim-repeat", event = "VeryLazy" },
@@ -60,6 +56,19 @@ return {
             vim.api.nvim_set_keymap("v", "g<C-x>", require("dial.map").dec_gvisual(),
                 { desc = "Decrement", noremap = true })
         end,
+		config = function()
+			local augend = require("dial.augend")
+			require("dial.config").augends:register_group({
+				-- default augends used when no group name is specified
+				default = {
+					augend.integer.alias.decimal,
+					augend.integer.alias.hex,
+					augend.constant.alias.bool,
+					augend.date.alias["%Y/%m/%d"],
+					augend.semver.alias.semver,
+				},
+			})
+		end,
 	},
 	{
 		"andymass/vim-matchup",

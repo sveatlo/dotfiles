@@ -131,15 +131,6 @@ return {
 					require("rust-tools").setup({
 						tools = { -- rust-tools options
 							executor = require("rust-tools.executors").termopen,
-							on_initialized = function()
-								vim.cmd([[
-                                  augroup RustLSP
-                                    autocmd CursorHold                      *.rs silent! lua vim.lsp.buf.document_highlight()
-                                    autocmd CursorMoved,InsertEnter         *.rs silent! lua vim.lsp.buf.clear_references()
-                                    autocmd BufEnter,CursorHold,InsertLeave *.rs silent! lua vim.lsp.codelens.refresh()
-                                  augroup END
-                                ]])
-							end,
 							reload_workspace_from_cargo_toml = true,
 							inlay_hints = {
 								auto = false,
@@ -198,12 +189,28 @@ return {
 				"Saecki/crates.nvim",
 				event = { "BufRead Cargo.toml" },
 			},
+			{
+				"zjp-CN/nvim-cmp-lsp-rs",
+				opts = {
+					-- Filter out import items starting with one of these prefixes.
+					-- A prefix can be crate name, module name or anything an import
+					-- path starts with, no matter it's complete or incomplete.
+					-- Only literals are recognized: no regex matching.
+					unwanted_prefix = {},
+					-- make these kinds prior to others
+					-- e.g. make Module kind first, and then Function second,
+					--      the rest ordering is merged from a default kind list
+					kind = function(k)
+						-- The argument in callback is type-aware with opts annotated,
+						-- so you can type the CompletionKind easily.
+						return { k.Module, k.Function }
+					end,
+				},
+			},
 		},
 		opts = function(_, opts)
 			local cmp = require("cmp")
-			-- opts.sources = cmp.config.sources(vim.list_extend(opts.sources or {}, {
-			--     { name = "crates" },
-			-- }))
+
 			vim.api.nvim_create_autocmd("BufRead", {
 				group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
 				pattern = "Cargo.toml",
@@ -211,6 +218,10 @@ return {
 					cmp.setup.buffer({ sources = { { name = "crates" } } })
 				end,
 			})
+
+			local cmp_lsp_rs = require("cmp_lsp_rs")
+			local cmp_rs_comparators = cmp_lsp_rs.comparators
+			table.insert(opts.sorting.comparators, cmp_rs_comparators.inscope_inherent_import)
 		end,
 	},
 	{

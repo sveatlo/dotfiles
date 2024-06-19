@@ -53,6 +53,15 @@ api.nvim_create_autocmd("FileType", {
 		vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
 	end,
 })
+api.nvim_create_autocmd("FileType", {
+	pattern = {
+		"oil",
+	},
+	callback = function(event)
+		vim.bo[event.buf].buflisted = false
+		vim.keymap.set("n", "q", "<cmd>bdelete<cr>", { buffer = event.buf, silent = true })
+	end,
+})
 -- windows to close with <esc>
 api.nvim_create_autocmd("FileType", {
 	pattern = {

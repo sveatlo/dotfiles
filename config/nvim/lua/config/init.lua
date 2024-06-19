@@ -1,7 +1,7 @@
 return {
 	pde = {
 		ai = true,
-		cpp = false,
+		cpp = true,
 		docker = true,
 		go = true,
 		html = true,

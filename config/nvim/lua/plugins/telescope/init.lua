@@ -7,7 +7,6 @@ return {
 			"crispgm/telescope-heading.nvim",
 			"nvim-telescope/telescope-symbols.nvim",
 			"nvim-telescope/telescope-file-browser.nvim",
-			"nvim-telescope/telescope-ui-select.nvim",
 			"nvim-telescope/telescope-dap.nvim",
 			"ahmedkhalf/project.nvim",
 			"ptethng/telescope-makefile",
@@ -134,7 +133,6 @@ return {
 			telescope.load_extension("zoxide")
 			telescope.load_extension("heading")
 			telescope.load_extension("file_browser")
-			telescope.load_extension("ui-select")
 			telescope.load_extension("dap")
 		end,
 	},
@@ -150,6 +148,7 @@ return {
 		config = function()
 			require("project_nvim").setup({
 				patterns = {
+					"lazy-lock.json",
 					"Cargo.toml",
 					"go.mod",
 					"package.json",
@@ -162,7 +161,7 @@ return {
 				-- detection_methods = { "lsp", "pattern" },
 				detection_methods = { "pattern" },
 				silent_chdir = false,
-				exclude_dirs = { "~/.config/nvim" },
+				exclude_dirs = {},
 			})
 		end,
 	},

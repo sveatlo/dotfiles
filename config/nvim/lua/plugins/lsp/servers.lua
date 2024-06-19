@@ -64,7 +64,7 @@ function M.setup(_, opts)
 		require("plugins.lsp.keymaps").on_attach(client, bufnr)
 
 		if client.supports_method("textDocument/inlayHint") then
-			vim.lsp.inlay_hint(bufnr, true)
+			vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 		end
 
 		if client.supports_method("textDocument/documentHighlight") then
@@ -76,7 +76,7 @@ function M.setup(_, opts)
 				group = "lsp_document_highlight",
 				desc = "Document Highlight",
 			})
-			vim.api.nvim_create_autocmd("CursorMoved", {
+			vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter" }, {
 				callback = vim.lsp.buf.clear_references,
 				buffer = bufnr,
 				group = "lsp_document_highlight",

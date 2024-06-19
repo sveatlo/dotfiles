@@ -45,7 +45,6 @@ return {
 			},
 			highlight = { enable = true, additional_vim_regex_highlighting = { "org", "markdown" } },
 			indent = { enable = true },
-			context_commentstring = { enable = true, enable_autocmd = false },
 			incremental_selection = {
 				enable = true,
 				keymaps = {
@@ -118,6 +117,14 @@ return {
 				end, opts.ensure_installed)
 			end
 			require("nvim-treesitter.configs").setup(opts)
+		end,
+	},
+	{
+		"JoosepAlviste/nvim-ts-context-commentstring",
+		config = function()
+			require("ts_context_commentstring").setup({
+				enable_autocmd = false,
+			})
 		end,
 	},
 	{

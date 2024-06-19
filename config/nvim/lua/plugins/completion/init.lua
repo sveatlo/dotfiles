@@ -12,12 +12,15 @@ return {
 			"lukas-reineke/cmp-rg",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 		},
+		event = "VeryLazy",
 		opts = function()
 			local cmp = require("cmp")
+			local compare = require("cmp.config.compare")
+
 			local luasnip = require("luasnip")
 			local neogen = require("neogen")
 			local icons = require("config.icons")
-			local compare = require("cmp.config.compare")
+
 			local source_names = {
 				nvim_lsp = "(LSP)",
 				luasnip = "(Snippet)",
@@ -44,12 +47,14 @@ return {
 				sorting = {
 					priority_weight = 2,
 					comparators = {
-						compare.score,
-						compare.recently_used,
 						compare.offset,
 						compare.exact,
+						compare.scopes,
+						compare.score,
+						compare.recently_used,
+						compare.locality,
 						compare.kind,
-						compare.sort_text,
+						-- compare.sort_text,
 						compare.length,
 						compare.order,
 					},
@@ -224,7 +229,7 @@ return {
 			require("luasnip").setup(opts)
 
 			local snippets_folder = vim.fn.stdpath("config") .. "/lua/plugins/completion/snippets/"
-			require("luasnip.loaders.from_lua").lazy_load({ paths = snippets_folder })
+			require("luasnip.loaders.from_lua").lazy_load({ paths = { snippets_folder } })
 
 			vim.api.nvim_create_user_command("LuaSnipEdit", function()
 				require("luasnip.loaders.from_lua").edit_snippet_files()

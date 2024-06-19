@@ -11,6 +11,7 @@ function M.on_attach(client, buffer)
     self:map("gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, { desc = "Goto Implementation" })
     -- stylua: ignore
     self:map("gy", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, { desc = "Goto Type Definition" })
+	self:map("gY", "Lspsaga peek_type_definition", { desc = "Peek Type Definition" })
 	self:map("K", "Lspsaga hover_doc", { desc = "Hover" })
 	self:map("gK", vim.lsp.buf.signature_help, { desc = "Signature Help", has = "signatureHelp" })
 	self:map("]d", M.diagnostic_goto(true), { desc = "Next Diagnostic" })
@@ -58,11 +59,7 @@ function M:map(lhs, rhs, opts)
 end
 
 function M.rename()
-	if pcall(require, "inc_rename") then
-		return ":IncRename " .. vim.fn.expand("<cword>")
-	else
-		vim.lsp.buf.rename()
-	end
+	vim.lsp.buf.rename()
 end
 
 function M.diagnostic_goto(next, severity)

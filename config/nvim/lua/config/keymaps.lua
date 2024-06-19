@@ -14,7 +14,7 @@ map("v", "<", "<gv", default_options)
 map("v", ">", ">gv", default_options)
 
 -- paste over currently selected text without yanking it
-map("v", "p", '"_dP', default_options)
+-- map("v", "p", '"_dp', default_options) -- doesn't work with yanky
 
 -- Cancel search highlighting with ESC
 map("n", "<ESC>", ":nohlsearch<Bar>:echo<CR>", default_options)

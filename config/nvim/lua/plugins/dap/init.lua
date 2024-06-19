@@ -1,35 +1,35 @@
 local function dap_menu()
-  local dap = require "dap"
-  local dapui = require "dapui"
-  local dap_widgets = require "dap.ui.widgets"
+	local dap = require("dap")
+	local dapui = require("dapui")
+	local dap_widgets = require("dap.ui.widgets")
 
-  local hint = [[
+	local hint = [[
  _t_: Toggle Breakpoint             _R_: Run to Cursor
  _s_: Start                         _E_: Evaluate Input
  _c_: Continue                      _C_: Conditional Breakpoint
  _b_: Step Back                     _U_: Toggle UI
  _d_: Disconnect                    _S_: Scopes
- _e_: Evaluate                      _X_: Close 
- _g_: Get Session                   _i_: Step Into 
- _h_: Hover Variables               _o_: Step Over 
+ _e_: Evaluate                      _X_: Close
+ _g_: Get Session                   _i_: Step Into
+ _h_: Hover Variables               _o_: Step Over
  _r_: Toggle REPL                   _u_: Step Out
- _x_: Terminate                     _p_: Pause     
- ^ ^               _q_: Quit 
+ _x_: Terminate                     _p_: Pause
+ ^ ^               _q_: Quit
 ]]
 
-  return {
-    name = "Debug",
-    hint = hint,
-    config = {
-      color = "pink",
-      invoke_on_body = true,
-      hint = {
-        border = "rounded",
-        position = "middle-right",
-      },
-    },
-    mode = "n",
-    body = "<A-d>",
+	return {
+		name = "Debug",
+		hint = hint,
+		config = {
+			color = "pink",
+			invoke_on_body = true,
+			hint = {
+				border = "rounded",
+				position = "middle-right",
+			},
+		},
+		mode = "n",
+		body = "<A-d>",
     -- stylua: ignore
     heads = {
       { "C", function() dap.set_breakpoint(vim.fn.input "[Condition] > ") end, desc = "Conditional Breakpoint", },
@@ -54,19 +54,20 @@ local function dap_menu()
       { "x", function() dap.terminate() end, desc = "Terminate", },
       { "q", nil, { exit = true, nowait = true, desc = "Exit" } },
     },
-  }
+	}
 end
 
 local M = {
-  {
-    "mfussenegger/nvim-dap",
-    dependencies = {
-      { "rcarriga/nvim-dap-ui" },
-      { "theHamsta/nvim-dap-virtual-text" },
-      { "nvim-telescope/telescope-dap.nvim" },
-      { "jay-babu/mason-nvim-dap.nvim" },
-      { "LiadOz/nvim-dap-repl-highlights", opts = {} },
-    },
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			{ "rcarriga/nvim-dap-ui" },
+			{ "nvim-neotest/nvim-nio" },
+			{ "theHamsta/nvim-dap-virtual-text" },
+			{ "nvim-telescope/telescope-dap.nvim" },
+			{ "jay-babu/mason-nvim-dap.nvim" },
+			{ "LiadOz/nvim-dap-repl-highlights", opts = {} },
+		},
   -- stylua: ignore
   keys = {
     { "<leader>dR", function() require("dap").run_to_cursor() end, desc = "Run to Cursor", },
@@ -91,60 +92,63 @@ local M = {
     { "<leader>dx", function() require("dap").terminate() end, desc = "Terminate", },
     { "<leader>du", function() require("dap").step_out() end, desc = "Step Out", },
   },
-    opts = {
-      setup = {},
-    },
-    config = function(plugin, opts)
-      local icons = require "config.icons"
-      vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+		opts = {
+			setup = {},
+		},
+		config = function(plugin, opts)
+			local icons = require("config.icons")
+			vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
 
-      for name, sign in pairs(icons.dap) do
-        sign = type(sign) == "table" and sign or { sign }
-        vim.fn.sign_define("Dap" .. name, { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] })
-      end
+			for name, sign in pairs(icons.dap) do
+				sign = type(sign) == "table" and sign or { sign }
+				vim.fn.sign_define(
+					"Dap" .. name,
+					{ text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
+				)
+			end
 
-      require("nvim-dap-virtual-text").setup {
-        commented = true,
-      }
+			require("nvim-dap-virtual-text").setup({
+				commented = true,
+			})
 
-      local dap, dapui = require "dap", require "dapui"
-      dapui.setup {}
+			local dap, dapui = require("dap"), require("dapui")
+			dapui.setup({})
 
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
+			dap.listeners.after.event_initialized["dapui_config"] = function()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated["dapui_config"] = function()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited["dapui_config"] = function()
+				dapui.close()
+			end
 
-      -- set up debugger
-      for k, _ in pairs(opts.setup) do
-        opts.setup[k](plugin, opts)
-      end
-    end,
-  },
-  {
-    "anuvyklack/hydra.nvim",
-    opts = {
-      specs = {
-        dap = dap_menu,
-      },
-    },
-  },
-  --TODO: to configure
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    dependencies = "mason.nvim",
-    cmd = { "DapInstall", "DapUninstall" },
-    opts = {
-      automatic_setup = true,
-      handlers = {},
-      ensure_installed = {},
-    },
-  },
+			-- set up debugger
+			for k, _ in pairs(opts.setup) do
+				opts.setup[k](plugin, opts)
+			end
+		end,
+	},
+	{
+		"anuvyklack/hydra.nvim",
+		opts = {
+			specs = {
+				dap = dap_menu,
+			},
+		},
+	},
+	--TODO: to configure
+	{
+		"jay-babu/mason-nvim-dap.nvim",
+		dependencies = "mason.nvim",
+		cmd = { "DapInstall", "DapUninstall" },
+		opts = {
+			automatic_setup = true,
+			handlers = {},
+			ensure_installed = {},
+		},
+	},
 }
 
 return M

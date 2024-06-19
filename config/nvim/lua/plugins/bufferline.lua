@@ -33,7 +33,8 @@ local M = {
 					return string.format("%s", opts.ordinal) -- :h bufferline-numbers
 				end,
 				close_command = utils.bufdelete, -- can be a string | function, see "Mouse actions"
-				right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
+				-- close_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
+				right_mouse_command = utils.bufdelete, -- can be a string | function, see "Mouse actions"
 				left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
 				middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
 				indicator = {
@@ -50,7 +51,8 @@ local M = {
 				tab_size = 20,
 				diagnostics = "nvim_lsp",
 				diagnostics_indicator = function(count, level)
-					local icon = level:match("error") and (icons.diagnostics.Error .. " ") or (icons.diagnostics.Warning .. " ")
+					local icon = level:match("error") and (icons.diagnostics.Error .. " ")
+						or (icons.diagnostics.Warning .. " ")
 					return " " .. icon .. count
 				end,
 				custom_filter = function(buf_number, _)
@@ -58,6 +60,8 @@ local M = {
 					if vim.bo[buf_number].filetype ~= "qf" then
 						return true
 					end
+
+					return false
 				end,
 				offsets = {
 					{
