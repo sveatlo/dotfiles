@@ -1,22 +1,5 @@
-return {
-	pde = {
-		ai = true,
-		cpp = true,
-		docker = true,
-		go = true,
-		html = true,
-		just = true,
-		json = true,
-		jupyter = false,
-		lua = true,
-		python = true,
-		react = true,
-		rust = true,
-		svelte = false,
-		tailwind = true,
-		terraform = false,
-		typescript = true,
-		vuejs = false,
-		yaml = true,
-	},
-}
+require("config.options")
+require("config.lazy")
+require("config.autocmds")
+require("config.keymaps")
+require("utils.format").setup()

@@ -4,47 +4,100 @@ local lsp_utils = require("plugins.lsp.utils")
 local icons = require("config.icons")
 
 local function lsp_init()
-	local signs = {
-		{ name = "DiagnosticSignError", text = icons.diagnostics.Error },
-		{ name = "DiagnosticSignWarn", text = icons.diagnostics.Warning },
-		{ name = "DiagnosticSignHint", text = icons.diagnostics.Hint },
-		{ name = "DiagnosticSignInfo", text = icons.diagnostics.Info },
-	}
-	for _, sign in ipairs(signs) do
-		vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
-	end
-
-	-- LSP handlers configuration
 	local config = {
-		float = {
-			focusable = true,
-			style = "minimal",
-			border = "rounded",
-		},
-
-		diagnostic = {
-			-- virtual_text = false,
-			-- virtual_text = { spacing = 4, prefix = "●" },
+		-- options for vim.diagnostic.config()
+		---@type vim.diagnostic.Opts
+		diagnostics = {
+			underline = true,
+			update_in_insert = false,
 			virtual_text = {
-				severity = {
-					min = vim.diagnostic.severity.ERROR,
+				spacing = 4,
+				source = "if_many",
+				prefix = "●",
+				-- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+				-- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+				-- prefix = "icons",
+			},
+			severity_sort = true,
+			signs = {
+				text = {
+					[vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
+					[vim.diagnostic.severity.WARN] = icons.diagnostics.Warning,
+					[vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
+					[vim.diagnostic.severity.INFO] = icons.diagnostics.Information,
 				},
 			},
-			signs = {
-				active = signs,
+		},
+		-- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
+		-- Be aware that you also will need to properly configure your LSP server to
+		-- provide the inlay hints.
+		inlay_hints = {
+			enabled = true,
+			exclude = {}, -- filetypes for which you don't want to enable inlay hints
+		},
+		-- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
+		-- Be aware that you also will need to properly configure your LSP server to
+		-- provide the code lenses.
+		codelens = {
+			enabled = false,
+		},
+		-- add any global capabilities here
+		capabilities = {
+			workspace = {
+				fileOperations = {
+					didRename = true,
+					willRename = true,
+				},
 			},
-			underline = false,
-			update_in_insert = false,
-			severity_sort = true,
-			float = {
-				focusable = true,
-				style = "minimal",
-				border = "rounded",
-				source = "always",
-				header = "",
-				prefix = "",
+		},
+		-- options for vim.lsp.buf.format
+		-- `bufnr` and `filter` is handled by the LazyVim formatter,
+		-- but can be also overridden when specified
+		format = {
+			formatting_options = nil,
+			timeout_ms = nil,
+		},
+		servers = {
+			lua_ls = {
+				-- mason = false, -- set to false if you don't want this server to be installed with mason
+				-- Use this to add any additional keymaps
+				-- for specific lsp servers
+				-- ---@type LazyKeysSpec[]
+				-- keys = {},
+				settings = {
+					Lua = {
+						workspace = {
+							checkThirdParty = false,
+						},
+						codeLens = {
+							enable = true,
+						},
+						completion = {
+							callSnippet = "Replace",
+						},
+						doc = {
+							privateName = { "^_" },
+						},
+						hint = {
+							enable = true,
+							setType = false,
+							paramType = true,
+							paramName = "Disable",
+							semicolon = "Disable",
+							arrayIndex = "Disable",
+						},
+					},
+				},
 			},
-			-- virtual_lines = true,
+		},
+		setup = {
+			-- example to setup with typescript.nvim
+			-- tsserver = function(_, opts)
+			--   require("typescript").setup({ server = opts })
+			--   return true
+			-- end,
+			-- Specify * to use this function as a fallback for any server
+			-- ["*"] = function(server, opts) end,
 		},
 	}
 
@@ -107,10 +160,10 @@ function M.setup(_, opts)
 		require("lspconfig")[server].setup(server_opts)
 	end
 
-	-- Add bun for Node.js-based servers
-	local lspconfig_util = require("lspconfig.util")
-	local add_bun_prefix = require("plugins.lsp.bun").add_bun_prefix
-	lspconfig_util.on_setup = lspconfig_util.add_hook_before(lspconfig_util.on_setup, add_bun_prefix)
+	-- -- Add bun for Node.js-based servers
+	-- local lspconfig_util = require("lspconfig.util")
+	-- local add_bun_prefix = require("plugins.lsp.bun").add_bun_prefix
+	-- lspconfig_util.on_setup = lspconfig_util.add_hook_before(lspconfig_util.on_setup, add_bun_prefix)
 
 	-- get all the servers that are available thourgh mason-lspconfig
 	local has_mason, mlsp = pcall(require, "mason-lspconfig")
@@ -123,11 +176,13 @@ function M.setup(_, opts)
 	for server, server_opts in pairs(servers) do
 		if server_opts then
 			server_opts = server_opts == true and {} or server_opts
-			-- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
-			if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
-				setup(server)
-			else
-				ensure_installed[#ensure_installed + 1] = server
+			if server_opts.enabled then
+				-- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
+				if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
+					setup(server)
+				else
+					ensure_installed[#ensure_installed + 1] = server
+				end
 			end
 		end
 	end

@@ -1,72 +1,115 @@
+local Snacks = require("snacks")
+local utils = require("utils")
+local format_utils = require("utils.format")
+local lsp_utils = require("plugins.lsp.utils")
 local M = {}
 
-function M.on_attach(client, buffer)
-	local self = M.new(client, buffer)
+M._keys = nil
 
-    -- stylua: ignore
-    self:map("gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, { desc = "Goto Definition" })
-	self:map("gr", "Telescope lsp_references", { desc = "References" })
-	self:map("gD", "Lspsaga peek_definition", { desc = "Peek Definition" })
-    -- stylua: ignore
-    self:map("gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, { desc = "Goto Implementation" })
-    -- stylua: ignore
-    self:map("gy", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, { desc = "Goto Type Definition" })
-	self:map("gY", "Lspsaga peek_type_definition", { desc = "Peek Type Definition" })
-	self:map("K", "Lspsaga hover_doc", { desc = "Hover" })
-	self:map("gK", vim.lsp.buf.signature_help, { desc = "Signature Help", has = "signatureHelp" })
-	self:map("]d", M.diagnostic_goto(true), { desc = "Next Diagnostic" })
-	self:map("[d", M.diagnostic_goto(false), { desc = "Prev Diagnostic" })
-	self:map("]e", M.diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
-	self:map("[e", M.diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
-	self:map("]w", M.diagnostic_goto(true, "WARNING"), { desc = "Next Warning" })
-	self:map("[w", M.diagnostic_goto(false, "WARNING"), { desc = "Prev Warning" })
-    -- stylua: ignore
-	self:map("<leader>la", "lua vim.lsp.buf.code_action()", { desc = "Code Action", mode = { "n", "v" }, has = "codeAction" })
-
-	local format = require("plugins.lsp.format").format
-	self:map("<leader>lf", format, { desc = "Format Document", has = "documentFormatting" })
-	self:map("<leader>lf", format, { desc = "Format Range", mode = "v", has = "documentRangeFormatting" })
-	self:map("<leader>lr", M.rename, { expr = true, desc = "Rename", has = "rename" })
-	self:map("<F2>", M.rename, { expr = true, desc = "Rename", has = "rename" })
-
-	self:map("<leader>ls", require("telescope.builtin").lsp_document_symbols, { desc = "Document Symbols" })
-	self:map("<leader>lS", require("telescope.builtin").lsp_dynamic_workspace_symbols, { desc = "Workspace Symbols" })
-
-	self:map("<leader>lD", require("plugins.lsp.utils").toggle_diagnostics, { desc = "Toggle Inline Diagnostics" })
-	self:map("<leader>lF", require("plugins.lsp.format").toggle, { desc = "Toggle Formatting" })
-end
-
-function M.new(client, buffer)
-	return setmetatable({ client = client, buffer = buffer }, { __index = M })
-end
-
-function M:has(cap)
-	return self.client.server_capabilities[cap .. "Provider"]
-end
-
-function M:map(lhs, rhs, opts)
-	opts = opts or {}
-	if opts.has and not self:has(opts.has) then
-		return
+function M.get()
+	if M._keys then
+		return M._keys
 	end
-	vim.keymap.set(
-		opts.mode or "n",
-		lhs,
-		type(rhs) == "string" and ("<cmd>%s<cr>"):format(rhs) or rhs,
-		---@diagnostic disable-next-line: no-unknown
-		{ silent = true, buffer = self.buffer, expr = opts.expr, desc = opts.desc }
-	)
-end
+    -- stylua: ignore
+    M._keys =  {
+      { "<leader>cl", function() Snacks.picker.lsp_config() end, desc = "Lsp Info" },
+      { "gd", vim.lsp.buf.definition, desc = "Goto Definition", has = "definition" },
+      { "gr", vim.lsp.buf.references, desc = "References", nowait = true },
+      { "gI", vim.lsp.buf.implementation, desc = "Goto Implementation" },
+      { "gy", vim.lsp.buf.type_definition, desc = "Goto T[y]pe Definition" },
+      { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+      { "K", function() return vim.lsp.buf.hover() end, desc = "Hover" },
+      { "gK", function() return vim.lsp.buf.signature_help() end, desc = "Signature Help", has = "signatureHelp" },
+      { "<c-k>", function() return vim.lsp.buf.signature_help() end, mode = "i", desc = "Signature Help", has = "signatureHelp" },
+      { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Actions", mode = { "n", "v" }, has = "codeAction" },
+      { "<leader>cl", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" }, has = "codeLens" },
+      { "<leader>cL", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
+      { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
+      { "<leader>cf", format_utils.format, desc = "Format", has = "formatting" },
+      { "<leader>cF", format_utils.toggle, desc = "Toggle Formatting", has = "formatting" },
+      { "]d", M.diagnostic_goto(true, nil), desc = "Next Diagnostic" },
+      { "[d", M.diagnostic_goto(false, nil), desc = "Prev Diagnostic" },
+      { "]e", M.diagnostic_goto(true, "ERROR"), desc = "Next Error" },
+      { "[e", M.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
+      { "]w", M.diagnostic_goto(true, "WARNING"), desc = "Next Warning" },
+      { "[w", M.diagnostic_goto(false, "WARNING"), desc = "Prev Warning" },
+      -- { "<leader>cA", LazyVim.lsp.action.source, desc = "Source Action", has = "codeAction" },
+      { "]]", function() Snacks.words.jump(vim.v.count1) end, has = "documentHighlight",
+        desc = "Next Reference", cond = function() return Snacks.words.is_enabled() end },
+      { "[[", function() Snacks.words.jump(-vim.v.count1) end, has = "documentHighlight",
+        desc = "Prev Reference", cond = function() return Snacks.words.is_enabled() end },
+      { "<a-n>", function() Snacks.words.jump(vim.v.count1, true) end, has = "documentHighlight",
+        desc = "Next Reference", cond = function() return Snacks.words.is_enabled() end },
+      { "<a-p>", function() Snacks.words.jump(-vim.v.count1, true) end, has = "documentHighlight",
+        desc = "Prev Reference", cond = function() return Snacks.words.is_enabled() end },
+    }
 
-function M.rename()
-	vim.lsp.buf.rename()
+	return M._keys
 end
 
 function M.diagnostic_goto(next, severity)
-	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-	severity = severity and vim.diagnostic.severity[severity] or nil
 	return function()
-		go({ severity = severity })
+		vim.diagnostic.jump({
+			count = next and 1 or -1,
+			direction = next and "next" or "prev",
+			severity = severity and vim.diagnostic.severity[severity] or nil,
+			float = true,
+			wrap = true,
+		})
+	end
+end
+
+---@param method string|string[]
+function M.has(buffer, method)
+	if type(method) == "table" then
+		for _, m in ipairs(method) do
+			if M.has(buffer, m) then
+				return true
+			end
+		end
+		return false
+	end
+	method = method:find("/") and method or "textDocument/" .. method
+	local clients = lsp_utils.get_clients({ bufnr = buffer })
+	for _, client in ipairs(clients) do
+		if client.supports_method(method) then
+			return true
+		end
+	end
+	return false
+end
+
+function M.resolve(buffer)
+	local Keys = require("lazy.core.handler.keys")
+	if not Keys.resolve then
+		return {}
+	end
+	local spec = vim.tbl_extend("force", {}, M.get())
+	local opts = utils.opts("nvim-lspconfig")
+	local clients = lsp_utils.get_clients({ bufnr = buffer })
+	for _, client in ipairs(clients) do
+		local maps = opts.servers[client.name] and opts.servers[client.name].keys or {}
+		vim.list_extend(spec, maps)
+	end
+	return Keys.resolve(spec)
+end
+
+function M.on_attach(_, buffer)
+	local Keys = require("lazy.core.handler.keys")
+	local keymaps = M.resolve(buffer)
+
+	for _, keys in pairs(keymaps) do
+		local has = not keys.has or M.has(buffer, keys.has)
+		local cond = not (keys.cond == false or ((type(keys.cond) == "function") and not keys.cond()))
+
+		if has and cond then
+			local opts = Keys.opts(keys)
+			opts.cond = nil
+			opts.has = nil
+			opts.silent = opts.silent ~= false
+			opts.buffer = buffer
+			vim.keymap.set(keys.mode or "n", keys.lhs, keys.rhs, opts)
+		end
 	end
 end
 

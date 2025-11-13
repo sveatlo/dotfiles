@@ -1,5 +1,24 @@
 return {
 	{
+		"Shatur/neovim-ayu",
+		name = "ayu",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			local colors = require("ayu.colors")
+			colors.generate(true)
+
+			require("ayu").setup({
+				mirage = true, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
+				overrides = {
+					LspInlayHint = { fg = colors.comment },
+				}, -- A dictionary of group names, each associated with a dictionary of parameters (`bg`, `fg`, `sp` and `style`) and colors in hex.
+			})
+
+			vim.cmd([[colorscheme ayu-mirage]])
+		end,
+	},
+	{
 		"folke/styler.nvim",
 		enabled = false,
 		event = "VeryLazy",
@@ -77,22 +96,12 @@ return {
 		end,
 	},
 	{
-		"Shatur/neovim-ayu",
-		name = "ayu",
+		"AlexvZyl/nordic.nvim",
+		enabled = false,
 		lazy = false,
 		priority = 1000,
 		config = function()
-			local colors = require("ayu.colors")
-			colors.generate(true)
-
-			require("ayu").setup({
-				mirage = true, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
-				overrides = {
-					LspInlayHint = { fg = colors.comment },
-				}, -- A dictionary of group names, each associated with a dictionary of parameters (`bg`, `fg`, `sp` and `style`) and colors in hex.
-			})
-
-			vim.cmd([[colorscheme ayu-mirage]])
+			require("nordic").load()
 		end,
 	},
 	{

@@ -1,240 +1,270 @@
-if not require("config").pde.typescript then
-	return {}
-end
+local lsp_utils = require("plugins.lsp.utils")
+local utils = require("utils")
 
 return {
-	{
-		"nvim-treesitter/nvim-treesitter",
-		opts = function(_, opts)
-			vim.list_extend(opts.ensure_installed, { "javascript", "typescript", "tsx" })
-		end,
-	},
-	{
-		"williamboman/mason.nvim",
-		opts = function(_, opts)
-			vim.list_extend(opts.ensure_installed, { "typescript-language-server", "js-debug-adapter" })
-		end,
-	},
-	{
-		"pmizio/typescript-tools.nvim",
-		dependencies = { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
-		opts = {},
-		config = function(_, opts)
-			require("plugins.lsp.utils").on_attach(function(client, bufnr)
-				if client.name == "tsserver" then
-					vim.keymap.set(
-						"n",
-						"<leader>lo",
-						"<cmd>TSToolsOrganizeImports<cr>",
-						{ buffer = bufnr, desc = "Organize Imports" }
-					)
-					vim.keymap.set(
-						"n",
-						"<leader>lO",
-						"<cmd>TSToolsSortImports<cr>",
-						{ buffer = bufnr, desc = "Sort Imports" }
-					)
-					vim.keymap.set(
-						"n",
-						"<leader>lu",
-						"<cmd>TSToolsRemoveUnused<cr>",
-						{ buffer = bufnr, desc = "Removed Unused" }
-					)
-					vim.keymap.set(
-						"n",
-						"<leader>lz",
-						"<cmd>TSToolsGoToSourceDefinition<cr>",
-						{ buffer = bufnr, desc = "Go To Source Definition" }
-					)
-					vim.keymap.set(
-						"n",
-						"<leader>lR",
-						"<cmd>TSToolsRemoveUnusedImports<cr>",
-						{ buffer = bufnr, desc = "Removed Unused Imports" }
-					)
-					vim.keymap.set("n", "<leader>lF", "<cmd>TSToolsFixAll<cr>", { buffer = bufnr, desc = "Fix All" })
-					vim.keymap.set(
-						"n",
-						"<leader>lA",
-						"<cmd>TSToolsAddMissingImports<cr>",
-						{ buffer = bufnr, desc = "Add Missing Imports" }
-					)
-				end
-			end)
-			require("typescript-tools").setup(opts)
-		end,
-	},
+	-- correctly setup lspconfig
 	{
 		"neovim/nvim-lspconfig",
-		dependencies = { "pmizio/typescript-tools.nvim" },
 		opts = {
 			-- make sure mason installs the server
 			servers = {
-				-- ESLint
-				eslint = {
+				--- @deprecated -- tsserver renamed to ts_ls but not yet released, so keep this for now
+				--- the proper approach is to check the nvim-lspconfig release version when it's released to determine the server name dynamically
+				tsserver = {
+					enabled = false,
+				},
+				ts_ls = {
+					enabled = false,
+				},
+				vtsls = {
+					-- explicitly add default filetypes, so that we can extend
+					-- them in related extras
+					filetypes = {
+						"javascript",
+						"javascriptreact",
+						"javascript.jsx",
+						"typescript",
+						"typescriptreact",
+						"typescript.tsx",
+					},
 					settings = {
-						-- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
-						workingDirectory = { mode = "auto" },
+						complete_function_calls = true,
+						vtsls = {
+							enableMoveToFileCodeAction = true,
+							autoUseWorkspaceTsdk = true,
+							experimental = {
+								maxInlayHintLength = 30,
+								completion = {
+									enableServerSideFuzzyMatch = true,
+								},
+							},
+						},
+						typescript = {
+							updateImportsOnFileMove = { enabled = "always" },
+							suggest = {
+								completeFunctionCalls = true,
+							},
+							inlayHints = {
+								enumMemberValues = { enabled = true },
+								functionLikeReturnTypes = { enabled = true },
+								parameterNames = { enabled = "literals" },
+								parameterTypes = { enabled = true },
+								propertyDeclarationTypes = { enabled = true },
+								variableTypes = { enabled = false },
+							},
+						},
+					},
+					keys = {
+						{
+							"gD",
+							function()
+								local params = vim.lsp.util.make_position_params()
+								lsp_utils.execute({
+									command = "typescript.goToSourceDefinition",
+									arguments = { params.textDocument.uri, params.position },
+									open = true,
+								})
+							end,
+							desc = "Goto Source Definition",
+						},
+						{
+							"gR",
+							function()
+								lsp_utils.execute({
+									command = "typescript.findAllFileReferences",
+									arguments = { vim.uri_from_bufnr(0) },
+									open = true,
+								})
+							end,
+							desc = "File References",
+						},
+						{
+							"<leader>co",
+							lsp_utils.action["source.organizeImports"],
+							desc = "Organize Imports",
+						},
+						{
+							"<leader>cM",
+							lsp_utils.action["source.addMissingImports.ts"],
+							desc = "Add missing imports",
+						},
+						{
+							"<leader>cu",
+							lsp_utils.action["source.removeUnused.ts"],
+							desc = "Remove unused imports",
+						},
+						{
+							"<leader>cD",
+							lsp_utils.action["source.fixAll.ts"],
+							desc = "Fix all diagnostics",
+						},
+						{
+							"<leader>cV",
+							function()
+								lsp_utils.execute({ command = "typescript.selectTypeScriptVersion" })
+							end,
+							desc = "Select TS workspace version",
+						},
 					},
 				},
 			},
 			setup = {
-				eslint = function()
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						callback = function(event)
-							local client = vim.lsp.get_clients({ bufnr = event.buf, name = "eslint" })[1]
-							if client then
-								local diag = vim.diagnostic.get(
-									event.buf,
-									{ namespace = vim.lsp.diagnostic.get_namespace(client.id) }
-								)
-								if #diag > 0 then
-									vim.cmd("EslintFixAll")
-								end
+				--- @deprecated -- tsserver renamed to ts_ls but not yet released, so keep this for now
+				--- the proper approach is to check the nvim-lspconfig release version when it's released to determine the server name dynamically
+				tsserver = function()
+					-- disable tsserver
+					return true
+				end,
+				ts_ls = function()
+					-- disable tsserver
+					return true
+				end,
+				vtsls = function(_, opts)
+					lsp_utils.on_attach(function(client, buffer)
+						client.commands["_typescript.moveToFileRefactoring"] = function(command, ctx)
+							---@type string, string, lsp.Range
+							local action, uri, range = unpack(command.arguments)
+
+							local function move(newf)
+								client.request("workspace/executeCommand", {
+									command = command.command,
+									arguments = { action, uri, range, newf },
+								})
 							end
-						end,
-					})
+
+							local fname = vim.uri_to_fname(uri)
+							client.request("workspace/executeCommand", {
+								command = "typescript.tsserverRequest",
+								arguments = {
+									"getMoveToRefactoringFileSuggestions",
+									{
+										file = fname,
+										startLine = range.start.line + 1,
+										startOffset = range.start.character + 1,
+										endLine = range["end"].line + 1,
+										endOffset = range["end"].character + 1,
+									},
+								},
+							}, function(_, result)
+								---@type string[]
+								local files = result.body.files
+								table.insert(files, 1, "Enter new path...")
+								vim.ui.select(files, {
+									prompt = "Select move destination:",
+									format_item = function(f)
+										return vim.fn.fnamemodify(f, ":~:.")
+									end,
+								}, function(f)
+									if f and f:find("^Enter new path") then
+										vim.ui.input({
+											prompt = "Enter move destination:",
+											default = vim.fn.fnamemodify(fname, ":h") .. "/",
+											completion = "file",
+										}, function(newf)
+											return newf and move(newf)
+										end)
+									elseif f then
+										move(f)
+									end
+								end)
+							end)
+						end
+					end, "vtsls")
+					-- copy typescript settings to javascript
+					opts.settings.javascript =
+						vim.tbl_deep_extend("force", {}, opts.settings.typescript, opts.settings.javascript or {})
 				end,
 			},
 		},
 	},
-	{
-		"nvimtools/none-ls.nvim",
-		opts = function(_, opts)
-			local nls = require("null-ls")
-			table.insert(opts.sources, nls.builtins.formatting.prettierd)
-		end,
-	},
+
 	{
 		"mfussenegger/nvim-dap",
-		opts = {
-			setup = {
-				vscode_js_debug = function()
-					local function get_js_debug()
-						local install_path =
-							require("mason-registry").get_package("js-debug-adapter"):get_install_path()
-						return install_path .. "/js-debug/src/dapDebugServer.js"
-					end
-
-					for _, adapter in ipairs({
-						"pwa-node",
-						"pwa-chrome",
-						"pwa-msedge",
-						"node-terminal",
-						"pwa-extensionHost",
-					}) do
-						require("dap").adapters[adapter] = {
-							type = "server",
-							host = "localhost",
-							port = "${port}",
-							executable = {
-								command = "node",
-								args = {
-									get_js_debug(),
-									"${port}",
-								},
-							},
-						}
-					end
-
-					for _, language in ipairs({ "typescript", "javascript" }) do
-						require("dap").configurations[language] = {
-							{
-								type = "pwa-node",
-								request = "launch",
-								name = "Launch file",
-								program = "${file}",
-								cwd = "${workspaceFolder}",
-							},
-							{
-								type = "pwa-node",
-								request = "attach",
-								name = "Attach",
-								processId = require("dap.utils").pick_process,
-								cwd = "${workspaceFolder}",
-							},
-							{
-								type = "pwa-node",
-								request = "launch",
-								name = "Debug Jest Tests",
-								-- trace = true, -- include debugger info
-								runtimeExecutable = "node",
-								runtimeArgs = {
-									"./node_modules/jest/bin/jest.js",
-									"--runInBand",
-								},
-								rootPath = "${workspaceFolder}",
-								cwd = "${workspaceFolder}",
-								console = "integratedTerminal",
-								internalConsoleOptions = "neverOpen",
-							},
-							{
-								type = "pwa-chrome",
-								name = "Attach - Remote Debugging",
-								request = "attach",
-								program = "${file}",
-								cwd = vim.fn.getcwd(),
-								sourceMaps = true,
-								protocol = "inspector",
-								port = 9222, -- Start Chrome google-chrome --remote-debugging-port=9222
-								webRoot = "${workspaceFolder}",
-							},
-							{
-								type = "pwa-chrome",
-								name = "Launch Chrome",
-								request = "launch",
-								url = "http://localhost:5173", -- This is for Vite. Change it to the framework you use
-								webRoot = "${workspaceFolder}",
-								userDataDir = "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir",
-							},
-						}
-					end
-
-					for _, language in ipairs({ "typescriptreact", "javascriptreact" }) do
-						require("dap").configurations[language] = {
-							{
-								type = "pwa-chrome",
-								name = "Attach - Remote Debugging",
-								request = "attach",
-								program = "${file}",
-								cwd = vim.fn.getcwd(),
-								sourceMaps = true,
-								protocol = "inspector",
-								port = 9222, -- Start Chrome google-chrome --remote-debugging-port=9222
-								webRoot = "${workspaceFolder}",
-							},
-							{
-								type = "pwa-chrome",
-								name = "Launch Chrome",
-								request = "launch",
-								url = "http://localhost:5173", -- This is for Vite. Change it to the framework you use
-								webRoot = "${workspaceFolder}",
-								userDataDir = "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir",
-							},
-						}
-					end
+		optional = true,
+		dependencies = {
+			{
+				"mason-org/mason.nvim",
+				opts = function(_, opts)
+					opts.ensure_installed = opts.ensure_installed or {}
+					table.insert(opts.ensure_installed, "js-debug-adapter")
 				end,
 			},
 		},
-	},
-	{
-		"nvim-neotest/neotest",
-		dependencies = {
-			"nvim-neotest/neotest-jest",
-			"marilari88/neotest-vitest",
-			"thenbe/neotest-playwright",
-		},
-		opts = function(_, opts)
-			vim.list_extend(opts.adapters, {
-				require("neotest-jest"),
-				require("neotest-vitest"),
-				require("neotest-playwright").adapter({
-					options = {
-						persist_project_selection = true,
-						enable_dynamic_test_discovery = true,
+		opts = function()
+			local dap = require("dap")
+			if not dap.adapters["pwa-node"] then
+				require("dap").adapters["pwa-node"] = {
+					type = "server",
+					host = "localhost",
+					port = "${port}",
+					executable = {
+						command = "node",
+						-- 💀 Make sure to update this path to point to your installation
+						args = {
+							lsp_utils.get_pkg_path("js-debug-adapter", "/js-debug/src/dapDebugServer.js"),
+							"${port}",
+						},
 					},
-				}),
-			})
+				}
+			end
+			if not dap.adapters["node"] then
+				dap.adapters["node"] = function(cb, config)
+					if config.type == "node" then
+						config.type = "pwa-node"
+					end
+					local nativeAdapter = dap.adapters["pwa-node"]
+					if type(nativeAdapter) == "function" then
+						nativeAdapter(cb, config)
+					else
+						cb(nativeAdapter)
+					end
+				end
+			end
+
+			local js_filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
+
+			local vscode = require("dap.ext.vscode")
+			vscode.type_to_filetypes["node"] = js_filetypes
+			vscode.type_to_filetypes["pwa-node"] = js_filetypes
+
+			for _, language in ipairs(js_filetypes) do
+				if not dap.configurations[language] then
+					dap.configurations[language] = {
+						{
+							type = "pwa-node",
+							request = "launch",
+							name = "Launch file",
+							program = "${file}",
+							cwd = "${workspaceFolder}",
+						},
+						{
+							type = "pwa-node",
+							request = "attach",
+							name = "Attach",
+							processId = require("dap.utils").pick_process,
+							cwd = "${workspaceFolder}",
+						},
+					}
+				end
+			end
 		end,
+	},
+
+	-- Filetype icons
+	{
+		"echasnovski/mini.icons",
+		opts = {
+			file = {
+				[".eslintrc.js"] = { glyph = "󰱺", hl = "MiniIconsYellow" },
+				[".node-version"] = { glyph = "", hl = "MiniIconsGreen" },
+				[".prettierrc"] = { glyph = "", hl = "MiniIconsPurple" },
+				[".yarnrc.yml"] = { glyph = "", hl = "MiniIconsBlue" },
+				["eslint.config.js"] = { glyph = "󰱺", hl = "MiniIconsYellow" },
+				["package.json"] = { glyph = "", hl = "MiniIconsGreen" },
+				["tsconfig.json"] = { glyph = "", hl = "MiniIconsAzure" },
+				["tsconfig.build.json"] = { glyph = "", hl = "MiniIconsAzure" },
+				["yarn.lock"] = { glyph = "", hl = "MiniIconsBlue" },
+			},
+		},
 	},
 }

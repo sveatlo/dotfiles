@@ -20,8 +20,9 @@ opt.timeoutlen = 400 -- time to wait for a mapped sequence to complete (in milli
 opt.ttimeoutlen = 0 -- Time in milliseconds to wait for a key code sequence to complete
 opt.whichwrap = "b,s,<,>,[,]"
 -- opt.clipboard:append("unnamedplus") -- use system clipboard
-opt.shortmess:append { W = true, I = true, c = true, C = true }
+opt.shortmess:append({ W = true, I = true, c = true, C = true })
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
+opt.winborder = "rounded"
 
 -- search
 opt.hlsearch = true -- highlight on search
@@ -82,3 +83,4 @@ opt.scrolloff = 8 -- Minimal number of screen lines to keep above and below the 
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 vim.keymap.set({ "n", "v" }, ",", "<Nop>", { silent = true })
+
