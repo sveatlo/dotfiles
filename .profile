@@ -23,6 +23,11 @@ export SSH_AUTH_SOCK
 # fix kitty slow startup - https://github.com/kovidgoyal/kitty/issues/4292
 export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json
 
+# [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec hyprland
 # [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec sway
 # [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
 # [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec /usr/local/bin/sway-run.sh
+
+if uwsm check may-start; then
+    exec uwsm start hyprland-uwsm.desktop
+fi
