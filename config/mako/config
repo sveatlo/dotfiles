@@ -42,6 +42,10 @@ default-timeout=1000
 [app-name="KDE Connect" summary="KDE Connect"]
 invisible=1
 
+[summary="Claude Code"]
+default-timeout=0
+ignore-timeout=1
+
 [app-name="KDE Connect"]
 default-timeout=8000
 
