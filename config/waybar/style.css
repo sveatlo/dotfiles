@@ -23,6 +23,7 @@ window#waybar {
   background: rgba(0, 0, 0, 0);
 }
 
+#workspaces button.active,
 #workspaces button.focused {
   border-top: 3px solid #43a5d5;
 }
@@ -31,7 +32,8 @@ window#waybar {
   background: #dc322f;
 }
 
-#mode {
+#mode,
+#submap {
   background: #43a5d5;
   padding-left: 10px;
   padding-right: 10px;
