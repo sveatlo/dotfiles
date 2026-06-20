@@ -1,16 +1,20 @@
 #!/bin/bash
 
+TYPE=$1 # full, area, window,
+shift
 
-area=$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)
-if [[ $? -ne 0 ]]; then
-    notify-send -a "System" "Screenshot" "Area selection failed"
-    exit 1
+SUCCESS=69
+if [[ "$TYPE" == "full" ]]; then
+	hyprshot -z -m output --clipboard-only
+	SUCCESS=$?
+elif [[ "$TYPE" == "window" ]]; then
+	hyprshot -z -m window --clipboard-only
+	SUCCESS=$?
+elif [[ "$TYPE" == "area" ]]; then
+	hyprshot -z -m region --clipboard-only
+	SUCCESS=$?
 fi
 
-grim -g "$area" - | wl-copy
-
 if [[ $? -ne 0 ]]; then
-    notify-send -a "System" "Screenshot" "Screenshot failed"
-else
-    notify-send -a "System" "Screenshot" "Screenshot copied to clipboard"
+	notify-send -a "System" "Screenshot" "Screenshot failed"
 fi
