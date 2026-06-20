@@ -46,7 +46,7 @@ function M.get_clients(opts)
 		if opts and opts.method then
 			---@param client vim.lsp.Client
 			ret = vim.tbl_filter(function(client)
-				return client.supports_method(opts.method, { bufnr = opts.bufnr })
+				return client:supports_method(opts.method, { bufnr = opts.bufnr })
 			end, ret)
 		end
 	end
@@ -123,7 +123,7 @@ function M._check_methods(client, buffer)
 	for method, clients in pairs(M._supports_method) do
 		clients[client] = clients[client] or {}
 		if not clients[client][buffer] then
-			if client.supports_method and client.supports_method(method, { bufnr = buffer }) then
+			if client.supports_method and client:supports_method(method, { bufnr = buffer }) then
 				clients[client][buffer] = true
 				vim.api.nvim_exec_autocmds("User", {
 					pattern = "LspSupportsMethod",
@@ -149,8 +149,8 @@ function M.formatter(opts)
 			local clients = M.get_clients(utils.merge({}, filter, { bufnr = buf }))
 			---@param client vim.lsp.Client
 			local ret = vim.tbl_filter(function(client)
-				return client.supports_method("textDocument/formatting")
-					or client.supports_method("textDocument/rangeFormatting")
+				return client:supports_method("textDocument/formatting")
+					or client:supports_method("textDocument/rangeFormatting")
 			end, clients)
 			---@param client vim.lsp.Client
 			return vim.tbl_map(function(client)

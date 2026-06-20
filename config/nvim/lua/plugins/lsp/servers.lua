@@ -116,11 +116,11 @@ function M.setup(_, opts)
 		require("plugins.lsp.format").on_attach(client, bufnr)
 		require("plugins.lsp.keymaps").on_attach(client, bufnr)
 
-		if client.supports_method("textDocument/inlayHint") then
+		if client:supports_method("textDocument/inlayHint") then
 			vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 		end
 
-		if client.supports_method("textDocument/documentHighlight") then
+		if client:supports_method("textDocument/documentHighlight") then
 			vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
 			vim.api.nvim_clear_autocmds({ buffer = bufnr, group = "lsp_document_highlight" })
 			vim.api.nvim_create_autocmd("CursorHold", {
