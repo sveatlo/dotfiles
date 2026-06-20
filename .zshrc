@@ -114,6 +114,10 @@ export GOPRIVATE=git.moderntv.eu/*
 # Java
 export JAVA_HOME=/usr/lib/jvm/default
 
+# Android
+export ANDROID_HOME=/opt/android-sdk
+export NDK_HOME=/opt/android-ndk
+
 # Rust
 export PATH="$PATH:$HOME/.cargo/bin"
 
