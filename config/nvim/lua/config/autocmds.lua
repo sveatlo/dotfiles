@@ -95,6 +95,21 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 -- disable list option in certain filetypes
 api.nvim_create_autocmd("FileType", { pattern = { "NeoGitStatus" }, command = [[setlocal list!]] })
 
+-- Disable blink.cmp completion in picker / prompt input buffers
+api.nvim_create_autocmd("FileType", {
+	pattern = {
+		"snacks_picker_input",
+		"snacks_picker_list",
+		"snacks_input",
+		"fzf",
+		"TelescopePrompt",
+		"grug-far",
+	},
+	callback = function(event)
+		vim.b[event.buf].completion = false
+	end,
+})
+
 -- show cursor line only in active window
 local cursorGrp = api.nvim_create_augroup("CursorLine", { clear = true })
 api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {

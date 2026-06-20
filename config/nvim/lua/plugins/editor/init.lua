@@ -266,6 +266,7 @@ return {
 			"sources.default",
 		},
 		dependencies = {
+			{ "saghen/blink.lib", build = "cargo build --release" },
 			{
 				"L3MON4D3/LuaSnip",
 				dependencies = { "rafamadriz/friendly-snippets" },
@@ -341,6 +342,9 @@ return {
 
 			-- experimental signature help support
 			-- signature = { enabled = true },
+
+			-- disable completion in terminal buffers (e.g. fzf-lua picker prompts)
+			term = { enabled = false },
 
 			sources = {
 				-- adding any nvim-cmp sources here will enable them
