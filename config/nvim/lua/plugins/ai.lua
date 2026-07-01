@@ -66,7 +66,7 @@ return {
 			table.insert(opts.right, {
 				ft = "snacks_terminal",
 				title = "Claude Code",
-				size = { width = 0.35 },
+				size = { width = 0.4 },
 				filter = function(buf, win)
 					return vim.w[win].snacks_win
 						and vim.w[win].snacks_win.position == "right"
@@ -85,7 +85,7 @@ return {
 			git_repo_cwd = true,
 			terminal = {
 				split_side = "right",
-				split_width_percentage = 0.35,
+				split_width_percentage = 0.4,
 				provider = "snacks",
 				auto_close = true,
 				snacks_win_opts = { title = "Claude Code" },
